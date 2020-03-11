@@ -23,7 +23,7 @@
 # Create the necessary directories and move files to them after npm install or yarn install is run.
 #
 if [ -d "node_modules/gent_styleguide/build/styleguide" ]; then
-echo "Copy styleguide assets to ~/assets"
+echo "Copy styleguide assets/img to ~/assets/img"
 
   rm -rf assets/styleguide;
 
