@@ -10,7 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "postinstall": "./postinstall.sh --type=patch"
+    "postinstall": "./postinstall.sh"
   },
   "dependencies": {
     "@digipolis-gent/modal": "git+https://github.com/StadGent/npm_package_modal.git",
