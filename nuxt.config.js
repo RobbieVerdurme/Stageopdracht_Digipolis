@@ -12,22 +12,57 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      /** manifest */
+      {
+        rel: 'manifest',
+        href: '/site.webmanifest'
+      },
+      /** icons */
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/images/apple-touch-icon.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/images/favicon-32x32.png'
+      },
+      {
+        rel: 'mask-icon',
+        href: '/images/safari-pinned-tab.svg'
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
+    ],
+    bodyAttrs: {
+      class: 'cs--cyan'
+    }
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#009de0' },
   /*
   ** Global CSS
   */
   css: [
+    // gentstadsgids
+    '~/assets/scss/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // https://vuelayers.github.io/#/
+    { src: '~/plugins/vuelayers.js', mode: 'client' },
+
+    // https://github.com/gruhn/vue-qrcode-reader
+    { src: '~/plugins/vue-qrcode-reader.js', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -42,14 +77,13 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    ['@nuxtjs/pwa', { icon: false, manifest: false }]
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-  },
+  axios: {},
   /*
   ** Build configuration
   */
@@ -57,7 +91,54 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend (config) {
+      config.module.rules.push({
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                'node_modules/breakpoint-sass/stylesheets',
+                'node_modules/susy/sass',
+                'node_modules/gent_styleguide/build/styleguide'
+              ]
+            }
+          }
+        ]
+      })
+    },
+    extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
     }
+  },
+  // makes the service worker
+  workbox: {
+    runtimeCaching: [
+      {
+        // make site offline available
+        urlPattern: 'localhost:3000/*',
+        method: 'GET',
+        strategyOptions: {
+          cachename: 'route',
+          cacheableResponse: { statuses: [0, 200] },
+        }
+      }
+    ]
   }
 }
