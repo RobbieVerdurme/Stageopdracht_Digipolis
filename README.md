@@ -1,6 +1,9 @@
-# nuxt-pwa-muntenroute
+# RoutePWA
 
-> nuxt-pwa-muntenroute
+> RoutePWA
+
+## Changes
+Look at CHANGELOG.md
 
 ## Build Setup
 
