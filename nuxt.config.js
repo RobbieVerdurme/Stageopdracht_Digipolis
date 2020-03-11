@@ -1,6 +1,10 @@
 
 export default {
   mode: 'universal',
+  // baseUrl
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   /*
   ** Headers of the page
   */
@@ -132,11 +136,11 @@ export default {
     runtimeCaching: [
       {
         // make site offline available
-        urlPattern: 'localhost:3000/*',
+        urlPattern: `${process.env.baseUrl}/*`,
         method: 'GET',
         strategyOptions: {
           cachename: 'route',
-          cacheableResponse: { statuses: [0, 200] },
+          cacheableResponse: { statuses: [0, 200] }
         }
       }
     ]
