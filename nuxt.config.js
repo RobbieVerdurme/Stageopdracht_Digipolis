@@ -51,7 +51,7 @@ export default {
   ** Global CSS
   */
   css: [
-    // gentstadsgids
+    // gent_styleguide
     '~/assets/scss/main.scss'
   ],
   /*
