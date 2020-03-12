@@ -96,8 +96,6 @@ export default {
       var Modal = require('@digipolis-gent/modal')
     }
 
-    const menu = document.querySelectorAll(".modal.menu")
-
     const createModal = function(modal) {
       // eslint-disable-next-line no-undef
       new Modal(modal, {
@@ -116,10 +114,8 @@ export default {
         changeHash: false
       })
     }
-
-    for (var i = menu.length; i-- ;) {
-      createModal(menu[i])
-    }
+    
+    createModal(document.querySelector("#menu"))
   }
 }
 </script>
