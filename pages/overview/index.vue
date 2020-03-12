@@ -6,14 +6,20 @@
 
         <ul class="icon-list inline">
           <li>
-            <i class="icon-document" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index'}" :class="!mapDisabled? 'disabled': ''" @click="toggleMapDisabled">
+            <i class="icon-document" aria-hidden="true" /><nuxt-link v-if="mapDisabled" :to="{name: 'overview-index'}" :class="!mapDisabled? 'disabled': ''" @click="toggleMapDisabled">
               As list
             </nuxt-link>
+            <span v-if="!mapDisabled">
+              As list
+            </span>
           </li>
           <li>
-            <i class="icon-marker" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index-map'}" :class="!mapDisabled? '': 'disabled'" @click="toggleMapDisabled">
+            <i class="icon-marker" aria-hidden="true" /><nuxt-link v-if="!mapDisabled" :to="{name: 'overview-index-map'}" :class="!mapDisabled? '': 'disabled'" @click="toggleMapDisabled">
               On map
             </nuxt-link>
+            <span v-if="mapDisabled">
+              On map
+            </span>
           </li>
         </ul>
       </div>
@@ -36,12 +42,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.disabled {
-  pointer-events: none;
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-}
-</style>
