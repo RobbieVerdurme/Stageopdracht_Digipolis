@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-pwa-muntenroute",
+  "name": "muntenroute",
   "version": "1.0.0",
-  "description": "nuxt-pwa-muntenroute",
+  "description": "mutenroute pagina",
   "author": "Robbie Verdurme",
   "private": true,
   "scripts": {
@@ -9,18 +9,28 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "postinstall": "./postinstall.sh"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
+    "@digipolis-gent/modal": "git+https://github.com/StadGent/npm_package_modal.git",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^3.0.0-0"
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "body-scroll-lock": "^2.6.4",
+    "breakpoint-sass": "^2.7.1",
+    "gent_styleguide": "^3.0.0-beta17",
+    "nuxt": "^2.0.0",
+    "sass-loader": "^8.0.2",
+    "susy": "^3.0.5",
+    "vue-qrcode-reader": "^2.1.1",
+    "vuelayers": "^0.11.21"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2"
+    "eslint": "^6.8.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "node-sass": "^4.13.1"
   }
 }
