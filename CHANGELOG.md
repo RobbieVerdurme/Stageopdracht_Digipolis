@@ -19,6 +19,7 @@ header components | 2020-03-03
 routeinfo page | 2020-03-03
 footer components | 2020-03-03
 vuex store with default value | 2020-03-05
+backend calls from store | 2020-03-11
 
 
 ### Changed
