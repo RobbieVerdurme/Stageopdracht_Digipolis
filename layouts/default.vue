@@ -1,16 +1,16 @@
 <template>
   <div>
-    <Header />
+    <v-Header />
     <nuxt />
-    <Footer />
+    <v-Footer />
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    Header: () => import('~/components/organisms/header'),
-    Footer: () => import('~/components/organisms/footer')
+    vHeader: () => import('~/components/organisms/header'),
+    vFooter: () => import('~/components/organisms/footer')
   }
 }
 </script>
