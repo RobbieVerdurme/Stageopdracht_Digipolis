@@ -27,7 +27,7 @@
                     class="image-gallery--wrapper multiple image-gallery--secondary"
                   >
                     <ul class="image-gallery js-lightbox">
-                      <li v-for="img in item.image" :key="img.alt">
+                      <li v-for="img in item.image" :key="`${item.id}${img.alt}`">
                         <a
                           :href="img.src"
                           class="gallery-link"
