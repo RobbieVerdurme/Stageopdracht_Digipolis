@@ -6,12 +6,12 @@
 
         <ul class="icon-list inline">
           <li>
-            <i class="icon-document" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index'}" :class="!mapDisabled? 'disabled': ''" @click="onclick">
+            <i class="icon-document" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index'}" :class="!mapDisabled? 'disabled': ''" @click="toggleMapDisabled">
               As list
             </nuxt-link>
           </li>
           <li>
-            <i class="icon-marker" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index-map'}" :class="!mapDisabled? '': 'disabled'" @click="onclick">
+            <i class="icon-marker" aria-hidden="true" /><nuxt-link :to="{name: 'overview-index-map'}" :class="!mapDisabled? '': 'disabled'" @click="toggleMapDisabled">
               On map
             </nuxt-link>
           </li>
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    onclick () {
+    toggleMapDisabled () {
       this.mapDisabled = !this.mapDisabled
     }
   }
