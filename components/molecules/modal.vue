@@ -8,7 +8,7 @@
     <div class="modal-inner">
       <div class="modal-header">
         <!--@click close-->
-        <button type="button" class="button close icon-cross modal-close" :data-target="id" @click="close">
+        <button type="button" class="button close icon-cross modal-close" :data-target="id">
           <span>Close</span>
         </button>
       </div>
@@ -29,19 +29,12 @@ export default {
       required: true
     }
   },
-  methods: {
-    close () {
-      this.$emit('input', !this.value)
-    }
-  },
   mounted(){
     /**
      * import @digipolis-gent/modal
      */
-    if(window){
-      // eslint-disable-next-line no-undef
-      var Modal = require('@digipolis-gent/modal')
-    }
+    // eslint-disable-next-line no-undef
+    var Modal = require('@digipolis-gent/modal')
 
     if (!Modal) {
       return
