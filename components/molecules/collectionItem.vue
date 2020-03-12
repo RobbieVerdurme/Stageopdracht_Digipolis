@@ -16,7 +16,7 @@
       <div class="content__first">
         <div class="figure-wrapper">
           <figure>
-            <img src="https://via.placeholder.com/528x330&text=16:10+(528x330)" alt="alt text">
+            <img :src="item.image" alt="alt text">
           </figure>
           <div class="accolade-inverse bottom-left" />
         </div>

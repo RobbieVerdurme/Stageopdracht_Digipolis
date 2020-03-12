@@ -27,55 +27,17 @@
                     class="image-gallery--wrapper multiple image-gallery--secondary"
                   >
                     <ul class="image-gallery js-lightbox">
-                      <li>
+                      <li v-for="img in item.image" :key="img.alt">
                         <a
-                          href="https://via.placeholder.com/800x500&text=8:5+(800x500)"
+                          :href="img.src"
                           class="gallery-link"
                           aria-label="image caption"
-                          aria-describedby="image-gallery__open-gallery"
-                        >
+                          aria-describedby="image-gallery__open-gallery">
                           <figure>
                             <div class="image-wrapper" data-ratio="8:5">
                               <img
-                                src="https://via.placeholder.com/800x500&text=8:5+(800x500)"
-                                alt="placeholder image alternative text"
-                              />
-                            </div>
-                            <figcaption>image caption</figcaption>
-                          </figure>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://via.placeholder.com/800x500&text=8:5+(800x500)"
-                          class="gallery-link"
-                          aria-label="image caption"
-                          aria-describedby="image-gallery__open-gallery"
-                        >
-                          <figure>
-                            <div class="image-wrapper" data-ratio="8:5">
-                              <img
-                                src="https://via.placeholder.com/800x500&text=8:5+(800x500)"
-                                alt="placeholder image alternative text"
-                              />
-                            </div>
-                            <figcaption>image caption</figcaption>
-                          </figure>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://via.placeholder.com/800x500&text=8:5+(800x500)"
-                          class="gallery-link"
-                          aria-label="image caption"
-                          aria-describedby="image-gallery__open-gallery"
-                        >
-                          <figure>
-                            <div class="image-wrapper" data-ratio="8:5">
-                              <img
-                                src="https://via.placeholder.com/800x500&text=8:5+(800x500)"
-                                alt="placeholder image alternative text"
-                              />
+                                :src="img.src"
+                                :alt="img.alt"/>
                             </div>
                             <figcaption>image caption</figcaption>
                           </figure>
