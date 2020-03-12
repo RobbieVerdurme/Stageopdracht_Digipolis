@@ -3,7 +3,7 @@
 > RoutePWA
 
 ## Changes
-Look at [Github](https://github.com/digipolisgent/nuxt_pwa_muntenroute/blob/muntenroutestarter/CHANGELOG.md)
+Look at [CHANGELOG](https://github.com/digipolisgent/nuxt_pwa_muntenroute/blob/muntenroutestarter/CHANGELOG.md)
 
 ## Build Setup
 
