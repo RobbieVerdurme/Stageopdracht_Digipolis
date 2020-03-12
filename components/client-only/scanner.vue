@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <qrcode-stream @decode="onDecode" @init="onInit" class="scanner">
-      <div v-if="loading" class="loading-indicator">Loading...</div>
-      <div v-if="error" class="error-indicator has-text-danger">{{ error }}</div>
-    </qrcode-stream>
-  </div>
+  <qrcode-stream @decode="onDecode" @init="onInit" class="scanner">
+    <div v-if="loading" class="loading-indicator">Loading...</div>
+    <div v-if="error" class="error-indicator has-text-danger">{{ error }}</div>
+  </qrcode-stream>
 </template>
 
 <script>
@@ -20,6 +18,7 @@ export default {
   methods: {
     // if qr-code is found and read
     onDecode (result) {
+      // TODO: CHECK WITH REGEX IF IT IS A LINK
       // open in new window
       window.open(result)
     },
@@ -31,17 +30,17 @@ export default {
         await promise
       } catch (error) {
         if (error.name === 'NotAllowedError') {
-          this.error = 'ERROR: you need to grant camera access permisson'
+          this.error = 'ERROR: verleen toegang om je camera te gebruiken'
         } else if (error.name === 'NotFoundError') {
-          this.error = 'ERROR: no camera on this device'
+          this.error = 'ERROR: er is geen camera op dit apparaat'
         } else if (error.name === 'NotSupportedError') {
-          this.error = 'ERROR: secure context required (HTTPS, localhost)'
+          this.error = 'ERROR: beveiligde connectie nodig (HTTPS, localhost)'
         } else if (error.name === 'NotReadableError') {
-          this.error = 'ERROR: is the camera already in use?'
+          this.error = 'ERROR: is de camera al in gebruik?'
         } else if (error.name === 'OverconstrainedError') {
-          this.error = 'ERROR: installed cameras are not suitable'
+          this.error = 'ERROR: de camera is niet compatiebel'
         } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = 'ERROR: Stream API is not supported in this browser'
+          this.error = 'ERROR: de Stream API kan niet gebruikt worden in deze browser'
         }
       } finally {
         this.loading = false
