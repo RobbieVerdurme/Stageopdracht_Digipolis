@@ -21,5 +21,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## env variables
+| baseUrl      |localhost:3000 | process.env.BASE_URL
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

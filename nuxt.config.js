@@ -1,6 +1,10 @@
 
 export default {
   mode: 'universal',
+  // baseUrl
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   /*
   ** Headers of the page
   */
@@ -51,7 +55,7 @@ export default {
   ** Global CSS
   */
   css: [
-    // gentstadsgids
+    // gent_styleguide
     '~/assets/scss/main.scss'
   ],
   /*
@@ -77,7 +81,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    ['@nuxtjs/pwa', {icon: false, manifest: false}]
+    ['@nuxtjs/pwa', { icon: false, manifest: false }]
   ],
   /*
   ** Axios module configuration
@@ -92,7 +96,7 @@ export default {
     ** You can extend webpack config here
     */
     extend (config) {
-      config.module.rules.push({  
+      config.module.rules.push({
         test: /\.scss$/,
         use: [
           {
@@ -132,11 +136,11 @@ export default {
     runtimeCaching: [
       {
         // make site offline available
-        urlPattern: 'localhost:3000/*',
+        urlPattern: `${process.env.baseUrl}/*`,
         method: 'GET',
-        strategyOptions: { 
+        strategyOptions: {
           cachename: 'route',
-          cacheableResponse: { statuses: [0, 200] },
+          cacheableResponse: { statuses: [0, 200] }
         }
       }
     ]

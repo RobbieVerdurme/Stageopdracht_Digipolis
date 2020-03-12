@@ -1,9 +1,9 @@
 {
-    "name": "RoutePWA",
-    "short_name": "RoutePWA",
-    "lang": "nl",
-    "display": "standalone",
-    "icons": [
+  "name": "mutenroute",
+  "short_name": "mutenroute",
+  "lang": "nl",
+  "display": "standalone",
+  "icons": [
     {
       "src": "/images/android-chrome-512x512.png",
       "type": "image/png",
