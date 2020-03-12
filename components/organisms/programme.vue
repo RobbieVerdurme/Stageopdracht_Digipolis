@@ -1,7 +1,7 @@
 <template>
   <div class="programme-wrapper">
     <h2 class="visually-hidden">
-      Programme
+      Munten
     </h2>
     <div class="highlight highlight--no-icon">
       <dl class="highlight__inner">
@@ -93,9 +93,7 @@
                     </ul>
                   </div>
                   <!-- Add this to the bottom of your page template, above scripts -->
-                  <span id="image-gallery__open-gallery" hidden
-                    >open gallery</span
-                  >
+                  <span id="image-gallery__open-gallery" hidden>open galerij</span>
                   <p class="">{{ item.info }}</p>
                 </ModalComponent>
                 <!-- /Modal -->
