@@ -12,7 +12,24 @@ export const state = () => ({
 /**
  * getters
  */
-export const getters = {}
+export const getters = {
+  /**
+   * get cluster with id
+   * @param {*} state 
+   * @param {*} id 
+   */
+  getClusterById: (state) => (id) => {
+    return state.clusterInfo.find(c => c.id === id)
+  },
+
+  /**
+   * get all clusters
+   * @param {*} state 
+   */
+  getAllClusters: (state) => {
+    return state.clusterInfo
+  }
+}
 
 /**
  * mutations

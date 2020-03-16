@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     cluster () {
-      return this.$store.state.clusters.clusterInfo.find(c => c.id === this.id)
+      return this.$store.getters['clusters/getClusterById'](this.id)
     }
   }
 }

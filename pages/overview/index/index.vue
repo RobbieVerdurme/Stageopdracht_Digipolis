@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.state.clusters.clusterInfo
+      return this.$store.getters['clusters/getAllClusters']
     }
   }
 }
