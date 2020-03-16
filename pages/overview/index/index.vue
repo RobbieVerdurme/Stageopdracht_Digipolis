@@ -6,7 +6,7 @@
 export default {
   async fetch ({ store }) {
     //check if clusterinfo in store is filled
-    if(store.state.clusters.clusterInfo.length === 0){
+    if(!store.state.clusters.clusterInfo.length){
       // get clusterinfo from online
       await store.dispatch('clusters/getClusters')
     }
