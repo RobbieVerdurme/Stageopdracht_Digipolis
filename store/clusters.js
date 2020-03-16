@@ -16,7 +16,7 @@ export const getters = {
   /**
    * get cluster with id
    * @param {*} state 
-   * @param {*} id 
+   * @param {number} id 
    */
   getClusterById: (state) => (id) => {
     return state.clusterInfo.find(c => c.id === id)
