@@ -10,9 +10,10 @@ export default {
   components: {
     Collectionitem: () => import('~/components/molecules/collectionitem')
   },
-  data () {
-    return {
-      items: this.$store.state.clusters.all
+  props: {
+    items: {
+      type: Array,
+      required: true
     }
   }
 }
