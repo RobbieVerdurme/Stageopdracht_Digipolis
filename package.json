@@ -13,10 +13,9 @@
     "postinstall": "./postinstall.sh"
   },
   "dependencies": {
-    "@digipolis-gent/modal": "git+https://github.com/StadGent/npm_package_modal.git",
+    "@digipolis-gent/modal": "^1.0.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "body-scroll-lock": "^2.6.4",
     "breakpoint-sass": "^2.7.1",
     "gent_styleguide": "^3.0.0-beta17",
     "nuxt": "^2.0.0",

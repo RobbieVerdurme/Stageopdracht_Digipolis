@@ -22,29 +22,26 @@
 </template>
 
 <script>
+import Modal from '@digipolis-gent/modal'
+
 export default {
   props: {
+    /**
+     * the id of the modal
+     */
     id: {
       type: Number,
       required: true
     }
   },
   mounted(){
-    /**
-     * import @digipolis-gent/modal
-     */
-    // eslint-disable-next-line no-undef
-    var Modal = require('@digipolis-gent/modal')
-
     if (!Modal) {
       return
     }
 
-    const selected = document.querySelectorAll(
-      '.modal:not(.has-custom-binding)'
-    )
+    const selected = document.getElementById(this.id)
     // eslint-disable-next-line no-new
-    new Modal(selected[this.id - 1 ])
+    new Modal(selected)
   }
 }
 </script>
