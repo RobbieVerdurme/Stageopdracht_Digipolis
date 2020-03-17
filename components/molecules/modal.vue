@@ -39,11 +39,9 @@ export default {
       return
     }
 
-    const selected = document.querySelectorAll(
-      '.modal:not(.has-custom-binding)'
-    )
+    const selected = document.getElementById(this.id)
     // eslint-disable-next-line no-new
-    new Modal(selected[this.id - 1 ])
+    new Modal(selected)
   }
 }
 </script>
