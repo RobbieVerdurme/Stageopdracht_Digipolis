@@ -53,6 +53,20 @@
 
 <script>
 export default {
+  async fetch({ store }){
+    // check if pointsOfInterst is emtpy
+    if(!store.state.poi.d.length){
+      // get poi
+      store.dispatch('poi/getPointsOfInterst')
+    }
+
+    // check if routepoints is empty
+    if(!store.state.routes.routepoints.length){
+      // get route
+      store.dispatch('routes/setRoute')
+    }
+
+  },
   // variables
   data () {
     return {
@@ -70,32 +84,25 @@ export default {
       center: [414688.076662, 6630700.090869],
       rotation: 0,
       geolocPosition: undefined,
-    }
-  },
-  computed: {
-    // features(POI)
-    features () {
-      return this.$store.state.poi.pointsOfInterst
-    },
-    // route
-    route () {
-      return this.$store.state.routes.routepoints
+
+      //features
+      features: this.$store.state.poi.pointsOfInterst,
+
+      //route
+      route: this.$store.state.routes.routepoints
     }
   },
   // created
   created () {
     // make matrixids for fetching map
     this.matrixIds = [...new Array(21)].map((x, i) => { return 'SG-WEB MERCATOR:' + i })
-
-    // get poi
-    this.$store.dispatch('poi/setPointsOfInterst')
-
-    // get route
-    this.$store.dispatch('routes/setRoutepoints')
   },
 
   // methods
   methods: {
+    /**
+     * updates positin marker on the map
+     */
     updatePosition ($event) {
       this.geolocPosition = $event
     },

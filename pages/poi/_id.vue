@@ -1,11 +1,10 @@
 <template>
   <main class="info-page">
     <section class="detail-layout">
-      <Info :item="cluster" />
+      <Info :item="poi.properties" />
       <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
         Bekijk op kaart
       </nuxt-link>
-      <Programme :munten="cluster.munten" />
     </section>
   </main>
 </template>
@@ -13,15 +12,14 @@
 <script>
 export default {
   async fetch ({ store }) {
-    //check if clusterinfo in store is filled
-    if(!store.state.clusters.clusterInfo.length){
-      // get clusterinfo from online
-      await store.dispatch('clusters/getClusters')
+    //check if pointsOfInterst in store is filled
+    if(!store.state.poi.pointsOfInterst.length){
+      // get pointsOfInterst from online
+      await store.dispatch('poi/getPointsOfInterst')
     }
   },
   components: {
     Info: () => import('~/components/molecules/info'),
-    Programme: () => import('~/components/organisms/programme')
   },
   data () {
     return {
@@ -29,8 +27,8 @@ export default {
     }
   },
   computed: {
-    cluster () {
-      return this.$store.getters['clusters/getClusterById'](this.id)
+    poi () {
+      return this.$store.getters['poi/getPOIDetailById'](this.id)
     }
   }
 }
