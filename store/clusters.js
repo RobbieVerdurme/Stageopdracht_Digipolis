@@ -28,6 +28,14 @@ export const getters = {
    */
   getAllClusters: (state) => {
     return state.clusterInfo
+  },
+
+/**
+ * get the max length from the arrray clusterinfo
+ * @param {*} state 
+ */
+  getLengthClusters: (state) =>{
+    return state.clusterInfo.length
   }
 }
 
