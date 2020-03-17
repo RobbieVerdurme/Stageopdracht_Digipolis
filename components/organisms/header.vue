@@ -87,16 +87,9 @@
 </template>
 <script>
 export default {
-  async fetch({ store }){
-    // check if routepoints is empty
-    if(!store.state.route.routepoints.length){
-      // get the route
-      store.dispatch('routes/setRoute')
-    }
-  },
   data () {
     return {
-      title: this.$store.getters['routes/getRouteTitle'](13)
+      title: 'Lichtfestival'
     }
   },
   mounted() {
