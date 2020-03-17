@@ -23,6 +23,9 @@ export default {
   },
   data () {
     return {
+      /**
+       * id of the cluster
+       */
       id: this.$route.params.id
     }
   },
