@@ -28,7 +28,8 @@ export const getters = {
    * @param {number} id 
    */
   getRouteTitle: (state) => (id) => {
-    return state.routepoints.find(r => r.properties.OBJECTID === id).properties.naam_nl
+    const route = state.routepoints.find(r => r.properties.OBJECTID === id)
+    return route===undefined?'Route':route.properties.naam_nl
   },
 
   /**
