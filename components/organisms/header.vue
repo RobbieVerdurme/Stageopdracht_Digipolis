@@ -1,7 +1,7 @@
 <template>
   <header class="header header--menu">
     <div class="content-container">
-      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">muntenroute</nuxt-link>
+      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
       <nav class="menu">
         <button
           type="button"
@@ -49,7 +49,7 @@
             </div>
             <div class="modal-content">
               <div class="header">
-                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">muntenroute</nuxt-link>
+                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
               </div>
               <div class="menu-links">
                 <ul class="links ">
@@ -87,6 +87,18 @@
 </template>
 <script>
 export default {
+  async fetch({ store }){
+    // check if routepoints is empty
+    if(!store.state.route.routepoints.length){
+      // get the route
+      store.dispatch('routes/setRoute')
+    }
+  },
+  data () {
+    return {
+      title: this.$store.getters['routes/getRouteTitle'](13)
+    }
+  },
   mounted() {
     /**
     * import @digipolis-gent/modal

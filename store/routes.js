@@ -20,6 +20,16 @@ export const getters = {
    */
   getRoute: (state) => (id) => {
     return state.routepoints.find(r => r.properties.OBJECTID === id)
+  },
+
+  /**
+   * get route title with id
+   * @param {*} state 
+   * @param {number} id 
+   */
+  getRouteTitle: (state) => (id) => {
+    const route =  state.routepoints.find(r => r.properties.OBJECTID === id)
+    return route.properties.naam_nl
   }
 }
 
