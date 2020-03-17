@@ -53,20 +53,6 @@
 
 <script>
 export default {
-  async fetch({ store }){
-    // check if pointsOfInterst is emtpy
-    if(!store.state.poi.d.length){
-      // get poi
-      store.dispatch('poi/getPointsOfInterst')
-    }
-
-    // check if routepoints is empty
-    if(!store.state.routes.routepoints.length){
-      // get route
-      store.dispatch('routes/setRoute')
-    }
-
-  },
   // variables
   data () {
     return {
@@ -86,10 +72,10 @@ export default {
       geolocPosition: undefined,
 
       //features
-      features: this.$store.state.poi.pointsOfInterst,
+      features: this.$store.getters['poi/getAllPOIDetail'],
 
       //route
-      route: this.$store.state.routes.routepoints
+      route: this.$store.getters['routes/getAllRoute']
     }
   },
   // created
