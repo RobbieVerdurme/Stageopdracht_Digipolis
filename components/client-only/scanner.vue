@@ -1,8 +1,15 @@
 <template>
-  <qrcode-stream @decode="onDecode" @init="onInit" class="scanner">
-    <div v-if="loading" class="loading-indicator">Loading...</div>
-    <div v-if="error" class="error-indicator has-text-danger">{{ error }}</div>
+<div>
+  <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
+    <i class="icon-cross" aria-hidden="true"></i>
+    <p>{{error}}</p>
+  </div>
+  <qrcode-stream v-if="!error" @decode="onDecode" @init="onInit" class="scanner">
+    <div v-if="loading" class="spinner">
+      <div>&hellip;loading</div>
+    </div>
   </qrcode-stream>
+</div>
 </template>
 
 <script>
@@ -30,17 +37,17 @@ export default {
         await promise
       } catch (error) {
         if (error.name === 'NotAllowedError') {
-          this.error = 'ERROR: verleen toegang om je camera te gebruiken'
+          this.error = 'Verleen toegang om je camera te gebruiken'
         } else if (error.name === 'NotFoundError') {
-          this.error = 'ERROR: er is geen camera op dit apparaat'
+          this.error = 'Er is geen camera op dit apparaat'
         } else if (error.name === 'NotSupportedError') {
-          this.error = 'ERROR: beveiligde connectie nodig (HTTPS, localhost)'
+          this.error = 'Beveiligde connectie nodig (HTTPS, localhost)'
         } else if (error.name === 'NotReadableError') {
-          this.error = 'ERROR: is de camera al in gebruik?'
+          this.error = 'Is de camera al in gebruik?'
         } else if (error.name === 'OverconstrainedError') {
-          this.error = 'ERROR: de camera is niet compatiebel'
+          this.error = 'De camera is niet compatiebel'
         } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = 'ERROR: de Stream API kan niet gebruikt worden in deze browser'
+          this.error = 'De Stream API kan niet gebruikt worden in deze browser'
         }
       } finally {
         this.loading = false
@@ -51,12 +58,6 @@ export default {
 </script>
 
 <style scoped>
-.loading-indicator,
-.error-indicator {
-  font-weight: bold;
-  font-size: 2rem;
-  text-align: center;
-}
 .scanner{
   max-height: 500px;
   max-width: 500px;
