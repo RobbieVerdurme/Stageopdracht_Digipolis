@@ -3,7 +3,7 @@
     <!-- title -->
     <h1>{{ item.title }}</h1>
     <!--info-->
-    <p class>{{ item.info}}</p>
+    <p id="info">{{ item.info}}</p>
   </div>
 </template>
 <script>
