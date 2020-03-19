@@ -14,10 +14,20 @@ const config = [
 describe('OverviewPage', () => {
     // do before each test
     beforeEach(() => {
-        // TODO intercept backendcall for clusters
+        // baseurl
+        cy.visit('/')
+        
+        // Intercept backendcall for clusters
+        cy.server()
+        cy.route({
+            method: 'GET',
+            url: '/clusters.json',
+            status: 200,
+            response: "fixture:clusters.json"
+        })
 
-        // navigate to overview
-        cy.visit('/overview/')
+        // Navigate to page with mocked backendroute
+        cy.contains('Overview route').click()
 
         cy.injectAxe()
     })

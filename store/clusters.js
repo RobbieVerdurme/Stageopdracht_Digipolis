@@ -55,7 +55,7 @@ export const actions = {
   async getClusters({ commit }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.get('/clusters.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
+      await axios.get('/clusters.json', {proxy: {host: 'localhost', port: '3000'}}).then(({ data }) => {
         commit('setClusters', data)
       })
     } catch (error) {
