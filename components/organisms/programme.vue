@@ -31,8 +31,8 @@
                         <a
                           :href="img.src"
                           class="gallery-link"
-                          aria-label="image caption"
-                          aria-describedby="image-gallery__open-gallery">
+                          :aria-label="img.alt"
+                          :aria-describedby="`${img.alt}-gallery__open-gallery`">
                           <figure>
                             <div class="image-wrapper" data-ratio="8:5">
                               <img
