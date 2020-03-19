@@ -1,9 +1,18 @@
 <template>
 <div>
+  <!-- Error -->
   <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
     <i class="icon-cross" aria-hidden="true"></i>
     <p>{{error}}</p>
   </div>
+
+  <!-- Warning -->
+  <div v-if="warning" class="messages messages--warning" role="alert" aria-atomic="true">
+    <i class="icon-exclamation" aria-hidden="true"></i>
+    <p>{{ warning }}</p>
+  </div>
+
+  <!--Camera-->
   <qrcode-stream v-if="!error" @decode="onDecode" @init="onInit" class="scanner">
     <div v-if="loading" class="spinner">
       <div>&hellip;loading</div>
@@ -18,7 +27,8 @@ export default {
   data () {
     return {
       error: null,
-      loading: false
+      loading: false,
+      warning: null
     }
   },
   // methods
@@ -33,7 +43,7 @@ export default {
       if(result.match(regex)){
         window.open(result)
       } else {
-        this.error = 'Geen geldige url gevonden in qr-code'
+        this.warning = 'Geen geldige url gevonden in qr-code'
       }      
     },
 
