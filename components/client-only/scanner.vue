@@ -19,7 +19,7 @@ export default {
     // if qr-code is found and read
     onDecode (result) {
       // regular expression
-      var expression = ''
+      var expression =/(\b(https|http):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig; 
       var regex = new RegExp(expression)
 
       // check if qr-code is link
