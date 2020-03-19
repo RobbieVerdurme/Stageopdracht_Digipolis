@@ -5,7 +5,6 @@ import VueAxe from 'vue-axe'
 if (process.env.NODE_ENV !== 'production') {
     Vue.use(VueAxe, {
         config: {
-            disableOtherRules: true,
             reporter: 'no-passes',
             rules: [
                 { id: 'heading-order', enabled: true },

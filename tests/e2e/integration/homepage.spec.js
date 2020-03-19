@@ -22,7 +22,6 @@ describe('Homepage', () => {
     it('Has no detectable a11y violations on load (custom configuration)', () => {
         // Configure aXe and test the page at initial load
         cy.configureAxe({
-            disableOtherRules: true,
             reporter: 'no-passes',
             rules: config
         })
