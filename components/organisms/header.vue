@@ -89,7 +89,7 @@
 export default {
   data () {
     return {
-      title: this.$store.getters['routes/getRouteTitle'](13)
+      title: 'Lichtfestival'
     }
   },
   mounted() {
