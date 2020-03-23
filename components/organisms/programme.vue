@@ -42,6 +42,8 @@
                             <figcaption>image caption</figcaption>
                           </figure>
                         </a>
+                      <!-- Add this to the bottom of your page template, above scripts -->
+                      <span :id="`${img.alt}-gallery__open-gallery`" hidden>open galerij</span>
                       </li>
                       <li class="image-gallery__show-more">
                         <div class="show-more__content">
@@ -54,8 +56,6 @@
                       </li>
                     </ul>
                   </div>
-                  <!-- Add this to the bottom of your page template, above scripts -->
-                  <span id="image-gallery__open-gallery" hidden>open galerij</span>
                   <p class="">{{ item.info }}</p>
                 </ModalComponent>
                 <!-- /Modal -->
