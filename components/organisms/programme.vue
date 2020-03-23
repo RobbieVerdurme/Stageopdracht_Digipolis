@@ -1,7 +1,7 @@
 <template>
   <div class="programme-wrapper">
     <h2 class="visually-hidden">
-      Munten
+      items {{ cluster }}
     </h2>
     <div class="highlight highlight--no-icon">
       <dl class="highlight__inner">
@@ -119,6 +119,10 @@ export default {
   props: {
     munten: {
       type: Array,
+      required: true
+    },
+    cluster: {
+      type: String,
       required: true
     }
   }

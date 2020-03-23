@@ -5,7 +5,7 @@
       <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
         Bekijk op kaart
       </nuxt-link>
-      <Programme :munten="cluster.munten" />
+      <Programme :munten="cluster.munten" :cluster="cluster.title" />
       <nuxt-link v-if="previousCluster > 0" :to="{name: 'cluster-id', params: {id: previousCluster.toString()}}" class="button button-primary"> Vorige </nuxt-link>
       <nuxt-link v-if="nextCluster <= maxLength" :to="{name: 'cluster-id', params: {id: nextCluster.toString()}}" class="button button-primary"> Volgende </nuxt-link>
     </section>
