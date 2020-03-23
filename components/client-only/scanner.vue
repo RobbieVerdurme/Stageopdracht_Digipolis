@@ -42,7 +42,7 @@ export default {
       // check if qr-code is link
       if(result.match(regex)){
         // eslint-disable-next-line no-undef
-        window.location = result
+        this.$router.push(result)
       } else {
         this.warning = 'Geen geldige url gevonden in qr-code'
       }      
