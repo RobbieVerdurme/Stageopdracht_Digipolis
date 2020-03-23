@@ -106,7 +106,8 @@
 </template>
 
 <script>
-  import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+
 export default {
   // variables
   data () {
@@ -140,12 +141,6 @@ export default {
   created () {
     // make matrixids for fetching map
     this.matrixIds = [...new Array(21)].map((x, i) => { return 'SG-WEB MERCATOR:' + i })
-
-    // get poi
-    this.$store.dispatch('poi/setPointsOfInterst')
-
-    // get route
-    this.$store.dispatch('routes/setRoutepoints')
   },
 
   // methods
