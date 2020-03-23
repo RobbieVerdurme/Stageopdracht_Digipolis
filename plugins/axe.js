@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
         config: {
             reporter: 'no-passes',
             rules: [
+                { tags: ['wcag2a', 'wcag2aa']},
                 { id: 'heading-order', enabled: true },
                 { id: 'label-title-only', enabled: true },
                 { id: 'link-in-text-block', enabled: true },
