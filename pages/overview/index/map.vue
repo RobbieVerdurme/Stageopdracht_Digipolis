@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only>
-      <VueLayersMap />
+      <VueLayersMap :features="features" :route="route" />
     </client-only>
     <Cta />
   </div>
@@ -19,6 +19,14 @@ export default {
   components: {
     VueLayersMap: ()=> import('~/components/organisms/vuelayersmap.vue'),
     Cta: () => import('~/components/molecules/cta.vue')
+  },
+  computed: {
+    features () {
+      return this.$store.getters['poi/getAllPointsOfIntrest']
+    },
+    route () {
+      return this.$store.getters['routes/getAllRoutes']
+    }
   }
 }
 </script>

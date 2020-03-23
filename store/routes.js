@@ -21,6 +21,18 @@ export const mutations = {
   }
 }
 
+/**
+ * getters
+ */
+export const getters = {
+  /**
+   * get all points of intrest
+   */
+  getAllRoutes: (state) => {
+      return state.routepoints
+  }
+}
+
  /**
   * actions
   */

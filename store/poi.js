@@ -9,6 +9,18 @@ export const state = () => ({
     pointsOfInterst: []
   })
 
+/**
+ * getters
+ */
+export const getters = {
+    /**
+     * get all points of intrest
+     */
+    getAllPointsOfIntrest: (state) => {
+        return state.pointsOfInterst
+    }
+}
+
 /** 
  * mutations
  */

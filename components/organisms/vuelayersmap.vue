@@ -109,6 +109,16 @@
 import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
 
 export default {
+  props: {
+    features: {
+      type: Array,
+      required: true
+    },
+    route: {
+      type: Array,
+      required: true
+    }
+  },
   // variables
   data () {
     return {
@@ -126,12 +136,6 @@ export default {
       center: [414688.076662, 6630700.090869],
       rotation: 0,
       geolocPosition: undefined,
-
-      // features
-      features: this.$store.state.poi.pointsOfInterst,
-
-      // route
-      route : this.$store.state.routes.routepoints,
 
       // popup of item
       selectedFeatures: [],
