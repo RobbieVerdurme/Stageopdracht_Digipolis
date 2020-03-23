@@ -28,7 +28,7 @@ export const mutations = {
   async setRoutepoints({ commit }){
     // eslint-disable-next-line no-useless-catch
     try{
-        await axios.get('/route.json').then(({ data }) => {
+        await axios.get('/route.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
             commit('setRoutepoints', data.features)
         })
     }catch(error){
