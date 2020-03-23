@@ -41,7 +41,8 @@ export default {
 
       // check if qr-code is link
       if(result.match(regex)){
-        window.open(result)
+        // eslint-disable-next-line no-undef
+        window.location = result
       } else {
         this.warning = 'Geen geldige url gevonden in qr-code'
       }      
