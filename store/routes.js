@@ -14,22 +14,11 @@ export const state = () => ({
  */
 export const getters = {
   /**
-   * get route with id
+   * get first route in list
    * @param {*} state 
-   * @param {number} id 
    */
-  getRoute: (state) => (id) => {
-    return state.routepoints.find(r => r.properties.OBJECTID === id)
-  },
-
-  /**
-   * get route title with id
-   * @param {*} state 
-   * @param {number} id 
-   */
-  getRouteTitle: (state) => (id) => {
-    const route = state.routepoints.find(r => r.properties.OBJECTID === id)
-    return route===undefined?'Route':route.properties.naam_nl
+  getRoute: (state) => {
+    return state.routepoints[0]
   },
 
   /**
