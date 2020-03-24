@@ -28,15 +28,7 @@
 
 // the things that axe has to check
 const config = [
-    { tags: ['wcag2a', 'wcag2aa']},
-    { id: 'heading-order', enabled: true },
-    { id: 'label-title-only', enabled: true },
-    { id: 'link-in-text-block', enabled: true },
-    { id: 'button-name', enabled: true },
-    { id: 'skip-link', enabled: true },
-    { id: 'help-same-as-label', enabled: true },
-    { id: 'dlitem', enabled: true },
-    { id: 'definition-list', enabled: true }
+    { tags: ['wcag2a', 'wcag2aa']}
 ]
 
 // add axe test
