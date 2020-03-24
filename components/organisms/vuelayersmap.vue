@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" style="max-height: 400px">
+  <div class="stores">
+    <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" @mounted="onMapMounted">
       <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation" />
       <!-- interactions -->
       <vl-interaction-select :features.sync="selectedFeatures">
@@ -83,7 +83,7 @@
 
       <!--POI-->
       <vl-layer-vector>
-        <vl-source-vector :features.sync="features" />
+        <vl-source-vector :features.sync="pointsOfIntrest" />
         <!--Style-->
         <vl-style-box>
           <vl-style-circle :radius="5">
@@ -95,7 +95,7 @@
 
       <!--Route-->
       <vl-layer-vector>
-        <vl-source-vector :features.sync="route" />
+        <vl-source-vector :features.sync="myRoute" />
         <!--Style-->
         <vl-style-box>
           <vl-style-stroke color="blue" :width="3" :line-dash="[3,5,30,5]"/>
@@ -139,6 +139,12 @@ export default {
 
       // popup of item
       selectedFeatures: [],
+
+      // route
+      myRoute: this.route,
+
+      // features
+      pointsOfIntrest: this.features
     }
   },
   // created
@@ -152,11 +158,19 @@ export default {
     updatePosition ($event) {
       this.geolocPosition = $event
     },
-    pointOnSurface: findPointOnSurface
+    pointOnSurface: findPointOnSurface,
+    onMapMounted (vlMap) {
+      // vlMap here is an instance of vl-map component
+      vlMap.refresh()
+    }
   }
 }
 </script>
 <style scoped>
+  .stores {
+    height: 70vh;
+  }
+
   .card-content{
     max-height: 20em;
     overflow: auto;
@@ -168,6 +182,7 @@ export default {
     bottom: 12px;
     width: 20em;
     max-width: none;
+    background-color: white;
   }
 
   .content{
