@@ -32,7 +32,7 @@
                           :href="img.src"
                           class="gallery-link"
                           :aria-label="img.alt"
-                          :aria-describedby="`${img.alt}-gallery__open-gallery`">
+                          aria-describedby="modalcomponent-gallery__open-gallery'">
                           <figure>
                             <div class="image-wrapper" data-ratio="8:5">
                               <img
@@ -42,8 +42,6 @@
                             <figcaption>image caption</figcaption>
                           </figure>
                         </a>
-                      <!-- Add this to the bottom of your page template, above scripts -->
-                      <span :id="`${img.alt}-gallery__open-gallery`" hidden>open galerij</span>
                       </li>
                       <li class="image-gallery__show-more">
                         <div class="show-more__content">
@@ -57,6 +55,8 @@
                     </ul>
                   </div>
                   <p class="">{{ item.info }}</p>
+                  <!-- Add this to the bottom of your page template, above scripts -->
+                  <span id="modalcomponent-gallery__open-gallery" hidden>open galerij</span>
                 </ModalComponent>
                 <!-- /Modal -->
 
