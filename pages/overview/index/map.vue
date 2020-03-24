@@ -22,7 +22,7 @@ export default {
   },
   components: {
     VueLayersMap: ()=> import('~/components/organisms/vuelayersmap'),
-    Cta: () => import('~/components/molecules/cta.vue')
+    Cta: () => import('~/components/molecules/cta')
   },
   computed: {
     features () {
