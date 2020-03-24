@@ -1,9 +1,18 @@
 <template>
 <div>
+  <!-- Error -->
   <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
     <i class="icon-cross" aria-hidden="true"></i>
     <p>{{error}}</p>
   </div>
+
+  <!-- Warning -->
+  <div v-if="warning" class="messages messages--warning" role="alert" aria-atomic="true">
+    <i class="icon-exclamation" aria-hidden="true"></i>
+    <p>{{ warning }}</p>
+  </div>
+
+  <!--Camera-->
   <qrcode-stream v-if="!error" @decode="onDecode" @init="onInit" class="scanner">
     <div v-if="loading" class="spinner">
       <div>&hellip;loading</div>
@@ -18,16 +27,25 @@ export default {
   data () {
     return {
       error: null,
-      loading: false
+      loading: false,
+      warning: null
     }
   },
   // methods
   methods: {
     // if qr-code is found and read
     onDecode (result) {
-      // TODO: CHECK WITH REGEX IF IT IS A LINK
-      // open in new window
-      window.open(result)
+      // regular expression
+      var expression =/(\b(https|http):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig; 
+      var regex = new RegExp(expression)
+
+      // check if qr-code is link
+      if(result.match(regex)){
+        // eslint-disable-next-line no-undef
+        this.$router.push(result)
+      } else {
+        this.warning = 'Geen geldige url gevonden in qr-code'
+      }      
     },
 
     // if error
