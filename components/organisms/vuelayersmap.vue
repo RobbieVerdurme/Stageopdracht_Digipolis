@@ -171,7 +171,7 @@ export default {
     max-width: none;
     background-color: white;
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: .2rem;
   }
 
   .content{
