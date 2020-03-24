@@ -12,24 +12,24 @@ export default {
   async fetch({ store }){
     if(!store.getters['poi/getAllPointsOfIntrest'].length){
       // get poi
-      store.dispatch('poi/setPointsOfInterst')
+      await store.dispatch('poi/setPointsOfInterst')
+      this.features = store.getters['poi/getAllPointsOfIntrest']
     }
 
     if(!store.getters['routes/getAllRoutes'].length){
       // get route
-      store.dispatch('routes/setRoutepoints')
+      await store.dispatch('routes/setRoutepoints')
+      this.route = store.getters['routes/getAllRoutes']
     }
   },
   components: {
     VueLayersMap: ()=> import('~/components/organisms/vuelayersmap'),
     Cta: () => import('~/components/molecules/cta')
   },
-  computed: {
-    features () {
-      return this.$store.getters['poi/getAllPointsOfIntrest']
-    },
-    route () {
-      return this.$store.getters['routes/getAllRoutes']
+  data () {
+    return {
+      features : this.$store.getters['poi/getAllPointsOfIntrest'],
+      route: this.$store.getters['routes/getAllRoutes']
     }
   }
 }
