@@ -70,32 +70,25 @@ export default {
       center: [414688.076662, 6630700.090869],
       rotation: 0,
       geolocPosition: undefined,
-    }
-  },
-  computed: {
-    // features(POI)
-    features () {
-      return this.$store.state.poi.pointsOfInterst
-    },
-    // route
-    route () {
-      return this.$store.state.routes.routepoints
+
+      //features
+      features: this.$store.getters['poi/getAllPOIDetail'],
+
+      //route
+      route: this.$store.getters['routes/getAllRoute']
     }
   },
   // created
   created () {
     // make matrixids for fetching map
     this.matrixIds = [...new Array(21)].map((x, i) => { return 'SG-WEB MERCATOR:' + i })
-
-    // get poi
-    this.$store.dispatch('poi/setPointsOfInterst')
-
-    // get route
-    this.$store.dispatch('routes/setRoutepoints')
   },
 
   // methods
   methods: {
+    /**
+     * updates positin marker on the map
+     */
     updatePosition ($event) {
       this.geolocPosition = $event
     },

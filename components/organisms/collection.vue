@@ -1,7 +1,7 @@
 <template>
   <ul class="links">
     <li v-for="item in items" :key="item.id" class="teaser  teaser-search-wide">
-      <Collectionitem :item="item" />
+      <Collectionitem :item="item.properties" />
     </li>
   </ul>
 </template>
