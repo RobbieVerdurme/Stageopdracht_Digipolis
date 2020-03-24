@@ -24,32 +24,19 @@
 
           <!-- selected feature popup -->
           <vl-overlay class="feature-popup" v-for="feature in select.features" :key="feature.id" :id="feature.id" :position="pointOnSurface(feature.geometry)" :auto-pan="true" :auto-pan-animation="{ duration: 300 }">
-            <template slot-scope="popup">
-              <section class="card">
-                <header class="card-header">
-                  <p class="card-header-title">
-                    Feature ID {{ feature.id }}
-                  </p>
-                  <a class="card-header-icon" title="Close"
-                     @click="selectedFeatures = selectedFeatures.filter(f => f.id !== feature.id)">
-                    <b-icon icon="close"></b-icon>
-                  </a>
-                </header>
-                <div class="card-content">
-                  <div class="content">
-                    <p>
-                      Overlay popup content for Feature with ID <strong>{{ feature.id }}</strong>
-                    </p>
-                    <p>
-                      Popup: {{ JSON.stringify(popup) }}
-                    </p>
-                    <p>
-                      Feature: {{ JSON.stringify({ id: feature.id, properties: feature.properties }) }}
-                    </p>
-                  </div>
-                </div>
-              </section>
-            </template>
+            <header>
+              <h3>
+                {{ feature.properties.naam_nl }}
+              </h3>
+              <button class="ol-popup__closer" aria-label="Sluiten" @click="selectedFeatures = selectedFeatures.filter(f => f.id !== feature.id)" />
+            </header>
+            <div>
+              <p>{{ feature.properties.omschrijving_nl }}</p>
+              <div>
+                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'cluster-id', params: {id: feature.properties.volgnummer}}">read more</nuxt-link>
+                <nuxt-link v-else class="read-more standalone-link" :to="{name: 'index'}">read more</nuxt-link>
+              </div>
+            </div>
           </vl-overlay>
           <!--// selected popup -->
         </template>
@@ -183,9 +170,22 @@ export default {
     width: 20em;
     max-width: none;
     background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
   }
 
   .content{
     word-break: break-all;
-  }      
+  }
+
+  .ol-popup__closer {
+    position: absolute;
+    top: .4rem;
+    right: .4rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 0;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22.5' height='22.5' viewBox='0 0 32 32'%3E\a     %3Cpath fill='%2323333a' fill-rule='evenodd' d='M18.121 16l6.44-6.439a1.5 1.5 0 0 0-2.122-2.122L16 13.879l-6.44-6.44a1.501 1.501 0 0 0-2.12 2.122L13.88 16l-6.44 6.439a1.5 1.5 0 0 0 2.12 2.122l6.44-6.44 6.44 6.44c.292.293.676.439 1.06.439s.767-.146 1.06-.439a1.5 1.5 0 0 0 0-2.122L18.121 16z'/%3E\a%3C/svg%3E\a") no-repeat center;
+    cursor: pointer;
+  }
 </style>
