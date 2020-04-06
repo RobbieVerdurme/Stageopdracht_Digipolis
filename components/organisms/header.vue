@@ -14,17 +14,17 @@
 
         <ul class="links ">
           <li>
-            <nuxt-link :to="{name: 'index'}">
+            <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
               Home
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'overview-index'}">
+            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'?'active':''">
               Overzicht route
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'scanner'}">
+            <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
               Scanner
             </nuxt-link>
           </li>
@@ -54,7 +54,7 @@
               <div class="menu-links">
                 <ul class="links ">
                   <li>
-                    <nuxt-link :to="{name: 'index'}">
+                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='Home'?'active':''">
                       Home
                     </nuxt-link>
                   </li>
@@ -86,21 +86,20 @@
   </header>
 </template>
 <script>
+import Modal from '@digipolis-gent/modal'
 export default {
   data () {
     return {
-      title: 'Lichtfestival'
+      title: 'Lichtfestival',
+      activeLink: this.$route.name
+    }
+  },
+  watch: {
+    $route () {
+      this.activeLink = this.$route.name
     }
   },
   mounted() {
-    /**
-    * import @digipolis-gent/modal
-    */
-    if (window) {
-      // eslint-disable-next-line no-undef
-      var Modal = require('@digipolis-gent/modal')
-    }
-
     const createModal = function(modal) {
       // eslint-disable-next-line no-undef
       new Modal(modal, {
