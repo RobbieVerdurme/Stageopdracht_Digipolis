@@ -97,6 +97,7 @@ export default {
   watch: {
     $route () {
       this.activeLink = this.$route.name
+      document.querySelector("#menu").close
     }
   },
   mounted() {
