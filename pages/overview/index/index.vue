@@ -8,7 +8,7 @@ export default {
     //check if pointsOfInterst in store is filled
     if(!store.state.poi.pointsOfInterst.length){
       // get pointsOfInterst from online
-      await store.dispatch('poi/getPointsOfInterst')
+      await store.dispatch('poi/setPointsOfInterst')
     }
   },
   components: {
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.getters['poi/getAllPOIDetail']
+      return this.$store.getters['poi/getAllPointsOfIntrest']
     }
   }
 }

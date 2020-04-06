@@ -9,14 +9,15 @@ export const state = () => ({
     pointsOfInterst: []
   })
 
+/**
+ * getters
+ */
 export const getters = {
-  /**
-   * get poi with id
-   * @param {*} state 
-   * @param {number} id 
-   */
-    getPOIDetailById: (state) => (id) => {
-        return state.pointsOfInterst.find(p => p.properties.volgnummer === id)
+    /**
+     * get all points of intrest
+     */
+    getAllPointsOfIntrest: (state) => {
+        return state.pointsOfInterst
     },
 
     /**
@@ -33,7 +34,14 @@ export const getters = {
     getMaxLengthPOI: (state) => {
         console.log(state.pointsOfInterst.length)
         return state.pointsOfInterst.length
-    }
+    },
+
+    /**
+     * get poi with id
+     */
+    getPOIDetailById: (state) => (id) => {
+        return state.pointsOfInterst.find(p => p.properties.volgnummer === id)
+    } 
 }
 
 /** 
@@ -54,7 +62,7 @@ export const mutations = {
  * actions
  */
 export const actions = {
-    async getPointsOfInterst({ commit }){
+    async setPointsOfInterst({ commit }){
         // eslint-disable-next-line no-useless-catch
         try{
             await axios.get('/POI.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
