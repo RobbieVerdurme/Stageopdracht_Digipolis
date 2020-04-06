@@ -33,7 +33,7 @@
             <div>
               <p>{{ feature.properties.omschrijving_nl }}</p>
               <div>
-                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'cluster-id', params: {id: feature.properties.volgnummer}}">read more</nuxt-link>
+                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">read more</nuxt-link>
                 <nuxt-link v-else class="read-more standalone-link" :to="{name: 'index'}">read more</nuxt-link>
               </div>
             </div>
@@ -142,6 +142,9 @@ export default {
 
   // methods
   methods: {
+    /**
+     * updates positin marker on the map
+     */
     updatePosition ($event) {
       this.geolocPosition = $event
     },

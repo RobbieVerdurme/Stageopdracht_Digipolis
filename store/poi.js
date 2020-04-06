@@ -18,6 +18,13 @@ export const getters = {
      */
     getAllPointsOfIntrest: (state) => {
         return state.pointsOfInterst
+    },
+
+    /**
+     * get poi with id
+     */
+    getPOIDetailById: (state) => (id) => {
+        return state.pointsOfInterst.find(p => p.properties.volgnummer == id)
     }
 }
 
@@ -25,6 +32,11 @@ export const getters = {
  * mutations
  */
 export const mutations = {
+    /**
+     * set the pointofinterst with the gotten payload
+     * @param {*} state 
+     * @param {Array} payload 
+     */
     setPointsOfInterst(state, payload){
         state.pointsOfInterst = payload
     }
