@@ -20,7 +20,7 @@
           </li>
           <li>
             <nuxt-link :to="{name: 'overview-index'}">
-              Overview route
+              Overzicht route
             </nuxt-link>
           </li>
           <li>
@@ -60,7 +60,7 @@
                   </li>
                   <li>
                     <nuxt-link :to="{name: 'overview-index'}">
-                      Overview route
+                      Overzicht route
                     </nuxt-link>
                   </li>
                   <li>
