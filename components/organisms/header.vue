@@ -19,7 +19,7 @@
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'?'active':''">
+            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''">
               Overzicht route
             </nuxt-link>
           </li>
@@ -59,7 +59,7 @@
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'?'active':''">
+                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index' || activeLink==='overview-index-map'?'active':''">
                       Overzicht route
                     </nuxt-link>
                   </li>
