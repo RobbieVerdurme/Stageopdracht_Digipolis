@@ -1,6 +1,10 @@
 <template>
   <main class="info-page">
     <section class="detail-layout">
+      <figure>
+        <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
+        <div v-else class="image-wrapper" data-ratio="8:5"><img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl" /></div>
+      </figure>
       <Info :item="poi.properties" />
       <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
         Bekijk op kaart
@@ -26,7 +30,8 @@ export default {
       /**
        * id of the cluster
        */
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      imageError: false
     }
   },
   computed: {
