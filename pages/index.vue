@@ -2,9 +2,11 @@
   <main class="info-page">
     <section class="detail-layout">
       <Info :item="item.properties" />
-      <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
-        Bekijk op kaart
-      </nuxt-link>
+      <div>
+        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
+          Bekijk op kaart
+        </nuxt-link>
+      </div>
       <Cta />
     </section>
   </main>

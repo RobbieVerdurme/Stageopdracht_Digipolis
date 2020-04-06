@@ -25,6 +25,14 @@ export const getters = {
     */
     getAllPOIDetail: (state) => {
         return state.pointsOfInterst
+    },
+
+    /**
+     * get max length of list of poi
+     */
+    getMaxLengthPOI: (state) => {
+        console.log(state.pointsOfInterst.length)
+        return state.pointsOfInterst.length
     }
 }
 
