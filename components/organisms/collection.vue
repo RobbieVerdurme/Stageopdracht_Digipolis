@@ -8,7 +8,7 @@
 <script>
 export default {
   components: {
-    Collectionitem: () => import('~/components/molecules/collectionitem')
+    Collectionitem: () => import('~/components/molecules/collectionItem')
   },
   props: {
     items: {

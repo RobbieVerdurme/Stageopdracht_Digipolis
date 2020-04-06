@@ -27,6 +27,13 @@ export const getters = {
    */
   getAllRoute: (state) => {
     return state.routepoints
+  },
+
+  /**
+   * get all points of intrest
+   */
+  getAllRoutes: (state) => {
+      return state.routepoints
   }
 }
 
@@ -39,7 +46,7 @@ export const mutations = {
    * @param {*} state 
    * @param {Array} payload 
    */
-  setRoute(state, payload){
+  setRoutepoints(state, payload){
       state.routepoints = payload
   }
 }
@@ -51,11 +58,11 @@ export const mutations = {
    /**
     * get route from online (databasecall)
     */
-  async getRoute({ commit }){
+  async setRoutepoints({ commit }){
     // eslint-disable-next-line no-useless-catch
     try{
         await axios.get('/route.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
-            commit('setRoute', data.features)
+            commit('setRoutepoints', data.features)
         })
     }catch(error){
         throw error
