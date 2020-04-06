@@ -54,17 +54,17 @@
               <div class="menu-links">
                 <ul class="links ">
                   <li>
-                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='Home'?'active':''">
+                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
                       Home
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'overview-index'}">
+                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'?'active':''">
                       Overzicht route
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'scanner'}">
+                    <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
                       Scanner
                     </nuxt-link>
                   </li>
