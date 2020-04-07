@@ -17,7 +17,6 @@ describe('Homepage', () => {
     it('info on homepage', () => {
         // info route
         cy.get('h1').should('be.visible')
-        cy.get('#info').should('be.visible')
 
         // bekijk op kaart 
         cy.contains('Bekijk op kaart').should('be.visible')

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-describe('Clusterpage', () => {
+describe('POIpage', () => {
     // do before each test
     beforeEach(() => {
         // baseurl
@@ -10,9 +10,9 @@ describe('Clusterpage', () => {
         cy.server()
         cy.route({
             method: 'GET',
-            url: '/clusters.json',
+            url: '/POI.json',
             status: 200,
-            response: "fixture:clusters.json"
+            response: "fixture:POI.json"
         })
 
         //navigate to cluster page
@@ -21,6 +21,8 @@ describe('Clusterpage', () => {
 
         // check 
         cy.url().should('include', 1)
+        // wait for the page to be completely loaded
+        cy.wait(1)
 
         // inject Axe
         cy.injectAxe()
@@ -32,15 +34,10 @@ describe('Clusterpage', () => {
     })
 
     // check if everything is on page
-    it('info cluster', () => {
+    it('info poi', () => {
         // check visibility
         cy.get('h1').should('be.visible')
         cy.get('#info').should('be.visible')
         cy.contains('Bekijk op kaart').should('be.visible')
-        cy.get('.programme-wrapper').should('be.visible')
-
-        // check if there is text 
-        cy.get('h1').contains('Hello there')
-        cy.get('#info').contains('Hello there my dear friends')
     })
 })

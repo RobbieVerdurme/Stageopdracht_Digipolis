@@ -10,9 +10,9 @@ describe('OverviewPage', () => {
         cy.server()
         cy.route({
             method: 'GET',
-            url: '/clusters.json',
+            url: '/POI.json',
             status: 200,
-            response: "fixture:clusters.json"
+            response: "fixture:POI.json"
         })
 
         // Navigate to page with mocked backendroute
@@ -45,8 +45,8 @@ describe('OverviewPage', () => {
         // must be item of the backendcall
     })
 
-    // test redirect to cluster
-    it('Redirect to cluster', () => {
+    // test redirect to point of intrest
+    it('Redirect to poi', () => {
         // click on first readmore link
         cy.get('.read-more').first().click()
 
