@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 10.19.0
+  - 12.16.0
   
 before_install:
   # make postintall executable 
