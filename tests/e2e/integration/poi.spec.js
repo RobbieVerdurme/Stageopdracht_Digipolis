@@ -21,8 +21,7 @@ describe('POIpage', () => {
 
         // check 
         cy.url().should('include', 1)
-        // wait for the page to be completely loaded
-        cy.wait(1)
+        cy.get('#info').should('be.visible')
 
         // inject Axe
         cy.injectAxe()
