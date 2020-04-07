@@ -38,17 +38,11 @@ export default {
     Collection: () => import('~/components/organisms/collection.vue')
   },
   created() {
-    this.setCurrentPage()
-    this.setFilterItems()
-    this.next = this.hasNextPage()
-    this.prev = this.hasPrevPage()
+    this.updateProperties()
   },
   watch: {
     $route () {
-      this.setCurrentPage()
-      this.setFilterItems()
-      this.next = this.hasNextPage()
-      this.prev = this.hasPrevPage()
+      this.updateProperties()
     }
   },
   data () {
@@ -78,15 +72,15 @@ export default {
     }
   },
   methods: {
-    setCurrentPage () {
+    updateProperties () {
       // get query page
       this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-    },
-    setFilterItems () {
       // generate pageoffset
       this.offset = this.currentPage === 1?0: ((this.currentPage - 1)  * this.limit)
       // get items to be displayed
       this.filterdItems = this.items.slice(this.offset, this.limit + this.offset)
+      this.next = this.hasNextPage()
+      this.prev = this.hasPrevPage()
     },
     /**
      * check if there is a nex page
