@@ -2,7 +2,9 @@
   <div class="container">
     <v-Header />
     <nuxt />
-    <v-Footer />
+    <footer>
+      <v-Footer />
+    </footer>
   </div>
 </template>
 

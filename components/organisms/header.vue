@@ -12,7 +12,7 @@
           menu
         </button>
 
-        <ul class="links ">
+        <ul class="links" id="links">
           <li>
             <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
               Home
