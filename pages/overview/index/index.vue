@@ -1,5 +1,28 @@
 <template>
-  <Collection :items="items" />
+<div>
+  <Collection :items="filterdItems" />
+  <!--Pagination-->
+  <nav class="pager" aria-labelledby="pagination_1-32">
+    <h2 id="pagination_1-32" class="visually-hidden">Pagination</h2>
+    <ul class="pager__items">
+        <!--Previous page-->
+        <li v-if="prev" class="previous">
+          <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage - 1}}" class="previous">Vorige<span class="visually-hidden">pagina</span></nuxt-link>
+        </li>
+        <!--/Previous page-->
+        <li v-for="pagenumber in totalPageCount" :key="pagenumber" :class="currentPage === pagenumber?'active':''"> 
+          <span class="visually-hidden">Page</span>
+          <nuxt-link :to="{name: 'overview-index', query: {page: pagenumber}}"> {{ pagenumber }} </nuxt-link>
+        </li>
+        <!--Next page-->
+        <li v-if="next" class="next">
+          <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage + 1}}" class="next"> Volgende <span class="visually-hidden">pagina</span></nuxt-link>
+        </li>
+        <!--/Next page-->
+      </ul>
+    </nav>
+    <!--/Pagination-->
+  </div>
 </template>
 
 <script>
@@ -14,14 +37,71 @@ export default {
   components: {
     Collection: () => import('~/components/organisms/collection.vue')
   },
+  created() {
+    this.setCurrentPage()
+    this.setFilterItems()
+    this.next = this.hasNextPage()
+    this.prev = this.hasPrevPage()
+  },
+  watch: {
+    $route () {
+      this.setCurrentPage()
+      this.setFilterItems()
+      this.next = this.hasNextPage()
+      this.prev = this.hasPrevPage()
+    }
+  },
+  data () {
+    return {
+      items: this.$store.getters['poi/getAllPointsOfIntrest'],
+      filterdItems: [],
+      offset: 0,
+      limit: 10,
+      pageNumbers: [],
+      currentPage: null,
+      next: null,
+      prev: null
+    }
+  },
   computed: {
-    items () {
-      return this.$store.getters['poi/getAllPointsOfIntrest']
+    /**
+     * slice items to the offset en limit per page
+     */
+    filter () {
+      return this.items.slice(this.offset, this.limit + this.offset)
+    },
+    /**
+     * get the total page cound
+     */
+    totalPageCount () {
+      return Math.floor(this.items.length / this.limit)
+    }
+  },
+  methods: {
+    setCurrentPage () {
+      // get query page
+      this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+    },
+    setFilterItems () {
+      // generate pageoffset
+      this.offset = this.currentPage === 1?0: ((this.currentPage - 1)  * this.limit)
+      // get items to be displayed
+      this.filterdItems = this.items.slice(this.offset, this.limit + this.offset)
+    },
+    /**
+     * check if there is a nex page
+     */
+    hasNextPage () {
+      const nextOffset = this.offset + this.limit
+      return this.items.slice(nextOffset, this.limit + nextOffset).length !== 0?true:false
+    },
+    /**
+     * check if there is a previous page
+     */
+    hasPrevPage () {
+      const prevOffset = this.offset - this.limit
+      return this.items.slice(prevOffset, this.limit + prevOffset).length !== 0?true:false
     }
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -69,7 +69,7 @@ export default {
     { src: '~/plugins/vue-qrcode-reader.js', mode: 'client' },
 
     // https://github.com/vue-a11y/vue-axe
-    { src: '~/plugins/axe.js' }
+    // { src: '~/plugins/axe.js' }
   ],
   /*
   ** Nuxt.js dev-modules
