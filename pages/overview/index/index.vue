@@ -5,10 +5,10 @@
 <script>
 export default {
   async fetch ({ store }) {
-    //check if clusterinfo in store is filled
-    if(!store.state.clusters.clusterInfo.length){
-      // get clusterinfo from online
-      await store.dispatch('clusters/getClusters')
+    //check if pointsOfInterst in store is filled
+    if(!store.state.poi.pointsOfInterst.length){
+      // get pointsOfInterst from online
+      await store.dispatch('poi/setPointsOfInterst')
     }
   },
   components: {
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     items () {
-      return this.$store.getters['clusters/getAllClusters']
+      return this.$store.getters['poi/getAllPointsOfIntrest']
     }
   }
 }

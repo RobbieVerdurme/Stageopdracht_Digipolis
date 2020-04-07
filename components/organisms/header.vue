@@ -1,7 +1,7 @@
 <template>
   <header class="header header--menu">
     <div class="content-container">
-      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">muntenroute</nuxt-link>
+      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
       <nav class="menu">
         <button
           type="button"
@@ -49,7 +49,7 @@
             </div>
             <div class="modal-content">
               <div class="header">
-                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">muntenroute</nuxt-link>
+                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
               </div>
               <div class="menu-links">
                 <ul class="links ">
@@ -87,6 +87,11 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      title: 'Lichtfestival'
+    }
+  },
   mounted() {
     /**
     * import @digipolis-gent/modal

@@ -1,9 +1,10 @@
 <template>
   <div>
     <!-- title -->
-    <h1>{{ item.title }}</h1>
+    <h1>{{ item.naam_nl }}</h1>
     <!--info-->
-    <p id="info">{{ item.info}}</p>
+    <h4>{{ item.omschrijving_nl}}</h4>
+    <p class>{{ item.detail_nl}}</p>
   </div>
 </template>
 <script>

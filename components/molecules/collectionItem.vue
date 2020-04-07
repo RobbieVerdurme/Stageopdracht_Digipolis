@@ -2,13 +2,13 @@
   <div>
     <article class="teaser-content node node--type-outdoor-location node--view-mode-teaser">
       <div class="content__second">
-        <h3>{{ item.title }}</h3>
+        <h3>{{ item.naam_nl }}</h3>
         <p class="">
-          {{ item.description }}
+          {{ item.omschrijving_nl }}
         </p>
-        <nuxt-link :to="{name: 'cluster-id', params:{id: item.id}}" class="read-more standalone-link" :title="item.title">
+        <nuxt-link :to="{name: 'poi-id', params:{id: item.volgnummer}}" class="read-more standalone-link" :title="item.title">
           <span class="visually-hidden">
-            {{ item.title }}
+            {{ item.naam_nl }}
           </span>
           read more
         </nuxt-link>
@@ -16,7 +16,7 @@
       <div class="content__first">
         <div class="figure-wrapper">
           <figure>
-            <img :src="item.image" alt="alt text">
+            <img :src="item.symbol" alt="alt text">
           </figure>
           <div class="accolade-inverse bottom-left" />
         </div>
