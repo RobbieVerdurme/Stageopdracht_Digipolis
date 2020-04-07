@@ -20,6 +20,9 @@ routeinfo page | 2020-03-03
 footer components | 2020-03-03
 vuex store with default value | 2020-03-05
 backend calls from store | 2020-03-11
+vue-axe | 2020-03-18
+cypress | 2020-03-18
+cypress-axe | 2020-03-18
 
 
 ### Changed

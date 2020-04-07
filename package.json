@@ -10,6 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test": "node_modules/.bin/cypress run",
     "postinstall": "./postinstall.sh"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
     "breakpoint-sass": "^2.7.1",
+    "cypress": "^4.2.0",
     "gent_styleguide": "^3.0.0-beta17",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.3.1",
@@ -28,8 +30,10 @@
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "babel-eslint": "^10.0.1",
+    "cypress-axe": "^0.5.3",
     "eslint": "^6.8.0",
     "eslint-plugin-nuxt": ">=0.4.2",
-    "node-sass": "^4.13.1"
+    "node-sass": "^4.13.1",
+    "vue-axe": "^1.0.8"
   }
 }
