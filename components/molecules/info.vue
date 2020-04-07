@@ -3,8 +3,8 @@
     <!-- title -->
     <h1>{{ item.naam_nl }}</h1>
     <!--info-->
-    <h4>{{ item.omschrijving_nl}}</h4>
-    <p class>{{ item.detail_nl}}</p>
+    <p><b>{{ item.omschrijving_nl}}</b></p>
+    <p>{{ item.detail_nl}}</p>
   </div>
 </template>
 <script>

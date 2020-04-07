@@ -1,6 +1,7 @@
 <template>
   <main class="news-overview-page">
     <section class="overview-layout">
+      <h1>Beziens­waar­dig­he­den :</h1>
       <div class="display-switcher">
         <span>View the results</span>
 
