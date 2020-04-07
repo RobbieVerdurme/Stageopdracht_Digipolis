@@ -14,17 +14,17 @@
 
         <ul class="links ">
           <li>
-            <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
+            <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''" class="modal-close">
               Home
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''">
+            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''" class="modal-close">
               Overzicht route
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
+            <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''" class="modal-close">
               Scanner
             </nuxt-link>
           </li>
@@ -54,17 +54,17 @@
               <div class="menu-links">
                 <ul class="links ">
                   <li>
-                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
+                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''" class="modal-close">
                       Home
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index' || activeLink==='overview-index-map'?'active':''">
+                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index' || activeLink==='overview-index-map'?'active':''" class="modal-close">
                       Overzicht route
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
+                    <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''" class="modal-close">
                       Scanner
                     </nuxt-link>
                   </li>
@@ -97,10 +97,9 @@ export default {
   watch: {
     $route () {
       this.activeLink = this.$route.name
-      document.querySelector("#menu").close
     }
   },
-  mounted() {
+  beforeMount() {
     const createModal = function(modal) {
       // eslint-disable-next-line no-undef
       new Modal(modal, {
