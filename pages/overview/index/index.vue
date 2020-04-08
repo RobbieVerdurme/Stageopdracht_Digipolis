@@ -87,14 +87,14 @@ export default {
      */
     hasNextPage () {
       const nextOffset = this.offset + this.limit
-      return this.items.slice(nextOffset, this.limit + nextOffset).length !== 0?true:false
+      return this.items.slice(nextOffset, this.limit + nextOffset).length?true:false
     },
     /**
      * check if there is a previous page
      */
     hasPrevPage () {
       const prevOffset = this.offset - this.limit
-      return this.items.slice(prevOffset, this.limit + prevOffset).length !== 0?true:false
+      return this.items.slice(prevOffset, this.limit + prevOffset).length?true:false
     }
   }
 }
