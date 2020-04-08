@@ -11,11 +11,16 @@
           Bekijk op kaart
         </nuxt-link>
       </div>
-
-      <div>
-          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.id + 1}}" class="button button-primary left icon-arrow-left"> Vorige</nuxt-link>
-          <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.id - 1}}" class="button button-primary right icon-arrow-right">Volgende</nuxt-link>
-      </div>
+      <nav>
+        <ul style="list-style-type: none;">
+          <li class="left">
+            <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.id + 1}}" class="standalone-link back"> Vorige</nuxt-link>
+          </li>
+          <li class="right">
+            <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.id - 1}}" class="standalone-link">Volgende</nuxt-link>
+          </li>
+        </ul>
+      </nav>
     </section>
   </main>
 </template>
@@ -63,10 +68,10 @@ export default {
 <style scoped>
 .left {
   left: 0px;
-  position: absolute !important;
+  position: absolute;
 }
 .right {
   right: 0px;
-  position: absolute !important;
+  position: absolute;
 }
 </style>
