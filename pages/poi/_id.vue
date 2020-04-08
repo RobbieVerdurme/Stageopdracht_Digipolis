@@ -3,17 +3,17 @@
     <section class="detail-layout">
       <Info :item="poi.properties" />
       <div>
-        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
+        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-secondary">
           Bekijk op kaart
         </nuxt-link>
       </div>
       <nav>
-        <ul style="list-style-type: none;">
-          <li class="left">
+        <ul>
+          <li>
             <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.id + 1}}" class="standalone-link back"> Vorige</nuxt-link>
           </li>
-          <li class="right">
-            <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.id - 1}}" class="standalone-link">Volgende</nuxt-link>
+          <li>
+            <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.id - 1}}" class="standalone-link right">Volgende</nuxt-link>
           </li>
         </ul>
       </nav>
@@ -64,11 +64,13 @@ export default {
 }
 </script>
 <style scoped>
-.left {
-  left: 0px;
-  position: absolute;
+nav ul {
+  list-style-type: none;
 }
-.right {
+nav ul li {
+  display: inline;
+}
+.right{
   right: 0px;
   position: absolute;
 }
