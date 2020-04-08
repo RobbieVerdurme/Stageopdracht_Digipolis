@@ -10,10 +10,34 @@
           <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage - 1}}" class="previous">Vorige<span class="visually-hidden">pagina</span></nuxt-link>
         </li>
         <!--/Previous page-->
-        <li v-for="pagenumber in totalPageCount" :key="pagenumber" :class="currentPage === pagenumber?'active':''"> 
+
+        <!--If ... has to be displayed-->
+        <li v-if="fromPage !== 1">
+          <span class="visually-hidden">Page</span>
+          <nuxt-link :to="{name: 'overview-index', query: {page: 1}}"> 1 </nuxt-link>
+        </li>
+        <li v-if="fromPage !== 1 && fromPage - 1 !== 1">
+          ...
+        </li>
+        <!-- /If ... has to be displayed-->
+        
+        <!--Pages-->
+        <li v-for="pagenumber in pageItems" :key="pagenumber" :class="currentPage === pagenumber?'active':''">
           <span class="visually-hidden">Page</span>
           <nuxt-link :to="{name: 'overview-index', query: {page: pagenumber}}"> {{ pagenumber }} </nuxt-link>
         </li>
+        <!--/Pages-->
+
+        <!--If ... has to be displayed-->
+        <li v-if="toPage !== totalPageCount && toPage + 1 !== totalPageCount">
+          ...
+        </li>
+        <li v-if="toPage !== totalPageCount">
+          <span class="visually-hidden">Page</span>
+          <nuxt-link :to="{name: 'overview-index', query: {page: totalPageCount}}"> {{ totalPageCount }} </nuxt-link>
+        </li>
+        <!--/If ... has to be displayed-->
+
         <!--Next page-->
         <li v-if="next" class="next">
           <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage + 1}}" class="next"> Volgende <span class="visually-hidden">pagina</span></nuxt-link>
@@ -47,11 +71,20 @@ export default {
   },
   data () {
     return {
+      // items
       items: this.$store.getters['poi/getAllPointsOfIntrest'],
+
+      // items to display
       filterdItems: [],
+
+      // settings to filter the items
       offset: 0,
-      limit: 10,
-      pageNumbers: [],
+      limit: 5,
+
+      //settings to configure pagination
+      pagelimit: 3,
+      fromPage: null,
+      toPage: null,
       currentPage: null,
       next: null,
       prev: null
@@ -75,10 +108,26 @@ export default {
     updateProperties () {
       // get query page
       this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+      // get max page and min page
+      this.toPage = parseInt(this.currentPage) + Math.floor(this.pagelimit / 2) > this.totalPageCount? this.totalPageCount: parseInt(this.currentPage) + Math.floor(this.pagelimit / 2)
+      this.fromPage = this.currentPage - Math.floor(this.pagelimit / 2) < 1 ?
+        1
+        : this.toPage === this.totalPageCount ?
+          this.totalPageCount - this.pagelimit + 1
+          : this.currentPage - Math.floor(this.pagelimit / 2)
+
+      // generate the page numbers
+      var countFromPage = this.fromPage
+      // eslint-disable-next-line no-unused-vars
+      this.pageItems = [...new Array(this.pagelimit)].map((x) => countFromPage++)
+
       // generate pageoffset
       this.offset = this.currentPage === 1?0: ((this.currentPage - 1)  * this.limit)
+
       // get items to be displayed
       this.filterdItems = this.items.slice(this.offset, this.limit + this.offset)
+
+      // check if there is a next page
       this.next = this.hasNextPage()
       this.prev = this.hasPrevPage()
     },
