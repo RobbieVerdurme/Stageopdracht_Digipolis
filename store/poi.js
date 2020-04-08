@@ -6,7 +6,8 @@ const axios = require('axios')
  * state
  */
 export const state = () => ({
-    pointsOfInterst: []
+    pointsOfInterst: [],
+    selectedPointOfIntrest: {}
   })
 
 /**
@@ -40,7 +41,14 @@ export const getters = {
      */
     getPOIDetailById: (state) => (id) => {
         return state.pointsOfInterst.find(p => p.properties.volgnummer === id)
-    } 
+    },
+
+    /**
+     * get selected poi
+     */
+    getSelectedPOI: (state) => {
+        return state.selectedPointOfIntrest
+    }
 }
 
 /** 
@@ -54,6 +62,15 @@ export const mutations = {
      */
     setPointsOfInterst(state, payload){
         state.pointsOfInterst = payload
+    },
+
+    /**
+     * set the current selected poi this is for the hero-img on the header
+     * @param {*} state 
+     * @param {Object} payload 
+     */
+    setCurrentPOI(state, payload){
+        state.selectedPointOfIntrest = payload
     }
 }
 

@@ -83,6 +83,12 @@
       </nav>
     </div>
     <hr />
+    <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
+      <figure>
+        <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
+        <div v-else class="image-wrapper" data-ratio="4:1"><img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl" /></div>
+      </figure>
+    </figure>
   </header>
 </template>
 <script>
@@ -94,13 +100,23 @@ export default {
     return {
       title: 'Lichtfestival',
       activeLink: this.$route.name,
-      menuModal: null
+      menuModal: null,
+      poi: null,
+      imageError: false
+    }
+  },
+  computed: {
+    selectedPOI () {
+      return this.$store.getters['poi/getSelectedPOI']
     }
   },
   watch: {
     $route () {
       this.activeLink = this.$route.name
       this.menuModal.close()
+    },
+    selectedPOI (value) {
+      this.poi = value
     }
   },
   beforeMount() {
