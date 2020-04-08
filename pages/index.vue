@@ -3,7 +3,7 @@
     <section class="detail-layout">
       <Info :item="item.properties" />
       <div>
-        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
+        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-secondary">
           Bekijk op kaart
         </nuxt-link>
       </div>
