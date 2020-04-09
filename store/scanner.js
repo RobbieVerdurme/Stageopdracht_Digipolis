@@ -1,6 +1,52 @@
+// imports
+// eslint-disable-next-line no-undef
+const axios = require('axios')
+
+/**
+ * state
+ */
 export const state = () => ({
-  all: [
-    { id: '1', naam_nl: 'Scanner info', omschrijving_nl: 'Scanner is op basis van qr-code-reader', detail_nl: 'Fill text . Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin mauris vel nisi condimentum accumsan. Phasellus eget est condimentum erat fringilla congue. Duis malesuada justo ut tincidunt tincidunt. Vestibulum in felis quam. In varius ligula vel ultricies consequat. Cras fringilla blandit purus nec fermentum. Vivamus tristique ac mi a pulvinar. Quisque non ipsum tortor. Nunc nec odio non tellus malesuada molestie id sed ipsum. Curabitur risus ex, aliquet sed orci a, sagittis finibus sem. Ut bibendum purus id sodales scelerisque.' }
-  ]
+  scannerInfo: {}
 })
-export const getters = {}
+
+/**
+ * getters
+ */
+export const getters = {
+  /**
+   * get scanner info
+   */
+  getScannerInfo: (state) => {
+    return state.scannerInfo
+  }
+}
+
+/**
+ * mutations
+ */
+export const mutations = {
+  /**
+   * Set scanner info
+   * @param {*} state 
+   * @param {Object} payload 
+   */
+  setScannerInfo(state, payload){
+    state.scannerInfo = payload
+  }
+}
+
+/**
+ * actions
+ */
+export const actions = {
+  async setScannerInfo ({ commit }) {
+    // eslint-disable-next-line no-useless-catch
+    try{
+      await axios.get('/scanner.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
+        commit('setScannerInfo', data)
+      })
+    }catch(error){
+      throw error
+    }
+  }
+}
