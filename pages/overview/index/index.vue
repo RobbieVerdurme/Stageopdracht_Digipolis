@@ -1,149 +1,50 @@
 <template>
-<div>
-  <Collection :items="filterdItems" />
-  <!--Pagination-->
-  <nav class="pager" aria-labelledby="pagination_1-32">
-    <h2 id="pagination_1-32" class="visually-hidden">Pagination</h2>
-    <ul class="pager__items">
-        <!--Previous page-->
-        <li v-if="prev" class="previous">
-          <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage - 1}}" class="previous">Vorige<span class="visually-hidden">pagina</span></nuxt-link>
-        </li>
-        <!--/Previous page-->
-
-        <!--If ... has to be displayed-->
-        <li v-if="fromPage !== 1">
-          <span class="visually-hidden">Page</span>
-          <nuxt-link :to="{name: 'overview-index', query: {page: 1}}"> 1 </nuxt-link>
-        </li>
-        <li v-if="fromPage !== 1 && fromPage - 1 !== 1">
-          ...
-        </li>
-        <!-- /If ... has to be displayed-->
-        
-        <!--Pages-->
-        <li v-for="pagenumber in pageItems" :key="pagenumber" :class="currentPage === pagenumber?'active':''">
-          <span class="visually-hidden">Page</span>
-          <nuxt-link :to="{name: 'overview-index', query: {page: pagenumber}}"> {{ pagenumber }} </nuxt-link>
-        </li>
-        <!--/Pages-->
-
-        <!--If ... has to be displayed-->
-        <li v-if="toPage !== totalPageCount && toPage + 1 !== totalPageCount">
-          ...
-        </li>
-        <li v-if="toPage !== totalPageCount">
-          <span class="visually-hidden">Page</span>
-          <nuxt-link :to="{name: 'overview-index', query: {page: totalPageCount}}"> {{ totalPageCount }} </nuxt-link>
-        </li>
-        <!--/If ... has to be displayed-->
-
-        <!--Next page-->
-        <li v-if="next" class="next">
-          <nuxt-link :to="{name: 'overview-index' , query: { page: this.currentPage + 1}}" class="next"> Volgende <span class="visually-hidden">pagina</span></nuxt-link>
-        </li>
-        <!--/Next page-->
-      </ul>
-    </nav>
+  <div>
+    <Collection :items="filterdItems" />
+    <!--Pagination-->
+    <pageination
+      :items="items"
+      :currentPage="currentPage"
+      @updateFilterdItems="updateFilterdItems"
+    />
     <!--/Pagination-->
   </div>
 </template>
 
 <script>
 export default {
-  async fetch ({ store }) {
+  async fetch({ store }) {
     //check if pointsOfInterst in store is filled
-    if(!store.state.poi.pointsOfInterst.length){
+    if (!store.state.poi.pointsOfInterst.length) {
       // get pointsOfInterst from online
       await store.dispatch('poi/setPointsOfInterst')
     }
   },
   components: {
-    Collection: () => import('~/components/organisms/collection.vue')
+    Collection: () => import('~/components/organisms/collection.vue'),
+    pageination: () => import('~/components/molecules/pagination')
   },
   created() {
-    this.updateProperties()
+    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
   },
   watch: {
-    $route () {
-      this.updateProperties()
+    $route() {
+      this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
     }
   },
-  data () {
+  data() {
     return {
       // items
       items: this.$store.getters['poi/getAllPointsOfIntrest'],
-
-      // items to display
       filterdItems: [],
 
-      // settings to filter the items
-      offset: 0,
-      limit: 5,
-
       //settings to configure pagination
-      pagelimit: 3,
-      fromPage: null,
-      toPage: null,
-      currentPage: null,
-      next: null,
-      prev: null
-    }
-  },
-  computed: {
-    /**
-     * slice items to the offset en limit per page
-     */
-    filter () {
-      return this.items.slice(this.offset, this.limit + this.offset)
-    },
-    /**
-     * get the total page cound
-     */
-    totalPageCount () {
-      return Math.floor(this.items.length / this.limit)
+      currentPage: null
     }
   },
   methods: {
-    updateProperties () {
-      // get query page
-      this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-      // get max page and min page
-      this.toPage = parseInt(this.currentPage) + Math.floor(this.pagelimit / 2) > this.totalPageCount? this.totalPageCount: parseInt(this.currentPage) + Math.floor(this.pagelimit / 2)
-      this.fromPage = this.currentPage - Math.floor(this.pagelimit / 2) < 1 ?
-        1
-        : this.toPage === this.totalPageCount ?
-          this.totalPageCount - this.pagelimit + 1
-          : this.currentPage - Math.floor(this.pagelimit / 2)
-
-      // generate the page numbers
-      var countFromPage = this.fromPage
-      // eslint-disable-next-line no-unused-vars
-      this.pageItems = [...new Array(this.pagelimit)].map((x) => countFromPage++)
-
-      // generate pageoffset
-      this.offset = this.currentPage === 1?0: ((this.currentPage - 1)  * this.limit)
-
-      // get items to be displayed
-      this.filterdItems = this.items.slice(this.offset, this.limit + this.offset)
-
-      // check if there is a next page
-      this.next = this.hasNextPage()
-      this.prev = this.hasPrevPage()
-    },
-    /**
-     * check if there is a nex page
-     */
-    hasNextPage () {
-      const nextOffset = this.offset + this.limit
-      return this.items.slice(nextOffset, this.limit + nextOffset).length?true:false
-    },
-    /**
-     * check if there is a previous page
-     */
-    hasPrevPage () {
-      const prevOffset = this.offset - this.limit
-      return this.items.slice(prevOffset, this.limit + prevOffset).length?true:false
+    updateFilterdItems(value) {
+      this.filterdItems = value
     }
   }
 }
