@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 feature  | date added
 ------------- | -------------
+paginaition | 2020-04-09
 accessibility testing | 2020-04-07
 Vue layers popup | 2020-04-06
 store poi | 2020-03-24
