@@ -1,6 +1,6 @@
 <template>
   <nav class="pager" aria-labelledby="pagination_1-32">
-    <h2 id="pagination_1-32" class="visually-hidden">Pagination</h2>
+    <h2 id="pagination_1-32" class="visually-hidden">Paginering</h2>
     <ul class="pager__items">
       <!--Previous page-->
       <li v-if="prev" class="previous">
@@ -14,11 +14,14 @@
       </li>
       <!--/Previous page-->
 
-      <!--If ... has to be displayed-->
+      <!--Display first item-->
       <li v-if="fromPage !== 1">
-        <span class="visually-hidden">Page</span>
+        <span class="visually-hidden">pagina</span>
         <nuxt-link :to="{name: 'overview-index', query: {page: 1}}">1</nuxt-link>
       </li>
+      <!--/Display first item-->
+      
+      <!--If ... has to be displayed-->
       <li v-if="fromPage !== 1 && fromPage - 1 !== 1">...</li>
       <!-- /If ... has to be displayed-->
 
@@ -28,20 +31,23 @@
         :key="pagenumber"
         :class="currentPage === pagenumber?'active':''"
       >
-        <span class="visually-hidden">Page</span>
+        <span class="visually-hidden">pagina</span>
         <nuxt-link :to="{name: 'overview-index', query: {page: pagenumber}}">{{ pagenumber }}</nuxt-link>
       </li>
       <!--/Pages-->
 
       <!--If ... has to be displayed-->
       <li v-if="toPage !== totalPageCount && toPage + 1 !== totalPageCount">...</li>
+      <!--/If ... has to be displayed-->
+
+      <!--Display last item-->
       <li v-if="toPage !== totalPageCount">
-        <span class="visually-hidden">Page</span>
+        <span class="visually-hidden">pagina</span>
         <nuxt-link
           :to="{name: 'overview-index', query: {page: totalPageCount}}"
         >{{ totalPageCount }}</nuxt-link>
       </li>
-      <!--/If ... has to be displayed-->
+      <!--/Display last item-->
 
       <!--Next page-->
       <li v-if="next" class="next">
