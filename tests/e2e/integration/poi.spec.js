@@ -16,7 +16,7 @@ describe('POIpage', () => {
         })
 
         //navigate to cluster page
-        cy.contains('Overview route').click()
+        cy.contains('Overzicht route').click()
         cy.get('.read-more').first().click()
 
         // check 

@@ -3,7 +3,7 @@
     <client-only>
       <VueLayersMap :features.sync="features" :route.sync="route" />
     </client-only>
-    <Cta />
+    <Cta style="margin: 2rem;"/>
   </div>
 </template>
 
@@ -34,7 +34,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

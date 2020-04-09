@@ -14,17 +14,17 @@
 
         <ul class="links" id="links">
           <li>
-            <nuxt-link :to="{name: 'index'}">
+            <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
               Home
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'overview-index'}">
-              Overview route
+            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''" >
+              Overzicht route
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'scanner'}">
+            <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
               Scanner
             </nuxt-link>
           </li>
@@ -54,17 +54,17 @@
               <div class="menu-links">
                 <ul class="links ">
                   <li>
-                    <nuxt-link :to="{name: 'index'}">
+                    <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
                       Home
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'overview-index'}">
-                      Overview route
+                    <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index' || activeLink==='overview-index-map'?'active':''">
+                      Overzicht route
                     </nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link :to="{name: 'scanner'}">
+                    <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
                       Scanner
                     </nuxt-link>
                   </li>
@@ -83,27 +83,45 @@
       </nav>
     </div>
     <hr />
+    <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
+      <figure>
+        <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
+        <div v-else class="image-wrapper" data-ratio="4:1"><img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl" /></div>
+      </figure>
+    </figure>
   </header>
 </template>
 <script>
+// import
+import Modal from '@digipolis-gent/modal'
+
 export default {
   data () {
     return {
-      title: 'Lichtfestival'
+      title: 'Lichtfestival',
+      activeLink: this.$route.name,
+      menuModal: null,
+      poi: null,
+      imageError: false
     }
   },
-  mounted() {
-    /**
-    * import @digipolis-gent/modal
-    */
-    if (window) {
-      // eslint-disable-next-line no-undef
-      var Modal = require('@digipolis-gent/modal')
+  computed: {
+    selectedPOI () {
+      return this.$store.getters['poi/getSelectedPOI']
     }
-
-    const createModal = function(modal) {
-      // eslint-disable-next-line no-undef
-      new Modal(modal, {
+  },
+  watch: {
+    $route () {
+      this.activeLink = this.$route.name
+      this.menuModal.close()
+    },
+    selectedPOI (value) {
+      this.poi = value
+    }
+  },
+  beforeMount() {
+    const modal = document.querySelector("#menu")
+    this.menuModal =  new Modal(modal, {
         // The modal is always visible from tablet and up,
         // this is atypical.
         resizeEvent: (open, close) => {
@@ -118,9 +136,6 @@ export default {
         },
         changeHash: false
       })
-    }
-    
-    createModal(document.querySelector("#menu"))
   }
 }
 </script>
