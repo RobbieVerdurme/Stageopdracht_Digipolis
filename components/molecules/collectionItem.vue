@@ -16,7 +16,8 @@
       <div class="content__first">
         <div class="figure-wrapper">
           <figure>
-            <img :src="item.symbol" alt="alt text">
+            <img v-if="!imageError" :src="item.symbol" :alt="item.naam_nl" :onerror="imageError = true">
+            <div v-else class="image-wrapper" data-ratio="8:5"><img src="http://example.com/broken-url.jpg" :alt="item.naam_nl" /></div>
           </figure>
           <div class="accolade-inverse bottom-left" />
         </div>
@@ -31,6 +32,11 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      imageError : false
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="cta-block box-left download">
-    <div class="inner-box">
+  <section class=" highlight cta-block download highlight--left">
+    <div class="highlight__inner">
       <div>
         <p class="">
           download website als app... of download gpx hieronder
@@ -19,5 +19,5 @@
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 </template>

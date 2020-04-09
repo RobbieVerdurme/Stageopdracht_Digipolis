@@ -9,17 +9,15 @@
 
 <script>
 export default {
+  middleware: 'scanner',
   components: {
     scanner: () => import('~/components/client-only/scanner'),
     Info: () => import('~/components/molecules/info')
   },
-  computed: {
-    item () {
-      return this.$store.state.scanner.all[0]
+  data () {
+    return {
+      item: this.$store.getters['scanner/getScannerInfo']
     }
   }
 }
 </script>
-
-<style>
-</style>

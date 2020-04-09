@@ -16,7 +16,7 @@ describe('OverviewPage', () => {
         })
 
         // Navigate to page with mocked backendroute
-        cy.contains('Overview route').click()
+        cy.contains('Overzicht route').click()
 
         cy.injectAxe()
     })
@@ -32,14 +32,14 @@ describe('OverviewPage', () => {
     // check if list is there
     it('Check if Display switcher is on page', () => {
         // check if item is visable
-        cy.contains('As list').should('be.visible')
+        cy.contains('Als lijst').should('be.visible')
 
         // check if links have text
-        cy.contains('As list')
-        cy.contains('On map')
+        cy.contains('Als lijst')
+        cy.contains('Op kaart')
 
         // check if link is disabled(of attribute span)
-        cy.contains('As list').should('have.class', '')
+        cy.contains('Als lijst').should('have.class', '')
 
         // check the first item of the list
         // must be item of the backendcall
@@ -60,7 +60,7 @@ describe('OverviewPage', () => {
     // Navigate to map
     it('Navigate to map page', () => {
         // Navigate to map
-        cy.contains('On map').click()
+        cy.contains('Op kaart').click()
 
         // url check
         cy.url().should('include', '/overview/map')
@@ -69,7 +69,7 @@ describe('OverviewPage', () => {
     // check if everything is there
     it('Check if everything is on map page', () => {
         // Navigate to map
-        cy.contains('On map').click()
+        cy.contains('Op kaart').click()
 
         // check if map is there
         // This gives error 'does not find item with prop load-tiles-while-animating'

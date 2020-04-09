@@ -1,10 +1,12 @@
 <template>
-  <main class="news-overview-page">
-    <section class="overview-layout">
+  <main class="info-page">
+    <section class="detail-layout">
       <Info :item="item.properties" />
-      <nuxt-link :to="{name: 'overview-index-map'}" class="button button-primary">
-        Bekijk op kaart
-      </nuxt-link>
+      <div>
+        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-secondary">
+          Bekijk op kaart
+        </nuxt-link>
+      </div>
       <Cta />
     </section>
   </main>
@@ -12,13 +14,7 @@
 
 <script>
 export default {
-  async fetch({ store }){
-    // check if routepoints is empty
-    if(!store.state.routes.routepoints.length){
-      // get routes
-      await store.dispatch('routes/setRoutepoints')
-    }
-  },
+  middleware: 'route',
   components: {
     Info: () => import('~/components/molecules/info'),
     Cta: () => import('~/components/molecules/cta')
