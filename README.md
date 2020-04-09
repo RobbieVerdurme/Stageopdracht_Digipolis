@@ -33,8 +33,10 @@ $ npm run generate
 - nuxt axios: https://axios.nuxtjs.org/
 - vuelayers: https://vuelayers.github.io/#/
 - qr-code-reader: https://github.com/gruhn/vue-qrcode-reader
+- cypress: https://www.cypress.io/
+- cypress-axe: https://github.com/avanslaars/cypress-axe
 - styleguide: https://stijlgids.stad.gent/v3/index.html
-- digipolis-gent/modal: https://github.com/StadGent/npm_package_modal
+- digipolis-gent/modal: https://www.npmjs.com/package/@digipolis-gent/modal
 
 ## Nuxt
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
