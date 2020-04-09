@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 feature  | date added
 ------------- | -------------
+accessibility testing | 2020-04-07
+Vue layers popup | 2020-04-06
+store poi | 2020-03-24
+store routes | 2020-03-24
+poi detail page | 2020-03-24
 qr-code scanner with qr-code-reader | 2020-02-27
 qr-code scanner page(Scanner) | 2020-02-27
 open layers map with vuelayers  | 2020-02-27
@@ -28,6 +33,7 @@ cypress-axe | 2020-03-18
 ### Changed
 feature  | date changed
 ------------- | -------------
+store scanner | 2020-03-24
 default.vue page | 2020-02-27
 default.vue | 2020-03-03
 style scanner  | 2020-03-04
@@ -37,7 +43,11 @@ text based on props and store | 2020-03-05
  ### Removed
  feature  | date removed
 ------------- | -------------
+ programme | 2020-03-24
+ modal.vue | 2020-03-24
+ cluster detail page | 2020-30-24
  vue material | 2020-03-03
  index page cluster | 2020-03-03
+
  
  
