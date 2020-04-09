@@ -12,13 +12,7 @@
 
 <script>
 export default {
-  async fetch({ store }){
-    // check if routepoints is empty
-    if(!store.state.routes.routepoints.length){
-      // get routes
-      await store.dispatch('routes/setRoutepoints')
-    }
-  },
+  middleware: 'route',
   components: {
     Info: () => import('~/components/molecules/info'),
     Cta: () => import('~/components/molecules/cta')
