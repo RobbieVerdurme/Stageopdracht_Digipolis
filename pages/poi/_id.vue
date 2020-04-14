@@ -1,5 +1,5 @@
 <template>
-  <main class="info-page">
+  <main class="info-page" v-touch="{left: () => swipe('Left'), right: () => swipe('Right')}">
     <section class="detail-layout">
       <Info :item="poi.properties" />
       <div>
@@ -9,10 +9,10 @@
       </div>
       <ul>
         <li>
-          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.id + 1}}" class="standalone-link back">Vorige</nuxt-link>
+          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.nextPoi}}" class="standalone-link back">Vorige</nuxt-link>
         </li>
         <li>
-          <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.id - 1}}" class="standalone-link right">Volgende</nuxt-link>
+          <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.previousPoi}}" class="standalone-link right">Volgende</nuxt-link>
         </li>
       </ul>
     </section>
@@ -51,6 +51,18 @@ export default {
     // vorig poi
     previousPoi () {
       return this.id - 1
+    }
+  },
+  methods: {
+    swipe (direction) {
+      // check if direction is left and there is a previous poi
+      if(direction === 'Left' && this.previousPoi > 0){
+        this.$router.push({name: 'poi-id', params: {'id': this.previousPoi}})
+
+        // check if the direction is right and there is a next poi
+      } else if (direction === 'Right' && this.nextPoi <= this.maxlength){
+        this.$router.push({name: 'poi-id', params: {'id': this.nextPoi}})
+      }
     }
   }
 }
