@@ -34,6 +34,9 @@ cypress-axe | 2020-03-18
 ### Changed
 feature  | date changed
 ------------- | -------------
+footer.vue image ref | 2020-04-14
+postinstall.sh | 2020-04-14
+site.webmanifest | 2020-04-14
 store scanner | 2020-03-24
 default.vue page | 2020-02-27
 default.vue | 2020-03-03
