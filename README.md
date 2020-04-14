@@ -31,6 +31,7 @@ $ npm run generate
 - nuxt: https://nuxtjs.org/
 - nuxt pwa: https://pwa.nuxtjs.org/
 - nuxt axios: https://axios.nuxtjs.org/
+- nuxt vuetify: https://github.com/nuxt-community/vuetify-module
 - vuelayers: https://vuelayers.github.io/#/
 - qr-code-reader: https://github.com/gruhn/vue-qrcode-reader
 - cypress: https://www.cypress.io/
