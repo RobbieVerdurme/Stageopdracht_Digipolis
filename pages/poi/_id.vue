@@ -30,7 +30,7 @@ export default {
       /**
        * id of the cluster
        */
-      id: this.$route.params.id
+      id: parseInt(this.$route.params.id)
     }
   },
   created () {
