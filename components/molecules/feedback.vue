@@ -36,7 +36,6 @@
 
       <form
         class="dg-feedback-form no-style"
-        method="post"
       >
         <h3>Heb je suggesties voor, of opmerkingen over deze webpagina?</h3>
 
@@ -52,8 +51,11 @@
 
           <div class="form-columns">
             <div class="form-item-column">
+              <span v-if="err">{{ err }}</span>
+              <span v-if="send">The messeage has been send</span>
               <div class="textarea">
                 <textarea
+                  v-model="feedbacktext"
                   name="suggestion"
                   rows="2"
                   cols="60"
@@ -77,7 +79,7 @@
           class="form-actions js-form-wrapper form-wrapper"
         >
           <input
-            type="submit"
+            @click="sendFeedback"
             name="op"
             value="Indienen"
             class="button button--primary js-form-submit form-submit"
@@ -87,3 +89,38 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      feedbacktext: '',
+      send: false,
+      err: ''
+    }
+  },
+  methods: {
+    /**
+     * send feedback to server
+     */
+    sendFeedback () {
+      if(!this.send){
+        this.$store.dispatch('sendFeedback', this.feedbacktext).then(() => {
+          this.send = true
+        }).catch((error) => {
+          this.err = error
+        })
+        this.resetFeedbackText()
+      }else {
+        this.err = 'Sending already'
+      }
+    },
+    /**
+     * resets the feedback text to ''
+     */
+    resetFeedbackText () {
+      this.feedbacktext = ''
+    }
+  }  
+}
+</script>
