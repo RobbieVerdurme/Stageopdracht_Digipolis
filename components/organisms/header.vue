@@ -117,7 +117,6 @@ export default {
       this.menuModal.close()
     },
     selectedPOI (value) {
-      console.log(value)
       this.poi = value
     }
   },
