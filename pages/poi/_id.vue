@@ -36,15 +36,15 @@ export default {
     }
   },
   created () {
-    this.$store.commit('poi/setCurrentPOI', this.poi)
+    this.$store.commit('setCurrentPOI', this.poi)
   },
   computed: {
     poi () {
-      return this.$store.getters['poi/getPOIDetailById'](this.id)
+      return this.$store.getters['getPOIDetailById'](this.id)
     },
     // get max length of poi list
     maxlength () {
-      return this.$store.getters['poi/getMaxLengthPOI']
+      return this.$store.getters['getMaxLengthPOI']
     },
     // next poi
     nextPoi () {
