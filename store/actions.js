@@ -4,6 +4,7 @@ const axios = require('axios')
 
 /**
  * axios configuration queue
+ * https://medium.com/@matthew_1129/axios-js-maximum-concurrent-requests-b15045eb69d0
  */
 // config props
 const MAX_REQUESTS_COUNT = 5
