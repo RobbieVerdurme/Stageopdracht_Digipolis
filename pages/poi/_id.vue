@@ -7,6 +7,7 @@
           Bekijk op kaart
         </nuxt-link>
       </div>
+      <feedback />
       <ul>
         <li>
           <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.nextPoi}}" class="standalone-link back">Vorige</nuxt-link>
@@ -24,6 +25,7 @@ export default {
   middleware: 'poi',
   components: {
     Info: () => import('~/components/molecules/info'),
+    feedback: () => import('~/components/molecules/feedback')
   },
   data () {
     return {
