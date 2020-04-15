@@ -55,7 +55,7 @@ export default {
     }
   },
 
-  // POI
+// POI
   /**
    * get points of intrest from online (databasecall)
    * @param {*} param0
@@ -66,6 +66,19 @@ export default {
       await axios.get('/POI.json', { proxy: { host: '127.0.0.1', port: '3000' } }).then(({ data }) => {
         commit('setPointsOfInterst', data.features)
       })
+    } catch (error) {
+      throw error
+    }
+  },
+
+  /**
+   * send feedback from user to server
+   */
+  async sendFeedback (context, feedback) {
+    // eslint-disable-next-line no-useless-catch
+    try{
+      console.log(feedback)
+      await axios.post('/api/blabla', {text: feedback})
     } catch (error) {
       throw error
     }
