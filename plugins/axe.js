@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueAxe from 'vue-axe'
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
+    const VueAxe = require('vue-axe')
     Vue.use(VueAxe, {
         config: {
             reporter: 'no-passes',

@@ -3,7 +3,7 @@
     <div class="gentinfo-block-content">
       <h2>
         <img
-          src="~/assets/img/svg/gentinfo-logo.svg"
+          src="/images/svg/gentinfo-logo.svg"
           alt="Gentinfo"
           class="gentinfo-logo"
         />
