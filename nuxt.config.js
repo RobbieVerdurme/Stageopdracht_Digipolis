@@ -1,9 +1,10 @@
 
 export default {
   mode: 'universal',
-  // baseUrl
+  // Config env values
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.HOST || 'localhost',
+    port: process.env.PORT || '3000'
   },
   /*
   ** Headers of the page

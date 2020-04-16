@@ -48,7 +48,7 @@ export default {
   async setRoutepoints ({ commit }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.get('/route.json', { proxy: { host: '127.0.0.1', port: '3000' } }).then(({ data }) => {
+      await axios.get('/route.json', { proxy: { host: process.env.baseUrl, port: process.env.port } }).then(({ data }) => {
         commit('setRoutepoints', data.features)
       })
     } catch (error) {
@@ -64,7 +64,7 @@ export default {
   async setPointsOfInterst ({ commit }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.get('/POI.json', { proxy: { host: '127.0.0.1', port: '3000' } }).then(({ data }) => {
+      await axios.get('/POI.json', { proxy: { host: process.env.baseUrl, port: process.env.port } }).then(({ data }) => {
         commit('setPointsOfInterst', data.features)
       })
     } catch (error) {
@@ -92,7 +92,7 @@ export default {
   async setScannerInfo ({ commit }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      await axios.get('/scanner.json', { proxy: { host: '127.0.0.1', port: '3000' } }).then(({ data }) => {
+      await axios.get('/scanner.json', { proxy: { host: process.env.baseUrl, port: process.env.port } }).then(({ data }) => {
         commit('setScannerInfo', data)
       })
     } catch (error) {
