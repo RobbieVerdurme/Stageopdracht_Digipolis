@@ -3,7 +3,8 @@ export default {
   mode: 'universal',
   // baseUrl
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'localhost',
+    port: process.env.PORT || '3000'
   },
   /*
   ** Headers of the page
