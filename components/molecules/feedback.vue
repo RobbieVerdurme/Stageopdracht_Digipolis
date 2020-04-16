@@ -37,26 +37,44 @@
 
       <!--Feedback-->
       <div v-if="!send">
-        <!--Success-->
-        <div v-if="success" class="messages messages--status" role="alert" aria-atomic="true">
-          <i class="icon-checkmark" aria-hidden="true"></i>
-          <p>We hebben u suggestie ontvangen.</p>
-        </div>
-        <!--/Success-->
-
-        <!--Error-->
-        <div v-if="err" class="messages messages--error" role="alert" aria-atomic="true">
-          <i class="icon-cross" aria-hidden="true"></i>
-          <p>{{err}}</p>
-        </div>
-        <!--/Error-->
-
         <!--Form elements-->
-        <label for="feedbacktekst">
-          Bericht
-          <span class="label-optional">(Optioneel)</span>
-        </label>
-        <textarea v-model="feedbacktext" id="feedbacktekst" />
+        <div :class="err?'error':success?'success':''" class="form-item">
+
+          <!--Label-->
+          <label for="feedbacktekst">
+            Bericht
+            <span class="label-optional">(Optioneel)</span>
+          </label>
+          <!--/Label-->
+
+          <div class="form-columns">
+            <!--Text-->
+            <div class="form-item-column">
+              <textarea
+                name="feedbacktekst"
+                id="feedbacktekst"
+                :class="err?'error':success?'success':''"
+              ></textarea>
+            </div>
+            <!--/Text-->
+
+            <!--Status-->
+            <div class="form-item-column">
+              <div
+                v-if="err || success"
+                :class="err?'error':success?'success':''"
+                class="field-message"
+                role="alert"
+                id="textarea-message"
+              >
+                <span v-if="err">{{ err }}</span>
+                <span v-if="success">We hebben u suggestie ontvangen.</span>
+                <div class="accolade"></div>
+              </div>
+            </div>
+            <!--/Status-->
+          </div>
+        </div>
         <button @click="sendFeedback" class="button button-secondary">Indienen</button>
         <!--/Form elements-->
       </div>
@@ -100,8 +118,8 @@ export default {
             // on error
             this.err = error;
           });
-          // reset send
-          this.send = false;
+        // reset send
+        this.send = false;
       }
     },
     /**
