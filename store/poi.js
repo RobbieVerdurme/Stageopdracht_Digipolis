@@ -81,7 +81,7 @@ export const actions = {
     async setPointsOfInterst({ commit }){
         // eslint-disable-next-line no-useless-catch
         try{
-            await axios.get('/POI.json', {proxy: {host: '127.0.0.1', port: '3000'}}).then(({ data }) => {
+            await axios.get('/POI.json', {proxy: {host: process.env.baseUrl, port: process.env.port}}).then(({ data }) => {
                 commit('setPointsOfInterst', data.features)
             })
         }catch(error){
