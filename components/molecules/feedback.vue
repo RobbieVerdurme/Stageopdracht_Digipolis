@@ -1,22 +1,12 @@
 <template>
-  <div class="feedback-form box-no-icon">
+  <div class="box-no-icon">
     <h2>
-      <button
-        class="accordion--button"
-        aria-expanded="true"
-        aria-controls="feedback-form-content"
-      >Kunnen we deze pagina nog verbeteren? Laat het ons weten!</button>
+      <button aria-expanded="true">Kunnen we deze pagina nog verbeteren? Laat het ons weten!</button>
     </h2>
-    <div
-      id="feedback-form-content"
-      class="accordion--content accordion--expanded"
-      aria-hidden="false"
-      style="max-height: 534px;"
-    >
+    <div>
+      <!--Contact-->
       <h3>Voor persoonlijke vragen of klachten kan je terecht bij Gentinfo.</h3>
-
       <p class>Hoe bereiken?</p>
-
       <ul class="icon-list">
         <li>
           <i class="icon-phone"></i>
@@ -32,95 +22,94 @@
             <a href="mailto:gentinfo@stad.gent">e-mail</a>
           </span>
         </li>
+        <li>
+          <i class="icon-twitter-outline"></i>
+          <span>
+            Via de
+            <a href="https://twitter.com/stadgent">Twitter-account</a> van Stad Gent (
+            <a href="https://twitter.com/stadgent">@StadGent</a>)
+          </span>
+        </li>
       </ul>
+      <!--/Contact-->
 
-      <form
-        class="dg-feedback-form no-style"
-      >
-        <h3>Heb je suggesties voor, of opmerkingen over deze webpagina?</h3>
+      <h3>Heb je suggesties voor, of opmerkingen over deze webpagina?</h3>
 
-        <div
-          class="js-form-item form-item js-form-type-textarea form-item-suggestion js-form-item-suggestion textarea"
-        >
-          <div class="form-label">
-            <label>
-              Bericht
-              <span class="label-optional">(Optioneel)</span>
-            </label>
-          </div>
-
-          <div class="form-columns">
-            <div class="form-item-column">
-              <span v-if="err">{{ err }}</span>
-              <span v-if="send">The messeage has been send</span>
-              <div class="textarea">
-                <textarea
-                  v-model="feedbacktext"
-                  name="suggestion"
-                  rows="2"
-                  cols="60"
-                  maxlength="10000"
-                  class="form-textarea"
-                ></textarea>
-              </div>
-            </div>
-            <div class="form-item-column"></div>
-          </div>
+      <!--Feedback-->
+      <div v-if="!send">
+        <!--Success-->
+        <div v-if="success" class="messages messages--status" role="alert" aria-atomic="true">
+          <i class="icon-checkmark" aria-hidden="true"></i>
+          <p>We hebben u suggestie ontvangen.</p>
         </div>
-        <input
-          autocomplete="off"
-          type="hidden"
-        />
-        <input
-          type="hidden"
-          name="form_id"
-        />
-        <div
-          class="form-actions js-form-wrapper form-wrapper"
-        >
-          <input
-            @click="sendFeedback"
-            name="op"
-            value="Indienen"
-            class="button button--primary js-form-submit form-submit"
-          />
+        <!--/Success-->
+
+        <!--Error-->
+        <div v-if="err" class="messages messages--error" role="alert" aria-atomic="true">
+          <i class="icon-cross" aria-hidden="true"></i>
+          <p>{{err}}</p>
         </div>
-      </form>
+        <!--/Error-->
+
+        <!--Form elements-->
+        <label for="feedbacktekst">
+          Bericht
+          <span class="label-optional">(Optioneel)</span>
+        </label>
+        <textarea v-model="feedbacktext" id="feedbacktekst" />
+        <button @click="sendFeedback" class="button button-secondary">Indienen</button>
+        <!--/Form elements-->
+      </div>
+      <!--/Feedback-->
+
+      <!--Loading spinner-->
+      <div v-if="send" class="spinner">
+        <div>&hellip;Bericht verzenden</div>
+      </div>
+      <!--/Loading spinner-->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      feedbacktext: '',
+      feedbacktext: "",
       send: false,
-      err: ''
-    }
+      success: false,
+      err: ""
+    };
   },
   methods: {
     /**
      * send feedback to server
      */
-    sendFeedback () {
-      if(!this.send){
-        this.$store.dispatch('sendFeedback', this.feedbacktext).then(() => {
-          this.send = true
-        }).catch((error) => {
-          this.err = error
-        })
-        this.resetFeedbackText()
-      }else {
-        this.err = 'Sending already'
+    sendFeedback() {
+      // check if already sending
+      if (!this.send) {
+        this.send = true;
+        this.$store
+          .dispatch("sendFeedback", this.feedbacktext)
+          .then(() => {
+            // on success backend call
+            this.success = true;
+            this.resetFeedbackText();
+          })
+          .catch(error => {
+            // on error
+            this.err = error;
+          });
+          // reset send
+          this.send = false;
       }
     },
     /**
      * resets the feedback text to ''
      */
-    resetFeedbackText () {
-      this.feedbacktext = ''
+    resetFeedbackText() {
+      this.feedbacktext = "";
     }
-  }  
-}
+  }
+};
 </script>
