@@ -78,7 +78,6 @@ export default {
   async sendFeedback (context, feedback) {
     // eslint-disable-next-line no-useless-catch
     try{
-      console.log(feedback)
       await axios.post('/api/blabla', {text: feedback})
     } catch (error) {
       throw error
