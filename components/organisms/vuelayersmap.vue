@@ -7,23 +7,31 @@
         <template slot-scope="select">
           <!-- select styles -->
           <vl-style-box>
-            <vl-style-stroke color="#423e9e" :width="7"></vl-style-stroke>
-            <vl-style-fill :color="[254, 178, 76, 0.7]"></vl-style-fill>
+            <vl-style-stroke color="#423e9e" :width="7" />
+            <vl-style-fill :color="[254, 178, 76, 0.7]" />
             <vl-style-circle :radius="5">
-              <vl-style-stroke color="#423e9e" :width="7"></vl-style-stroke>
-              <vl-style-fill :color="[254, 178, 76, 0.7]"></vl-style-fill>
+              <vl-style-stroke color="#423e9e" :width="7" />
+              <vl-style-fill :color="[254, 178, 76, 0.7]" />
             </vl-style-circle>
           </vl-style-box>
           <vl-style-box :z-index="1">
-            <vl-style-stroke color="#d43f45" :width="2"></vl-style-stroke>
+            <vl-style-stroke color="#d43f45" :width="2" />
             <vl-style-circle :radius="5">
-              <vl-style-stroke color="#d43f45" :width="2"></vl-style-stroke>
+              <vl-style-stroke color="#d43f45" :width="2" />
             </vl-style-circle>
           </vl-style-box>
           <!--// select styles -->
 
           <!-- selected feature popup -->
-          <vl-overlay class="feature-popup" v-for="feature in select.features" :key="feature.id" :id="feature.id" :position="pointOnSurface(feature.geometry)" :auto-pan="true" :auto-pan-animation="{ duration: 300 }">
+          <vl-overlay
+            v-for="feature in select.features"
+            :id="feature.id"
+            :key="feature.id"
+            class="feature-popup"
+            :position="pointOnSurface(feature.geometry)"
+            :auto-pan="true"
+            :auto-pan-animation="{ duration: 300 }"
+          >
             <header>
               <h3>
                 {{ feature.properties.naam_nl }}
@@ -33,8 +41,12 @@
             <div>
               <p>{{ feature.properties.omschrijving_nl }}</p>
               <div>
-                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">read more</nuxt-link>
-                <nuxt-link v-else class="read-more standalone-link" :to="{name: 'index'}">read more</nuxt-link>
+                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">
+                  read more
+                </nuxt-link>
+                <nuxt-link v-else class="read-more standalone-link" :to="{name: 'index'}">
+                  read more
+                </nuxt-link>
               </div>
             </div>
           </vl-overlay>
@@ -74,8 +86,8 @@
         <!--Style-->
         <vl-style-box>
           <vl-style-circle :radius="5">
-            <vl-style-fill color="white"></vl-style-fill>
-            <vl-style-stroke color="blue"></vl-style-stroke>
+            <vl-style-fill color="white" />
+            <vl-style-stroke color="blue" />
           </vl-style-circle>
         </vl-style-box>
       </vl-layer-vector>
@@ -85,7 +97,7 @@
         <vl-source-vector :features.sync="myRoute" />
         <!--Style-->
         <vl-style-box>
-          <vl-style-stroke color="blue" :width="3" :line-dash="[3,5,30,5]"/>
+          <vl-style-stroke color="blue" :width="3" :line-dash="[3,5,30,5]" />
         </vl-style-box>
       </vl-layer-vector>
     </vl-map>

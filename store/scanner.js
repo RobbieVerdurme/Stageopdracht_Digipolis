@@ -27,10 +27,10 @@ export const getters = {
 export const mutations = {
   /**
    * Set scanner info
-   * @param {*} state 
-   * @param {Object} payload 
+   * @param {*} state
+   * @param {Object} payload
    */
-  setScannerInfo(state, payload){
+  setScannerInfo (state, payload) {
     state.scannerInfo = payload
   }
 }
@@ -41,11 +41,11 @@ export const mutations = {
 export const actions = {
   async setScannerInfo ({ commit }) {
     // eslint-disable-next-line no-useless-catch
-    try{
-      await axios.get('/scanner.json', {proxy: {host: process.env.baseUrl, port: process.env.port}}).then(({ data }) => {
+    try {
+      await axios.get('/scanner.json', { proxy: { host: process.env.baseUrl, port: process.env.port } }).then(({ data }) => {
         commit('setScannerInfo', data)
       })
-    }catch(error){
+    } catch (error) {
       throw error
     }
   }

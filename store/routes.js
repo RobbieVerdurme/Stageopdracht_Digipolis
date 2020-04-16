@@ -15,7 +15,7 @@ export const state = () => ({
 export const getters = {
   /**
    * get first route in list
-   * @param {*} state 
+   * @param {*} state
    */
   getRoute: (state) => {
     return state.routepoints[0]
@@ -23,7 +23,7 @@ export const getters = {
 
   /**
    * get all routes
-   * @param {*} state 
+   * @param {*} state
    */
   getAllRoute: (state) => {
     return state.routepoints
@@ -33,7 +33,7 @@ export const getters = {
    * get all points of intrest
    */
   getAllRoutes: (state) => {
-      return state.routepoints
+    return state.routepoints
   }
 }
 
@@ -43,29 +43,29 @@ export const getters = {
 export const mutations = {
   /**
    * sets the route
-   * @param {*} state 
-   * @param {Array} payload 
+   * @param {*} state
+   * @param {Array} payload
    */
-  setRoutepoints(state, payload){
-      state.routepoints = payload
+  setRoutepoints (state, payload) {
+    state.routepoints = payload
   }
 }
 
- /**
+/**
   * actions
   */
- export const actions = {
-   /**
+export const actions = {
+  /**
     * get route from online (databasecall)
     */
-  async setRoutepoints({ commit }){
+  async setRoutepoints ({ commit }) {
     // eslint-disable-next-line no-useless-catch
-    try{
-        await axios.get('/route.json', {proxy: {host: process.env.baseUrl, port: process.env.port}}).then(({ data }) => {
-            commit('setRoutepoints', data.features)
-        })
-    }catch(error){
-        throw error
+    try {
+      await axios.get('/route.json', { proxy: { host: process.env.baseUrl, port: process.env.port } }).then(({ data }) => {
+        commit('setRoutepoints', data.features)
+      })
+    } catch (error) {
+      throw error
     }
   }
 }
