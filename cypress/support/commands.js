@@ -1,5 +1,4 @@
-
-/* eslint-disable */
+/* eslint-disable no-undef */
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -28,15 +27,15 @@
 
 // the things that axe has to check
 const config = [
-    { tags: ['wcag2a', 'wcag2aa']}
+  { tags: ['wcag2a', 'wcag2aa'] }
 ]
 
 // add axe test
-Cypress.Commands.add('axe', () => {  
-        // Configure aXe and test the page at initial load
-        cy.configureAxe({
-            reporter: 'no-passes',
-            rules: config
-        })
-        cy.checkA11y()
-  });
+Cypress.Commands.add('axe', () => {
+  // Configure aXe and test the page at initial load
+  cy.configureAxe({
+    reporter: 'no-passes',
+    rules: config
+  })
+  cy.checkA11y()
+})
