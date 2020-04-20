@@ -1,9 +1,9 @@
 <template>
   <div class="box-no-icon">
     <h2>
-      <button aria-expanded="true">
+      <span>
         Kunnen we deze pagina nog verbeteren? Laat het ons weten!
-      </button>
+      </span>
     </h2>
     <div>
       <!--Contact-->
