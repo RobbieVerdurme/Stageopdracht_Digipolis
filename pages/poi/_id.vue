@@ -59,9 +59,6 @@ export default {
   created () {
     this.$store.commit('setCurrentPOI', this.poi)
   },
-  created () {
-    this.$store.commit('poi/setCurrentPOI', this.poi)
-  },
   methods: {
     swipe (direction) {
       // check if direction is left and there is a previous poi

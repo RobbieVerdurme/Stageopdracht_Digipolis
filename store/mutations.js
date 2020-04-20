@@ -1,43 +1,43 @@
-/** 
+/**
  * mutations
  */
 export default {
 // ROUTE
-    /**
+  /**
    * sets the route
-   * @param {*} state 
-   * @param {Array} payload 
+   * @param {*} state
+   * @param {Array} payload
    */
-  setRoutepoints(state, payload){
-      state.routepoints = payload
+  setRoutepoints (state, payload) {
+    state.routepoints = payload
   },
 
-// POI
-    /**
+  // POI
+  /**
      * set the pointofinterst with the gotten payload
-     * @param {*} state 
-     * @param {Array} payload 
+     * @param {*} state
+     * @param {Array} payload
      */
-    setPointsOfInterst(state, payload){
-        state.pointsOfInterst = payload
-    },
+  setPointsOfInterst (state, payload) {
+    state.pointsOfInterst = payload
+  },
 
-    /**
+  /**
      * set the current selected poi this is for the hero-img on the header
-     * @param {*} state 
-     * @param {Object} payload 
+     * @param {*} state
+     * @param {Object} payload
      */
-    setCurrentPOI(state, payload){
-        state.selectedPointOfIntrest = payload
-    },
+  setCurrentPOI (state, payload) {
+    state.selectedPointOfIntrest = payload
+  },
 
-// SCANNER
-   /**
+  // SCANNER
+  /**
    * Set scanner info
-   * @param {*} state 
-   * @param {Object} payload 
+   * @param {*} state
+   * @param {Object} payload
    */
-  setScannerInfo(state, payload){
+  setScannerInfo (state, payload) {
     state.scannerInfo = payload
   }
 }

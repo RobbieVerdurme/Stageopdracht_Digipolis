@@ -16,7 +16,7 @@ export default {
   },
   data () {
     return {
-      item: this.$store.getters['getScannerInfo']
+      item: this.$store.getters.getScannerInfo
     }
   }
 }

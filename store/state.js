@@ -1,14 +1,14 @@
-/** 
+/**
  * state
  */
 export default () => ({
-    // POI
-    pointsOfInterst: [],
-    selectedPointOfIntrest: {},
+  // POI
+  pointsOfInterst: [],
+  selectedPointOfIntrest: {},
 
-    // route
-    routepoints: [],
+  // route
+  routepoints: [],
 
-    // scanner
-    scannerInfo: {}
+  // scanner
+  scannerInfo: {}
 })

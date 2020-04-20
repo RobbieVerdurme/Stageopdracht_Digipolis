@@ -24,7 +24,7 @@ export default {
       /**
        * get routeinfo
        */
-      return this.$store.getters['getRoute']
+      return this.$store.getters.getRoute
     }
   }
 }

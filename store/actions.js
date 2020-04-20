@@ -16,12 +16,12 @@ let PENDING_REQUESTS = 0
  */
 axios.interceptors.request.use(function (config) {
   return new Promise((resolve) => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       if (PENDING_REQUESTS < MAX_REQUESTS_COUNT) {
         PENDING_REQUESTS++
         clearInterval(interval)
         resolve(config)
-      } 
+      }
     }, INTERVAL_MS)
   })
 })
@@ -56,7 +56,7 @@ export default {
     }
   },
 
-// POI
+  // POI
   /**
    * get points of intrest from online (databasecall)
    * @param {*} param0
@@ -77,8 +77,8 @@ export default {
    */
   async sendFeedback (context, feedback) {
     // eslint-disable-next-line no-useless-catch
-    try{
-      await axios.post('/api/blabla', {text: feedback})
+    try {
+      await axios.post('/api/blabla', { text: feedback })
     } catch (error) {
       throw error
     }

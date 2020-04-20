@@ -21,7 +21,7 @@ export default {
   data () {
     return {
       // items
-      items: this.$store.getters['getAllPointsOfIntrest'],
+      items: this.$store.getters.getAllPointsOfIntrest,
       filterdItems: [],
 
       // settings to configure pagination

@@ -3,38 +3,38 @@
  */
 export default {
 // POI
-    /**
+  /**
      * get all points of intrest
      */
-    getAllPointsOfIntrest: (state) => {
-        return state.pointsOfInterst
-    },
+  getAllPointsOfIntrest: (state) => {
+    return state.pointsOfInterst
+  },
 
-    /**
+  /**
      * get max length of list of poi
      */
-    getMaxLengthPOI: (state) => {
-        return state.pointsOfInterst.length
-    },
+  getMaxLengthPOI: (state) => {
+    return state.pointsOfInterst.length
+  },
 
-    /**
+  /**
      * get poi with id
      */
-    getPOIDetailById: (state) => (id) => {
-        return state.pointsOfInterst.find(p => p.properties.volgnummer === id)
-    },
+  getPOIDetailById: state => (id) => {
+    return state.pointsOfInterst.find(p => p.properties.volgnummer === id)
+  },
 
-    /**
+  /**
      * get selected poi
      */
-    getSelectedPOI: (state) => {
-        return state.selectedPointOfIntrest
-    },
+  getSelectedPOI: (state) => {
+    return state.selectedPointOfIntrest
+  },
 
-// ROUTE
+  // ROUTE
   /**
    * get first route in list
-   * @param {*} state 
+   * @param {*} state
    */
   getRoute: (state) => {
     return state.routepoints[0]
@@ -42,7 +42,7 @@ export default {
 
   /**
    * get all routes
-   * @param {*} state 
+   * @param {*} state
    */
   getAllRoute: (state) => {
     return state.routepoints
@@ -52,11 +52,11 @@ export default {
    * get all points of intrest
    */
   getAllRoutes: (state) => {
-      return state.routepoints
+    return state.routepoints
   },
 
-// SCANNER
-   /**
+  // SCANNER
+  /**
    * get scanner info
    */
   getScannerInfo: (state) => {
