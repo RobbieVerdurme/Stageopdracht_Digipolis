@@ -9,6 +9,10 @@
 
 <script>
 export default {
+  components: {
+    VueLayersMap: () => import('~/components/organisms/vuelayersmap'),
+    Cta: () => import('~/components/molecules/cta')
+  },
   async fetch ({ store }) {
     if (!store.getters.getAllPointsOfIntrest.length) {
       // get poi
