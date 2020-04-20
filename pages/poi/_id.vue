@@ -1,5 +1,5 @@
 <template>
-  <main class="info-page" v-touch="{left: () => swipe('Left'), right: () => swipe('Right')}">
+  <main v-touch="{left: () => swipe('Left'), right: () => swipe('Right')}" class="info-page">
     <section class="detail-layout">
       <Info :item="poi.properties" />
       <div>
@@ -9,10 +9,14 @@
       </div>
       <ul>
         <li>
-          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': this.nextPoi}}" class="standalone-link back">Vorige</nuxt-link>
+          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': nextPoi}}" class="standalone-link back">
+            Vorige
+          </nuxt-link>
         </li>
         <li>
-          <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': this.previousPoi}}" class="standalone-link right">Volgende</nuxt-link>
+          <nuxt-link v-if="nextPoi <= maxlength" :to="{name: 'poi-id', params: {'id': previousPoi}}" class="standalone-link right">
+            Volgende
+          </nuxt-link>
         </li>
       </ul>
     </section>
@@ -23,7 +27,7 @@
 export default {
   middleware: 'poi',
   components: {
-    Info: () => import('~/components/molecules/info'),
+    Info: () => import('~/components/molecules/info')
   },
   data () {
     return {
@@ -32,9 +36,6 @@ export default {
        */
       id: parseInt(this.$route.params.id)
     }
-  },
-  created () {
-    this.$store.commit('poi/setCurrentPOI', this.poi)
   },
   computed: {
     poi () {
@@ -53,15 +54,18 @@ export default {
       return this.id - 1
     }
   },
+  created () {
+    this.$store.commit('poi/setCurrentPOI', this.poi)
+  },
   methods: {
     swipe (direction) {
       // check if direction is left and there is a previous poi
-      if(direction === 'Left' && this.previousPoi > 0){
-        this.$router.push({name: 'poi-id', params: {'id': this.previousPoi}})
+      if (direction === 'Left' && this.previousPoi > 0) {
+        this.$router.push({ name: 'poi-id', params: { id: this.previousPoi } })
 
         // check if the direction is right and there is a next poi
-      } else if (direction === 'Right' && this.nextPoi <= this.maxlength){
-        this.$router.push({name: 'poi-id', params: {'id': this.nextPoi}})
+      } else if (direction === 'Right' && this.nextPoi <= this.maxlength) {
+        this.$router.push({ name: 'poi-id', params: { id: this.nextPoi } })
       }
     }
   }

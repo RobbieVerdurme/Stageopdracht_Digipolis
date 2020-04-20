@@ -1,7 +1,9 @@
 <template>
   <header class="header header--menu">
     <div class="content-container">
-      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
+      <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">
+        {{ title }}
+      </nuxt-link>
       <nav class="menu">
         <button
           type="button"
@@ -12,14 +14,14 @@
           menu
         </button>
 
-        <ul class="links" id="links">
+        <ul id="links" class="links">
           <li>
             <nuxt-link :to="{name: 'index'}" :class="activeLink==='index'?'active':''">
               Home
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''" >
+            <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index'|| activeLink==='overview-index-map'?'active':''">
               Overzicht route
             </nuxt-link>
           </li>
@@ -43,13 +45,16 @@
               <button
                 type="button"
                 class="button close icon-cross modal-close"
-                data-target="menu">
+                data-target="menu"
+              >
                 <span>Close</span>
               </button>
             </div>
             <div class="modal-content">
               <div class="header">
-                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">{{title}}</nuxt-link>
+                <nuxt-link :to="{name: 'index'}" class="site-logo subsite" rel="home">
+                  {{ title }}
+                </nuxt-link>
               </div>
               <div class="menu-links">
                 <ul class="links ">
@@ -82,11 +87,13 @@
         <!--/Modal menu-->
       </nav>
     </div>
-    <hr />
+    <hr>
     <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
       <figure>
         <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
-        <div v-else class="image-wrapper" data-ratio="4:1"><img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl" /></div>
+        <div v-else class="image-wrapper" data-ratio="4:1">
+          <img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl">
+        </div>
       </figure>
     </figure>
   </header>
@@ -103,12 +110,7 @@ export default {
       menuModal: null,
       poi: null,
       imageError: false,
-      selectedPOI : this.$store.getters['poi/getSelectedPOI']
-    }
-  },
-  created(){
-    if(Object.keys(this.selectedPOI).length){
-      this.poi = this.selectedPOI
+      selectedPOI: this.$store.getters['poi/getSelectedPOI']
     }
   },
   watch: {
@@ -120,23 +122,26 @@ export default {
       this.poi = value
     }
   },
-  beforeMount() {
-    const modal = document.querySelector("#menu")
-    this.menuModal =  new Modal(modal, {
-        // The modal is always visible from tablet and up,
-        // this is atypical.
-        resizeEvent: (open, close) => {
-          if (window.innerWidth > 960) {
-            close()
-            modal.setAttribute("aria-hidden", "false")
-          } else {
-            if (!modal.classList.contains("visible")) {
-              modal.setAttribute("aria-hidden", "true")
-            }
-          }
-        },
-        changeHash: false
-      })
+  created () {
+    if (Object.keys(this.selectedPOI).length) {
+      this.poi = this.selectedPOI
+    }
+  },
+  beforeMount () {
+    const modal = document.querySelector('#menu')
+    this.menuModal = new Modal(modal, {
+      // The modal is always visible from tablet and up,
+      // this is atypical.
+      resizeEvent: (open, close) => {
+        if (window.innerWidth > 960) {
+          close()
+          modal.setAttribute('aria-hidden', 'false')
+        } else if (!modal.classList.contains('visible')) {
+          modal.setAttribute('aria-hidden', 'true')
+        }
+      },
+      changeHash: false
+    })
   }
 }
 </script>

@@ -1,24 +1,24 @@
 <template>
-<div>
-  <!-- Error -->
-  <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
-    <i class="icon-cross" aria-hidden="true"></i>
-    <p>{{error}}</p>
-  </div>
-
-  <!-- Warning -->
-  <div v-if="warning" class="messages messages--warning" role="alert" aria-atomic="true">
-    <i class="icon-exclamation" aria-hidden="true"></i>
-    <p>{{ warning }}</p>
-  </div>
-
-  <!--Camera-->
-  <qrcode-stream v-if="!error" @decode="onDecode" @init="onInit" class="scanner">
-    <div v-if="loading" class="spinner">
-      <div>&hellip;loading</div>
+  <div>
+    <!-- Error -->
+    <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
+      <i class="icon-cross" aria-hidden="true" />
+      <p>{{ error }}</p>
     </div>
-  </qrcode-stream>
-</div>
+
+    <!-- Warning -->
+    <div v-if="warning" class="messages messages--warning" role="alert" aria-atomic="true">
+      <i class="icon-exclamation" aria-hidden="true" />
+      <p>{{ warning }}</p>
+    </div>
+
+    <!--Camera-->
+    <qrcode-stream v-if="!error" class="scanner" @decode="onDecode" @init="onInit">
+      <div v-if="loading" class="spinner">
+        <div>&hellip;loading</div>
+      </div>
+    </qrcode-stream>
+  </div>
 </template>
 
 <script>
@@ -36,16 +36,16 @@ export default {
     // if qr-code is found and read
     onDecode (result) {
       // regular expression
-      var expression =/(\b(https|http):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig; 
-      var regex = new RegExp(expression)
+      const expression = /(\b(https|http):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig
+      const regex = new RegExp(expression)
 
       // check if qr-code is link
-      if(result.match(regex)){
+      if (result.match(regex)) {
         // eslint-disable-next-line no-undef
         this.$router.push(result)
       } else {
         this.warning = 'Geen geldige url gevonden in qr-code'
-      }      
+      }
     },
 
     // if error
