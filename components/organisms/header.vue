@@ -110,7 +110,7 @@ export default {
       menuModal: null,
       poi: null,
       imageError: false,
-      selectedPOI: this.$store.getters['poi/getSelectedPOI']
+      selectedPOI: this.$store.getters.getSelectedPOI
     }
   },
   watch: {

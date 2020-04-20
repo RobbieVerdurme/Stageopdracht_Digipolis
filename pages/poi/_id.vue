@@ -7,6 +7,7 @@
           Bekijk op kaart
         </nuxt-link>
       </div>
+      <feedback />
       <ul>
         <li>
           <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': nextPoi}}" class="standalone-link back">
@@ -27,7 +28,8 @@
 export default {
   middleware: 'poi',
   components: {
-    Info: () => import('~/components/molecules/info')
+    Info: () => import('~/components/molecules/info'),
+    feedback: () => import('~/components/molecules/feedback')
   },
   data () {
     return {
@@ -39,11 +41,11 @@ export default {
   },
   computed: {
     poi () {
-      return this.$store.getters['poi/getPOIDetailById'](this.id)
+      return this.$store.getters.getPOIDetailById(this.id)
     },
     // get max length of poi list
     maxlength () {
-      return this.$store.getters['poi/getMaxLengthPOI']
+      return this.$store.getters.getMaxLengthPOI
     },
     // next poi
     nextPoi () {
@@ -55,7 +57,7 @@ export default {
     }
   },
   created () {
-    this.$store.commit('poi/setCurrentPOI', this.poi)
+    this.$store.commit('setCurrentPOI', this.poi)
   },
   methods: {
     swipe (direction) {

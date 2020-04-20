@@ -1,7 +1,7 @@
 export default async function ({ store }) {
   // check if routepoints is empty
-  if (!store.state.routes.routepoints.length) {
+  if (!store.state.routepoints.length) {
     // get routes
-    await store.dispatch('routes/setRoutepoints')
+    await store.dispatch('setRoutepoints')
   }
 }
