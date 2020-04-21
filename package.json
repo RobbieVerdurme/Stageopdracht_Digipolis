@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=8080 nuxt",
     "build": "nuxt build",
-    "build:cypress": "nuxt build & nuxt start",
+    "build:travis": "nuxt build",
     "start": "cross-env HOST=0.0.0.0 PORT=8080 nuxt start",
+    "start:travis": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "node_modules/.bin/cypress run",
