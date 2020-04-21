@@ -82,6 +82,11 @@ export default {
     // https://vuetifyjs.com/en/getting-started/quick-start/
     '@nuxtjs/vuetify'
   ],
+  vuetify: {
+    treeShake: {
+      directives: ['Touch']
+    }
+  },
   /*
   ** Nuxt.js modules
   */
