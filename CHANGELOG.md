@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 feature  | date added
 ------------- | -------------
+cross-env package | 2020-04-20
 feedback.vue | 2020-04-16
 swipeable detail poi page | 2020-04-14
 paginaition | 2020-04-09

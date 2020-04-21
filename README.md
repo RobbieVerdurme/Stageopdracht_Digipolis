@@ -38,6 +38,7 @@ $ npm run generate
 - cypress-axe: https://github.com/avanslaars/cypress-axe
 - styleguide: https://stijlgids.stad.gent/v3/index.html
 - digipolis-gent/modal: https://www.npmjs.com/package/@digipolis-gent/modal
+- cross-env: https://www.npmjs.com/package/cross-env
 
 ## Nuxt
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
