@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=8080 nuxt",
-    "build": "nuxt build",
+    "build": "cross-env HOST=0.0.0.0 PORT=8080 nuxt build",
     "build:travis": "nuxt build",
     "start": "cross-env HOST=0.0.0.0 PORT=8080 nuxt start",
     "start:travis": "nuxt start",
