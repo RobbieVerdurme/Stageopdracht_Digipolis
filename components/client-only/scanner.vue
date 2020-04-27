@@ -66,6 +66,10 @@ export default {
           this.error = 'De camera is niet compatiebel'
         } else if (error.name === 'StreamApiNotSupportedError') {
           this.error = 'De Stream API kan niet gebruikt worden in deze browser'
+        } else if (error.name === 'InsecureContextError') {
+          this.error = 'Ga naar https versie van de site. Om dit te doen verander je de http naar https in de adresbalk'
+        } else {
+          this.error = 'Error'
         }
       } finally {
         this.loading = false
