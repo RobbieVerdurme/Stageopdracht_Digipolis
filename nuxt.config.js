@@ -70,23 +70,18 @@ export default {
     { src: '~/plugins/vue-qrcode-reader.js', mode: 'client' },
 
     // https://github.com/vue-a11y/vue-axe
-    { src: '~/plugins/axe.js' }
+    { src: '~/plugins/axe.js' },
+
+    // https://vuetifyjs.com/en/getting-started/quick-start/
+    { src: '~/plugins/vuetify.js' }
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-
-    // https://vuetifyjs.com/en/getting-started/quick-start/
-    '@nuxtjs/vuetify'
+    '@nuxtjs/eslint-module'
   ],
-  vuetify: {
-    treeShake: {
-      directives: ['Touch']
-    }
-  },
   /*
   ** Nuxt.js modules
   */
@@ -111,7 +106,7 @@ export default {
     */
     extend (config) {
       config.module.rules.push({
-        test: /\.scss$/,
+        test: /\.s(c|a)ss$/,
         use: [
           {
             loader: 'sass-loader',
