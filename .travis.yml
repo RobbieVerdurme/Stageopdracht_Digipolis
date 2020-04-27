@@ -25,6 +25,6 @@ install:
 
 script:
  - npm run lint
- - npm run build
- - npm run start & 
+ - npm run build:travis
+ - npm run start:travis &
  - npm run test

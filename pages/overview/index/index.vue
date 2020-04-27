@@ -4,7 +4,7 @@
     <!--Pagination-->
     <pageination
       :items="items"
-      :currentPage="currentPage"
+      :current-page="currentPage"
       @updateFilterdItems="updateFilterdItems"
     />
     <!--/Pagination-->
@@ -18,26 +18,26 @@ export default {
     Collection: () => import('~/components/organisms/collection.vue'),
     pageination: () => import('~/components/molecules/pagination')
   },
-  created() {
-    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
-  },
-  watch: {
-    $route() {
-      this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
-    }
-  },
-  data() {
+  data () {
     return {
       // items
-      items: this.$store.getters['poi/getAllPointsOfIntrest'],
+      items: this.$store.getters.getAllPointsOfIntrest,
       filterdItems: [],
 
-      //settings to configure pagination
+      // settings to configure pagination
       currentPage: null
     }
   },
+  watch: {
+    $route () {
+      this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
+    }
+  },
+  created () {
+    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
+  },
   methods: {
-    updateFilterdItems(value) {
+    updateFilterdItems (value) {
       this.filterdItems = value
     }
   }

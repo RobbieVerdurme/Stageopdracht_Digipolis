@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 feature  | date added
 ------------- | -------------
-swipeable detail poi page | 2020-04+14
+cross-env package | 2020-04-20
+feedback.vue | 2020-04-16
+swipeable detail poi page | 2020-04-14
 paginaition | 2020-04-09
 accessibility testing | 2020-04-07
 Vue layers popup | 2020-04-06
@@ -35,6 +37,7 @@ cypress-axe | 2020-03-18
 ### Changed
 feature  | date changed
 ------------- | -------------
+poi/_id.vue add feedback | 2020-04-16
 footer.vue image ref | 2020-04-14
 postinstall.sh | 2020-04-14
 site.webmanifest | 2020-04-14
