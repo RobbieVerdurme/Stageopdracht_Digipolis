@@ -26,7 +26,7 @@
             </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{name: 'navigate-index'}" :class="activeLink==='navigate-index'?'active':''">
+            <nuxt-link :to="{name: 'navigate-index'}" :class="activeLink==='navigate-index' || activeLink==='navigate-index-id'?'active':''">
               Volg route
             </nuxt-link>
           </li>
