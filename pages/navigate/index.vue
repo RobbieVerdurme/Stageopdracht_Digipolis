@@ -2,18 +2,22 @@
   <main class="news-overview-page">
     <section class="overview-layout">
       <client-only>
-        <vMap :features.sync="features" :route.sync="route" class="map" />
+        <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
       </client-only>
-      <nuxt-child :item="item" />
+      <nuxt-child />
     </section>
   </main>
 </template>
 
 <script>
 export default {
+  middleware: ['poi', 'route'],
   components: {
     vMap: () => import('~/components/organisms/vuelayersmap.vue')
   },
+  /**
+   * fetch method to get the featuers and routes
+   */
   async fetch ({ store }) {
     if (!store.getters.getAllPointsOfIntrest.length) {
       // get poi
@@ -30,37 +34,66 @@ export default {
   data () {
     return {
       // configuration range
-      rangeFromPOI: 50,
-
-      // selected poi
-      item: {},
+      rangeFromPOI: 10,
 
       // map features
       features: this.$store.getters.getAllPointsOfIntrest,
-      route: this.$store.getters.getAllRoutes
+      route: this.$store.getters.getAllRoutes,
+
+      // position
+      position: null
     }
   },
-  mounted () {
-    navigator.geolocation.watchPosition(this.showClosedPOI)
+  watch: {
+    /**
+     * when position changed check if it is close to a poi
+     */
+    position () {
+      this.showClosedPOI()
+    }
   },
   methods: {
-    showClosedPOI (position) {
+    /**
+     * show poi if you are close to one
+     */
+    showClosedPOI () {
       for (const index in this.features) {
+        // get the point from features
         const corPoint = this.features[index].geometry.coordinates
-        if (this.between(corPoint[0], position.coords.latitude - this.rangeFromPOI, position.coords.longitude + this.rangeFromPOI) && this.between(corPoint[1], position.coords.latitude - this.rangeFromPOI, position.coords.longitude + this.rangeFromPOI)) {
-          this.item = this.features[index]
-          this.$router.push({ name: 'navigate-index-poi' })
+        // check if the poi is in range of the position
+        const inRangeOfLongitude = this.between(this.position[0], corPoint[0] - this.rangeFromPOI, corPoint[0] + this.rangeFromPOI)
+        const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
+
+        // check if the poi is in range
+        if (inRangeOfLongitude && inRangeOfLangitude) {
+          // change nuxt child with the id of the item
+          this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
+          break
         }
       }
     },
+    /**
+     * check if value is between min and max
+     */
     between (x, min, max) {
       return x >= min && x <= max
+    },
+    /**
+     * if location changes on map update location
+     */
+    locationChanged (value) {
+      this.position = value
     }
   }
 }
 </script>
 <style scoped>
 .map {
+    max-height: 20em;
+}
+@media screen and (min-width: 770px) {
+  .map {
     max-height: 30em;
+  }
 }
 </style>

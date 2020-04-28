@@ -1,11 +1,6 @@
 <template>
   <div>
-    <h1>Routing</h1>
-    <p>A detail poi page wil pop up when you go to a point</p>
+    <h1>Routering</h1>
+    <p>De detail pagina van het point of interst zal hier getoont worden indien u dicht genoeg bij een punt staat</p>
   </div>
 </template>
-
-<script>
-export default {
-}
-</script>
