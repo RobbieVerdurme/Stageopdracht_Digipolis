@@ -67,8 +67,20 @@ export default {
         // check if the poi is in range
         if (inRangeOfLongitude && inRangeOfLangitude) {
           // change nuxt child with the id of the item
-          this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
-          break
+          // this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
+          // break
+          this.$toast.show('Er is een nieuw punt in de buurt met titel ' + this.features[index].properties.naam_nl, {
+            action: {
+              text: 'Toon',
+              onClick: (e, toastobject) => {
+                this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
+                toastobject.goAway(0)
+              }
+            },
+            icon: {
+              name: 'info'
+            }
+          })
         }
       }
     },
