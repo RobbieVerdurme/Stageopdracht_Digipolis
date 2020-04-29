@@ -69,7 +69,7 @@ export default {
           // change nuxt child with the id of the item
           // this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
           // break
-          this.$toast.show('Er is een nieuw punt in de buurt met titel ' + this.features[index].properties.naam_nl, {
+          this.$toast.show('Je bent in de buurt van ' + this.features[index].properties.naam_nl, {
             action: {
               text: 'Toon',
               onClick: (e, toastobject) => {
