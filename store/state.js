@@ -3,7 +3,7 @@
  */
 export default () => ({
   // PWA
-  installable: 'none',
+  installable: false,
   installablePrompt: null,
 
   // POI
