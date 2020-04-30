@@ -44,6 +44,11 @@ export default {
       position: null
     }
   },
+  computed: {
+    visited () {
+      return localStorage.visitedPOI ? localStorage.visitedPOI : [...Array(this.features.length)].map((x) => { return false })
+    }
+  },
   watch: {
     /**
      * when position changed check if it is close to a poi
@@ -65,7 +70,8 @@ export default {
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude) {
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
+          this.visited[index] = true
           // change nuxt child with the id of the item
           // this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
           // break
@@ -83,6 +89,7 @@ export default {
           })
         }
       }
+      localStorage.visitedPOI = this.visited
     },
     /**
      * check if value is between min and max
