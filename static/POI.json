@@ -8,47 +8,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    415120.5557695757,
-                    6633300.970197109
-                ]
-            },
-            "geometry_name": "SHAPE",
-            "properties": {
-                "OBJECTID": 138,
-                "volgnummer": 36,
-                "soort": "Lichtkunstwerk",
-                "groep": "Lichtfestival",
-                "naam_nl": "Wintervlinders",
-                "naam_fr": null,
-                "naam_en": null,
-                "naam_de": null,
-                "naam_es": null,
-                "omschrijving_nl": "Artiest: Academie voor Beeldende Kunst (België (Gent))",
-                "omschrijving_fr": null,
-                "omschrijving_en": null,
-                "omschrijving_de": null,
-                "omschrijving_es": null,
-                "detail_nl": "Vlinderlichtsculpturen gerealiseerd door  Annique Mahieu en haar studenten van de Middelbare Graad van de academie voor beeldende kunst te Gent. Met het gedicht “Le papillon” van Lamartine als inspiratiebron en “Het vliegerke” van Walter De Buck , hebben ze lichtgevende vliegersculpturen gemaakt om de winter kleur te geven.",
-                "detail_fr": null,
-                "detail_en": null,
-                "detail_de": null,
-                "detail_es": null,
-                "link_nl": "http://www.academiegent.be",
-                "link_fr": null,
-                "link_en": null,
-                "link_de": null,
-                "link_es": null,
-                "route": "Lichtfestivalwandeling",
-                "symbol": "https://drive.google.com/open?id=1aejHNFlZ2E0uHy7yYCbg5_bGzEEn_5ee",
-                "UID": "1f6b157b-6ad8-4b27-9255-28872d6f0640"
-            }
-        },
-        {
-            "type": "Feature",
-            "id": "Lichtfestival_POI.fid--33a246d1_1709a0ac212_112",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     414822.63,
                     6629201.97
                 ]
