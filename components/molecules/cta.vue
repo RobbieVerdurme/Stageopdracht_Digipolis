@@ -35,42 +35,48 @@
 <script>
 /* eslint-disable no-undef */
 export default {
-  data () {
-    return {
-      installable: this.$store.getters.getInstallable
+  computed: {
+    installable () {
+      return this.$store.getters.getInstallable
+    },
+    installPrompt () {
+      // eslint-disable-next-line dot-notation
+      return this.$store.getters['getInstallablePrompt']
     }
   },
   mounted () {
-    this.$refs.installableblock.style.display = this.installable ? 'block' : 'none'
+    this.$refs.installableblock.hidden = this.installable
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
-      e.preventDefault()
       // Stash the event so it can be triggered later.
       this.$store.commit('setInstallablePrompt', e)
       // Update UI to notify the user they can add to home screen
-      this.$store.commit('setInstallable', true)
-      this.$refs.installableblock.style.display = 'block'
+      this.setInstallable(true)
     })
   },
   methods: {
+    /**
+     * prompt the install
+     */
     installPWA () {
-      // eslint-disable-next-line dot-notation
-      const installPrompt = this.$store.getters['getInstallablePrompt']
-
       // Show the prompt
-      installPrompt.prompt()
+      this.installPrompt.prompt()
 
       // set display to none
-      this.$store.commit('setInstallable', false)
-      this.$refs.installableblock.style.display = 'none'
+      this.setInstallable(false)
 
       // check what user picked
-      installPrompt.userChoice.then((choiceResult) => {
+      this.installPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome !== 'accepted') {
-          this.$store.commit('setInstallable', true)
-          this.$refs.installableblock.style.display = 'block'
+          this.setInstallable(true)
         }
       })
+    },
+    /**
+     * set the store installable value
+     */
+    setInstallable (newValue) {
+      this.$store.commit('setInstallable', newValue)
+      this.$refs.installableblock.hidden = !newValue
     }
   }
 }
