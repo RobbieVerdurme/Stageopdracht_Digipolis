@@ -42,7 +42,8 @@ export default {
         rel: 'icon',
         type: 'image/cyan/x-icon',
         href: '/favicon.ico'
-      }
+      },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons' }
     ],
     bodyAttrs: {
       class: 'cs--cyan'
@@ -88,7 +89,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    ['@nuxtjs/pwa', { icon: false, manifest: false }]
+    ['@nuxtjs/pwa', { icon: false, manifest: false }],
+    '@nuxtjs/toast'
   ],
   /*
   ** Axios module configuration

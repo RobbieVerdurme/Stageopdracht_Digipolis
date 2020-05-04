@@ -34,11 +34,11 @@
           >
             <header>
               <h3>
-                {{ feature.properties.naam_nl }}
+                {{ feature.id.includes('position')?'Huidige locatie':feature.properties.naam_nl }}
               </h3>
               <button class="ol-popup__closer" aria-label="Sluiten" @click="selectedFeatures = selectedFeatures.filter(f => f.id !== feature.id)" />
             </header>
-            <div>
+            <div v-if="!feature.id.includes('position')">
               <p>{{ feature.properties.omschrijving_nl }}</p>
               <div>
                 <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">
@@ -48,6 +48,9 @@
                   read more
                 </nuxt-link>
               </div>
+            </div>
+            <div v-else>
+              <p>Dit is uw huidige locatie</p>
             </div>
           </vl-overlay>
           <!--// selected popup -->
@@ -151,7 +154,6 @@ export default {
     // make matrixids for fetching map
     this.matrixIds = [...new Array(21)].map((x, i) => { return 'SG-WEB MERCATOR:' + i })
   },
-
   // methods
   methods: {
     /**
@@ -159,6 +161,7 @@ export default {
      */
     updatePosition ($event) {
       this.geolocPosition = $event
+      this.$emit('locationChanged', $event)
     },
     pointOnSurface: findPointOnSurface,
     onMapMounted (vlMap) {
