@@ -45,7 +45,7 @@ export default {
     }
   },
   mounted () {
-    this.$refs.installableblock.hidden = this.installable
+    this.$refs.installableblock.hidden = !this.installable
     window.addEventListener('beforeinstallprompt', (e) => {
       // Stash the event so it can be triggered later.
       this.$store.commit('setInstallablePrompt', e)
