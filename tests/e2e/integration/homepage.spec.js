@@ -54,6 +54,9 @@ describe('Homepage', () => {
                     includeUrl = 'overview'
                     break;
                 case 2:
+                    includeUrl= 'navigate'
+                    break;
+                case 3:
                     includeUrl = 'scanner'
                     break;
             }

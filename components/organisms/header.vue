@@ -26,6 +26,11 @@
             </nuxt-link>
           </li>
           <li>
+            <nuxt-link :to="{name: 'navigate-index'}" :class="activeLink==='navigate-index' || activeLink==='navigate-index-id'?'active':''">
+              Volg route
+            </nuxt-link>
+          </li>
+          <li>
             <nuxt-link :to="{name: 'scanner'}" :class="activeLink==='scanner'?'active':''">
               Scanner
             </nuxt-link>
@@ -66,6 +71,11 @@
                   <li>
                     <nuxt-link :to="{name: 'overview-index'}" :class="activeLink==='overview-index' || activeLink==='overview-index-map'?'active':''">
                       Overzicht route
+                    </nuxt-link>
+                  </li>
+                  <li>
+                    <nuxt-link :to="{name: 'navigate-index'}" :class="activeLink==='navigate-index'?'active':''">
+                      Volg route
                     </nuxt-link>
                   </li>
                   <li>
