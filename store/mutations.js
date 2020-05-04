@@ -2,7 +2,14 @@
  * mutations
  */
 export default {
-// ROUTE
+  // PWA
+  setInstallable (state, payload) {
+    state.installable = payload
+  },
+  setInstallablePrompt (state, payload) {
+    state.installablePrompt = payload
+  },
+  // ROUTE
   /**
    * sets the route
    * @param {*} state
