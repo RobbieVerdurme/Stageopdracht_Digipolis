@@ -7,7 +7,7 @@
       <!--Previous page-->
       <li v-if="prev" class="previous">
         <nuxt-link
-          :to="{name: 'overview-index' , query: { page: currentPage - 1}}"
+          :to="{name: routeToPage , query: { page: currentPage - 1}}"
           class="previous"
         >
           Vorige
@@ -17,9 +17,9 @@
       <!--/Previous page-->
 
       <!--Display first item-->
-      <li v-if="fromPage !== 1">
+      <li v-if="fromPage !== 1 && totalPageCount !== 1">
         <span class="visually-hidden">pagina</span>
-        <nuxt-link :to="{name: 'overview-index', query: {page: 1}}">
+        <nuxt-link :to="{name: routeToPage, query: {page: 1}}">
           1
         </nuxt-link>
       </li>
@@ -38,7 +38,7 @@
         :class="currentPage === pagenumber?'active':''"
       >
         <span class="visually-hidden">pagina</span>
-        <nuxt-link :to="{name: 'overview-index', query: {page: pagenumber}}">
+        <nuxt-link :to="{name: routeToPage, query: {page: pagenumber}}">
           {{ pagenumber }}
         </nuxt-link>
       </li>
@@ -54,7 +54,7 @@
       <li v-if="toPage !== totalPageCount">
         <span class="visually-hidden">pagina</span>
         <nuxt-link
-          :to="{name: 'overview-index', query: {page: totalPageCount}}"
+          :to="{name: routeToPage, query: {page: totalPageCount}}"
         >
           {{ totalPageCount }}
         </nuxt-link>
@@ -64,7 +64,7 @@
       <!--Next page-->
       <li v-if="next" class="next">
         <nuxt-link
-          :to="{name: 'overview-index' , query: { page: currentPage + 1}}"
+          :to="{name: routeToPage , query: { page: currentPage + 1}}"
           class="next"
         >
           Volgende
@@ -86,6 +86,14 @@ export default {
     currentPage: {
       type: Number,
       required: true
+    },
+    routeToPage: {
+      type: String,
+      default: ''
+    },
+    limitTotalPages: {
+      type: Number,
+      default: 3
     }
   },
   data () {
@@ -98,7 +106,7 @@ export default {
       limit: 5,
 
       // settings to configure pagination
-      pagelimit: 3,
+      pagelimit: this.limitTotalPages,
       fromPage: null,
       toPage: null,
       next: null,
@@ -116,7 +124,7 @@ export default {
      * get the total page cound
      */
     totalPageCount () {
-      return Math.floor(this.items.length / this.limit)
+      return Math.ceil(this.items.length / this.limit)
     }
   },
   watch: {
