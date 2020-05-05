@@ -5,6 +5,7 @@
     <pageination
       :items="items"
       :current-page="currentPage"
+      :route-to-page="$route.name"
       @updateFilterdItems="updateFilterdItems"
     />
     <!--/Pagination-->
