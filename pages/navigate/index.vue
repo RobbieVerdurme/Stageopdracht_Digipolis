@@ -1,10 +1,12 @@
 <template>
   <main class="news-overview-page">
     <section class="overview-layout flow-container">
-      <client-only>
-        <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
-      </client-only>
-      <nuxt-child class="left" />
+      <div class="left">
+        <nuxt-child style="margin-bottom:2em" />
+        <client-only>
+          <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
+        </client-only>
+      </div>
       <div v-if="visitedPoiList.length" class="right">
         <h3>Bezochte punten</h3>
         <collection :items="filterdVisitedPoiList" />

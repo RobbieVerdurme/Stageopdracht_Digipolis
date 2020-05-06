@@ -1,5 +1,6 @@
 <template>
   <div>
+    <info :item="item.properties" />
     <div v-if="savedPoi" class="messages messages--status" role="alert" aria-atomic="true">
       <h2 class="visually-hidden">
         Status
@@ -7,7 +8,6 @@
       <i class="icon-checkmark" aria-hidden="true" />
       <p>{{ item.properties.naam_nl }} is opgeslagen</p>
     </div>
-    <info :item="item.properties" />
     <button ref="saveButton" :disabled="savedPoi" class="button button-secondary" @click="savePOI">
       Punt opslaan
     </button>
