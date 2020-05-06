@@ -8,7 +8,7 @@
         </client-only>
       </div>
       <div v-if="visitedPoiList.length" class="right">
-        <h3>Bezochte punten</h3>
+        <h2>Bezochte punten</h2>
         <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
         <button class="button button-secondary" @click="readMoreClicked">
           Toon meer
