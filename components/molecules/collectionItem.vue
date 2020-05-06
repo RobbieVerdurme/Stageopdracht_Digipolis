@@ -7,10 +7,10 @@
           {{ item.omschrijving_nl }}
         </p>
         <nuxt-link :to="{name: navigateToPage, params:{id: item.volgnummer}}" class="read-more standalone-link" :title="item.title">
-          <span class="visually-hidden">
-            {{ item.naam_nl }}
-          </span>
           Lees meer
+          <span class="visually-hidden">
+            over {{ item.naam_nl }}
+          </span>
         </nuxt-link>
       </div>
       <div v-if="!navigateToPage.includes('navigate')" class="content__first">
