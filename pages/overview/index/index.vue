@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Collection :items="filterdItems" />
+    <Collection :items="filterdItems" :navigate-to-page="'poi-id'" />
     <!--Pagination-->
     <pageination
       :items="items"
