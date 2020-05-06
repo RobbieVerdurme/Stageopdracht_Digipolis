@@ -67,7 +67,7 @@ export default {
      * create a boolean array if the point if visited
      */
     visited () {
-      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map((_) => { return false })
+      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map(_ => false)
     }
   },
   watch: {
