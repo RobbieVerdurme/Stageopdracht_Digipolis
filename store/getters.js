@@ -2,7 +2,14 @@
  * getters
  */
 export default {
-// POI
+  // PWA
+  getInstallable: (state) => {
+    return state.installable
+  },
+  getInstallablePrompt: (state) => {
+    return state.installablePrompt
+  },
+  // POI
   /**
      * get all points of intrest
      */
