@@ -1,16 +1,7 @@
 <template>
   <div>
-    <!-- Error -->
-    <div v-if="error" class="messages messages--error" role="alert" aria-atomic="true">
-      <i class="icon-cross" aria-hidden="true" />
-      <p>{{ error }}</p>
-    </div>
-
-    <!-- Warning -->
-    <div v-if="warning" class="messages messages--warning" role="alert" aria-atomic="true">
-      <i class="icon-exclamation" aria-hidden="true" />
-      <p>{{ warning }}</p>
-    </div>
+    <!--Statusmessage-->
+    <statusmessge :status="error?'error':warning?'warning':''" :status-text="error?error:warning" />
 
     <!--Camera-->
     <qrcode-stream v-if="!error" class="scanner" @decode="onDecode" @init="onInit">
@@ -23,6 +14,9 @@
 
 <script>
 export default {
+  components: {
+    statusmessge: () => import('~/components/molecules/statusmessage.vue')
+  },
   // variables
   data () {
     return {
