@@ -2,9 +2,6 @@
   <div>
     <!--Success-->
     <div v-if="status === 'success'" class="messages messages--status" role="alert" aria-atomic="true">
-      <h2 class="visually-hidden">
-        Status
-      </h2>
       <i class="icon-checkmark" aria-hidden="true" />
       <p>{{ statusText }} is opgeslagen</p>
     </div>
