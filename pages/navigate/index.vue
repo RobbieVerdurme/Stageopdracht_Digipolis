@@ -9,14 +9,10 @@
       </div>
       <div v-if="visitedPoiList.length" class="right">
         <h3>Bezochte punten</h3>
-        <collection :items="filterdVisitedPoiList" />
-        <pagination
-          :items="visitedPoiList"
-          :current-page="currentPage"
-          :limit-total-pages="pageLimit"
-          :to-page="$route.name"
-          @updateFilterdItems="updateFilterdItems"
-        />
+        <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
+        <button class="button button-secondary" @click="readMoreClicked">
+          Toon meer
+        </button>
       </div>
     </section>
   </main>
@@ -26,7 +22,6 @@
 export default {
   middleware: ['poi', 'route'],
   components: {
-    pagination: () => import('~/components/molecules/pagination'),
     collection: () => import('~/components/organisms/collection'),
     vMap: () => import('~/components/organisms/vuelayersmap.vue')
   },
@@ -62,19 +57,23 @@ export default {
       visitedPoiList: [],
       filterdVisitedPoiList: [],
 
-      // settings to configure pagination
-      currentPage: null,
-      pageLimit: 0
+      // lees meer config
+      offset: 0,
+      limit: 5
     }
   },
   computed: {
+    /**
+     * create a boolean array if the point if visited
+     */
     visited () {
       return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map((x) => { return false })
     }
   },
   watch: {
-    $route () {
-      this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
+    limit (value) {
+      // give filterdlist this.limit items
+      this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, value)
     },
     /**
      * when position changed check if it is close to a poi
@@ -83,10 +82,8 @@ export default {
       this.showClosedPOI()
     }
   },
-  created () {
-    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1
-  },
   mounted () {
+    // create a list of visited points
     if (localStorage.visitedPOI) {
       const visited = JSON.parse(localStorage.getItem('visitedPOI'))
       for (const index in visited) {
@@ -94,8 +91,9 @@ export default {
           this.visitedPoiList.push(this.features[index])
         }
       }
-      this.pageLimit = this.visitedPoiList.length > 10 ? 3 : this.visitedPoiList.length > 5 ? 2 : 0
     }
+    // fill filterd list for first time
+    this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
   },
   methods: {
     /**
@@ -113,7 +111,6 @@ export default {
         if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
-          this.pageLimit = this.visitedPoiList.length > 10 ? 3 : this.visitedPoiList.length > 5 ? 2 : 0
           this.$toast.show('Je bent in de buurt van ' + this.features[index].properties.naam_nl, {
             action: {
               text: 'Toon',
@@ -143,8 +140,11 @@ export default {
     locationChanged (value) {
       this.position = value
     },
-    updateFilterdItems (value) {
-      this.filterdVisitedPoiList = value
+    /**
+     * add 5 items to the filterd list
+     */
+    readMoreClicked () {
+      this.limit += 5
     }
   }
 }
