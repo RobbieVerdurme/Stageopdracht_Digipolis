@@ -1,10 +1,19 @@
 <template>
   <main class="news-overview-page">
-    <section class="overview-layout">
-      <client-only>
-        <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
-      </client-only>
-      <nuxt-child />
+    <section class="overview-layout flow-container">
+      <div class="left">
+        <nuxt-child style="margin-bottom:2em" />
+        <client-only>
+          <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
+        </client-only>
+      </div>
+      <div v-if="visitedPoiList.length" class="right">
+        <h2>Bezochte punten</h2>
+        <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
+        <button class="button button-secondary" @click="readMoreClicked">
+          Toon meer
+        </button>
+      </div>
     </section>
   </main>
 </template>
@@ -13,6 +22,7 @@
 export default {
   middleware: ['poi', 'route'],
   components: {
+    collection: () => import('~/components/organisms/collection'),
     vMap: () => import('~/components/organisms/vuelayersmap.vue')
   },
   /**
@@ -41,21 +51,49 @@ export default {
       route: this.$store.getters.getAllRoutes,
 
       // position
-      position: null
+      position: null,
+
+      // list of visited poi
+      visitedPoiList: [],
+      filterdVisitedPoiList: [],
+
+      // lees meer config
+      offset: 0,
+      limit: 5
     }
   },
   computed: {
+    /**
+     * create a boolean array if the point if visited
+     */
     visited () {
-      return localStorage.visitedPOI ? localStorage.visitedPOI : [...Array(this.features.length)].map((x) => { return false })
+      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map(_ => false)
     }
   },
   watch: {
+    limit (value) {
+      // give filterdlist this.limit items
+      this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, value)
+    },
     /**
      * when position changed check if it is close to a poi
      */
     position () {
       this.showClosedPOI()
     }
+  },
+  mounted () {
+    // create a list of visited points
+    if (localStorage.visitedPOI) {
+      const visited = JSON.parse(localStorage.getItem('visitedPOI'))
+      for (const index in visited) {
+        if (visited[index]) {
+          this.visitedPoiList.push(this.features[index])
+        }
+      }
+    }
+    // fill filterd list for first time
+    this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
   },
   methods: {
     /**
@@ -72,9 +110,7 @@ export default {
         // check if the poi is in range
         if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
           this.visited[index] = true
-          // change nuxt child with the id of the item
-          // this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
-          // break
+          this.visitedPoiList.push(this.features[index])
           this.$toast.show('Je bent in de buurt van ' + this.features[index].properties.naam_nl, {
             action: {
               text: 'Toon',
@@ -89,7 +125,8 @@ export default {
           })
         }
       }
-      localStorage.visitedPOI = this.visited
+      const parsed = JSON.stringify(this.visited)
+      localStorage.setItem('visitedPOI', parsed)
     },
     /**
      * check if value is between min and max
@@ -102,17 +139,45 @@ export default {
      */
     locationChanged (value) {
       this.position = value
+    },
+    /**
+     * add 5 items to the filterd list
+     */
+    readMoreClicked () {
+      this.limit += 5
     }
   }
 }
 </script>
 <style scoped>
 .map {
-    max-height: 20em;
-}
-@media screen and (min-width: 770px) {
-  .map {
     max-height: 30em;
-  }
+}
+.flow-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+.flow-container > * {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.flow-container > .left {
+  position: relative;
+  font-size: .8rem;
+  min-height: 7rem;
+}
+
+@media screen and (min-width: 770px) {
+  .flow-container > .left {
+  width: calc(8.4rem + (100% - 13.2rem)/12*8);
+}
+.flow-container > .right {
+  width: calc(3.6rem + (100% - 13.2rem)/12*4);
+  padding: 1.2rem;
+}
 }
 </style>

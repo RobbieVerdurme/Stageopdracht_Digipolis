@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Collection :items="filterdItems" />
+    <Collection :items="filterdItems" :navigate-to-page="'poi-id'" />
     <!--Pagination-->
     <pageination
       :items="items"
       :current-page="currentPage"
+      :route-to-page="$route.name"
       @updateFilterdItems="updateFilterdItems"
     />
     <!--/Pagination-->

@@ -6,14 +6,14 @@
         <p class="">
           {{ item.omschrijving_nl }}
         </p>
-        <nuxt-link :to="{name: 'poi-id', params:{id: item.volgnummer}}" class="read-more standalone-link" :title="item.title">
+        <nuxt-link :to="{name: navigateToPage, params:{id: item.volgnummer}}" class="read-more standalone-link" :title="item.title">
+          Lees meer
           <span class="visually-hidden">
-            {{ item.naam_nl }}
+            over {{ item.naam_nl }}
           </span>
-          read more
         </nuxt-link>
       </div>
-      <div class="content__first">
+      <div v-if="!navigateToPage.includes('navigate')" class="content__first">
         <div class="figure-wrapper">
           <figure>
             <img v-if="!imageError" :src="item.symbol" :alt="item.naam_nl" :onerror="imageError = true">
@@ -33,6 +33,10 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true
+    },
+    navigateToPage: {
+      type: String,
       required: true
     }
   },
