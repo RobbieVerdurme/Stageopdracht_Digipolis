@@ -38,9 +38,10 @@
         :class="currentPage === pagenumber?'active':''"
       >
         <span class="visually-hidden">pagina</span>
-        <nuxt-link :to="{name: routeToPage, query: {page: pagenumber}}">
+        <nuxt-link v-if="currentPage !== pagenumber" :to="{name: routeToPage, query: {page: pagenumber}}">
           {{ pagenumber }}
         </nuxt-link>
+        <span v-else> {{ pagenumber }}</span>
       </li>
       <!--/Pages-->
 
