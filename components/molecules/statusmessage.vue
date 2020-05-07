@@ -13,7 +13,7 @@
     </div>
 
     <!-- Warning -->
-    <div v-if="statusText === 'warning'" class="messages messages--warning" role="alert" aria-atomic="true">
+    <div v-if="status === 'warning'" class="messages messages--warning" role="alert" aria-atomic="true">
       <i class="icon-exclamation" aria-hidden="true" />
       <p>{{ statusText }}</p>
     </div>
