@@ -3,7 +3,7 @@
     <!--Success-->
     <div v-if="status === 'success'" class="messages messages--status" role="alert" aria-atomic="true">
       <i class="icon-checkmark" aria-hidden="true" />
-      <p>{{ statusText }} is opgeslagen</p>
+      <p>{{ statusText }}</p>
     </div>
 
     <!-- Error -->
