@@ -1,10 +1,12 @@
 <template>
   <section class="highlight cta-block download highlight--left">
     <div class="highlight__inner">
-      <p>
-        download website als app enkel beschikbaar op chromium browsers ...
+      <p :hidden="!installable">
+        Indien u een browser heeft de progressive web applicatie functionaliteit ondersteund is de optie installeer PWA beschikbaar. Deze laat u de site opslaan als applicatie op uw apparaat.
       </p>
-      <p>download gpx hieronder</p>
+      <p>
+        Hieronder vind u de download knop voor de route als gpx op te slaan op uw apparaat.
+      </p>
 
       <ul class="links">
         <li>
@@ -20,7 +22,7 @@
 
         <li ref="installableblock">
           <a class="standalone-link" style="cursor: pointer;" title="Download application" @click="installPWA">
-            Install PWA</a>
+            Installeer PWA</a>
           <span class="file-type">
             Application
             <span class="file-size">

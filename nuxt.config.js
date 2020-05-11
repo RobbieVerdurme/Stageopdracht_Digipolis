@@ -10,6 +10,7 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: { lang: 'nl' },
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
