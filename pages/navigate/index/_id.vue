@@ -1,7 +1,7 @@
 <template>
   <div>
     <info :item="item.properties" />
-    <statusmessage :status="savedPoi?'success':''" :status-text="item.properties.naam_nl +'is opgeslagen'" />
+    <statusmessage :status="savedPoi?'success':''" :status-text="item.properties.naam_nl +' is opgeslagen'" />
     <button ref="saveButton" :disabled="savedPoi" class="button button-secondary" @click="savePOI">
       Punt opslaan
     </button>
