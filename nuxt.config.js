@@ -90,8 +90,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    ['@nuxtjs/pwa', { icon: false, manifest: false }],
-    '@nuxtjs/toast'
+    ['@nuxtjs/pwa', { icon: false, manifest: false }]
   ],
   /*
   ** Axios module configuration
@@ -143,18 +142,22 @@ export default {
       }
     }
   },
-  // makes the service worker
-  workbox: {
-    runtimeCaching: [
-      {
-        // make site offline available
-        urlPattern: `${process.env.baseUrl}/*`,
-        method: 'GET',
-        strategyOptions: {
-          cachename: 'route',
-          cacheableResponse: { statuses: [0, 200] }
+  pwa: { // makes the service worker
+    workbox: {
+      importScripts: [
+        '/notificationServiceWorker.js'
+      ],
+      runtimeCaching: [
+        {
+          // cache data site offline
+          urlPattern: `${process.env.baseUrl}/*`,
+          method: 'GET',
+          strategyOptions: {
+            cachename: 'route',
+            cacheableResponse: { statuses: [0, 200] }
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }
