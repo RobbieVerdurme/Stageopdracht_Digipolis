@@ -10,7 +10,7 @@
       <feedback />
       <ul>
         <li>
-          <nuxt-link v-if="previousPoi > -1 " :to="{name: 'poi-id', params: {'id': previousPoi}}" class="standalone-link back">
+          <nuxt-link v-if="previousPoi > 0 " :to="{name: 'poi-id', params: {'id': previousPoi}}" class="standalone-link back">
             Vorige
           </nuxt-link>
         </li>
