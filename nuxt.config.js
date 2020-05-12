@@ -98,7 +98,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseUrl: process.env.baseUrl
+    baseUrl: process.env.baseUrl,
+    proxy: true
+  },
+  proxy: {
+    '/api/': { target: 'https://licht18qa.stad.gent/nl/jsonapi', pathRewrite: { '^/api/': '' } }
   },
   /*
   ** Build configuration
