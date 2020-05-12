@@ -119,8 +119,12 @@ export default {
       activeLink: this.$route.name,
       menuModal: null,
       poi: null,
-      imageError: false,
-      selectedPOI: this.$store.getters.getSelectedPOI
+      imageError: false
+    }
+  },
+  computed: {
+    selectedPOI () {
+      return this.$store.getters.getSelectedPOI
     }
   },
   watch: {
