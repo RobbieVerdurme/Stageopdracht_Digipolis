@@ -75,7 +75,11 @@ export default {
     { src: '~/plugins/axe.js' },
 
     // https://vuetifyjs.com/en/getting-started/quick-start/
-    { src: '~/plugins/vuetify.js' }
+    { src: '~/plugins/vuetify.js' },
+
+    //  https://medium.com/@matthew_1129/axios-js-maximum-concurrent-requests-b15045eb69d0
+    //  https://axios.nuxtjs.org/helpers.html#interceptors
+    { src: '~/plugins/axios.js' }
   ],
   /*
   ** Nuxt.js dev-modules
