@@ -77,7 +77,7 @@ export default {
             },
             geometry_name: 'SHAPE',
             properties: {
-              volgnummer: el.attributes.path.pid,
+              volgnummer: el.attributes.field_index,
               naam_nl: el.attributes.title,
               omschrijving_nl: el.attributes.field_introduction.value,
               detail_nl: el.attributes.field_main_content.value,
