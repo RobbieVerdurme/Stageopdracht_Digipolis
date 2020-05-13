@@ -91,8 +91,13 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     ['@nuxtjs/pwa', { icon: false, manifest: false }],
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/robots'
   ],
+  robots: {
+    UserAgent: '*',
+    Disallow: '/'
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
