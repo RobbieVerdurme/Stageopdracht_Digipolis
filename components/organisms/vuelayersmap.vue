@@ -92,6 +92,7 @@
 
 <script>
 import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+import { getTransform } from 'ol/proj'
 
 export default {
   props: {
@@ -145,7 +146,8 @@ export default {
      */
     updatePosition ($event) {
       this.geolocPosition = $event
-      this.$emit('locationChanged', $event)
+      const convertFunction = getTransform('EPSG:3857', 'EPSG:4326')
+      this.$emit('locationChanged', convertFunction($event))
     },
     pointOnSurface: findPointOnSurface,
     onMapMounted (vlMap) {
