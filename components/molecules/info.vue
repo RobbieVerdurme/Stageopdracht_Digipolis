@@ -3,10 +3,8 @@
     <!-- title -->
     <h1>{{ item.naam_nl }}</h1>
     <!--info-->
-    <p><b>{{ item.omschrijving_nl }}</b></p>
-    <p id="info">
-      {{ item.detail_nl }}
-    </p>
+    <p><b v-html="item.omschrijving_nl" /></p>
+    <p id="info" v-html="item.detail_nl" />
   </div>
 </template>
 <script>

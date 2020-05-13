@@ -3,9 +3,7 @@
     <article class="teaser-content node node--type-outdoor-location node--view-mode-teaser">
       <div class="content__second">
         <h3>{{ item.naam_nl }}</h3>
-        <p class="">
-          {{ item.omschrijving_nl }}
-        </p>
+        <p v-html="item.omschrijving_nl" />
         <nuxt-link :to="{name: navigateToPage, params:{id: item.volgnummer}}" class="read-more standalone-link" :title="item.title">
           Lees meer
           <span class="visually-hidden">
