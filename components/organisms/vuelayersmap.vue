@@ -1,27 +1,10 @@
 <template>
   <div class="stores">
-    <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" @mounted="onMapMounted">
+    <vl-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" @mounted="onMapMounted">
       <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation" />
       <!-- interactions -->
       <vl-interaction-select :features.sync="selectedFeatures">
         <template slot-scope="select">
-          <!-- select styles -->
-          <vl-style-box>
-            <vl-style-stroke color="#423e9e" :width="7" />
-            <vl-style-fill :color="[254, 178, 76, 0.7]" />
-            <vl-style-circle :radius="5">
-              <vl-style-stroke color="#423e9e" :width="7" />
-              <vl-style-fill :color="[254, 178, 76, 0.7]" />
-            </vl-style-circle>
-          </vl-style-box>
-          <vl-style-box :z-index="1">
-            <vl-style-stroke color="#d43f45" :width="2" />
-            <vl-style-circle :radius="5">
-              <vl-style-stroke color="#d43f45" :width="2" />
-            </vl-style-circle>
-          </vl-style-box>
-          <!--// select styles -->
-
           <!-- selected feature popup -->
           <vl-overlay
             v-for="feature in select.features"
@@ -84,23 +67,34 @@
       </vl-geoloc>
 
       <!--POI-->
-      <vl-layer-vector>
-        <vl-source-vector :features.sync="pointsOfIntrest" />
-        <!--Style-->
+      <!-- <vl-feature v-for="feature in pointsOfIntrest" :key="feature.id" :properties="pointsOfIntrest.properties">
+        <vl-geom-point :coordinates="feature.geometry.coordinates" />
         <vl-style-box>
+          <vl-style-circle :radius="10">
+            <vl-style-fill color="white" />
+            <vl-style-stroke color="black" />
+          </vl-style-circle>
+          <vl-style-text :text="feature.properties.volgnummer.toString()" />
+        </vl-style-box>
+      </vl-feature> -->
+      <vl-layer-vector :z-index="2">
+        <vl-source-vector :features="pointsOfIntrest" />
+        <vl-style-func :factory="styleFuncFactory" />
+        <!--Style-->
+        <!-- <vl-style-box>
           <vl-style-circle :radius="5">
             <vl-style-fill color="white" />
-            <vl-style-stroke color="blue" />
+            <vl-style-stroke color="black" />
           </vl-style-circle>
-        </vl-style-box>
+        </vl-style-box> -->
       </vl-layer-vector>
 
       <!--Route-->
-      <vl-layer-vector>
+      <vl-layer-vector :z-index="1">
         <vl-source-vector :features.sync="myRoute" />
         <!--Style-->
         <vl-style-box>
-          <vl-style-stroke color="blue" :width="3" :line-dash="[3,5,30,5]" />
+          <vl-style-stroke color="black" :width="3" />
         </vl-style-box>
       </vl-layer-vector>
     </vl-map>
@@ -108,7 +102,7 @@
 </template>
 
 <script>
-import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+import { findPointOnSurface, createStyle } from 'vuelayers/lib/ol-ext'
 
 export default {
   props: {
@@ -156,6 +150,16 @@ export default {
   },
   // methods
   methods: {
+    styleFuncFactory () {
+      return (feature) => {
+        return createStyle({
+          radius: 5,
+          fillColor: 'white',
+          strokeColor: 'blue'
+          // text: feature.values.volgnummer.toString()
+        })
+      }
+    },
     /**
      * updates positin marker on the map
      */
