@@ -22,6 +22,7 @@
     "@digipolis-gent/modal": "^1.0.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/robots": "^2.4.2",
     "@nuxtjs/toast": "^3.3.0",
     "breakpoint-sass": "^2.7.1",
     "cross-env": "^7.0.2",
