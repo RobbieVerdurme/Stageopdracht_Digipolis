@@ -1,3 +1,5 @@
+import Converter from '~/converter/convertBackendPoiData.js'
+
 /**
  * actions
  */
@@ -25,14 +27,11 @@ export default {
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await this.$axios.$get('/api/node/artwork')
-      const dataFeatures = this.convertBackendDataPOI(data)
-
-      commit('setPointsOfInterst', dataFeatures)
+      commit('setPointsOfInterst', Converter.convertBackendDataPOI(data))
     } catch (error) {
       throw error
     }
   },
-
   /**
    * send feedback from user to server
    */
@@ -45,30 +44,6 @@ export default {
     }
   },
 
-  convertBackendDataPOI (data) {
-    const dataFeatures = []
-    for (const index in data.data) {
-      const el = data.data[index]
-      dataFeatures.push({
-        type: 'Feature',
-        id: el.id,
-        geometry: {
-          type: el.attributes.field_coordinates.geo_type,
-          coordinates: [el.attributes.field_coordinates.lon, el.attributes.field_coordinates.lat]
-        },
-        geometry_name: 'SHAPE',
-        properties: {
-          volgnummer: el.attributes.field_index,
-          naam_nl: el.attributes.title,
-          omschrijving_nl: el.attributes.field_introduction.value,
-          detail_nl: el.attributes.field_main_content.value,
-          link_nl: el.attributes.field_website.uri,
-          symbol: null
-        }
-      })
-    }
-    return dataFeatures
-  },
   // SCANNER
   /**
    * get scanner info from online (databasecall)
