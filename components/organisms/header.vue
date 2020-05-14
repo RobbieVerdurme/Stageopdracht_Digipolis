@@ -111,6 +111,7 @@
 <script>
 // import
 import Modal from '@digipolis-gent/modal'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -123,9 +124,9 @@ export default {
     }
   },
   computed: {
-    selectedPOI () {
-      return this.$store.getters.getSelectedPOI
-    }
+    ...mapGetters({
+      selectedPOI: 'getSelectedPOI'
+    })
   },
   watch: {
     $route () {
