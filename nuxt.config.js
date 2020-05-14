@@ -90,8 +90,13 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    ['@nuxtjs/pwa', { icon: false, manifest: false }]
+    ['@nuxtjs/pwa', { icon: false, manifest: false }],
+    '@nuxtjs/robots'
   ],
+  robots: {
+    UserAgent: '*',
+    Disallow: '/'
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -106,7 +111,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config) {
+    extend(config) {
       config.module.rules.push({
         test: /\.s(c|a)ss$/,
         use: [
