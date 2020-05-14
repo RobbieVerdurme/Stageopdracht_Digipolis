@@ -111,7 +111,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend(config) {
+    extend (config) {
       config.module.rules.push({
         test: /\.s(c|a)ss$/,
         use: [
