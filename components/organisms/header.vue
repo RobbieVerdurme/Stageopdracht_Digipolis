@@ -111,6 +111,7 @@
 <script>
 // import
 import Modal from '@digipolis-gent/modal'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -119,9 +120,13 @@ export default {
       activeLink: this.$route.name,
       menuModal: null,
       poi: null,
-      imageError: false,
-      selectedPOI: this.$store.getters.getSelectedPOI
+      imageError: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      selectedPOI: 'getSelectedPOI'
+    })
   },
   watch: {
     $route () {
