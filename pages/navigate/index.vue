@@ -4,13 +4,13 @@
       <div class="left">
         <nuxt-child style="margin-bottom:2em" />
         <client-only>
-          <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
+          <vMap :features.sync="features" :route.sync="route" class="map" />
         </client-only>
       </div>
       <div v-if="visitedPoiList.length" class="right">
         <h2>Bezochte punten</h2>
         <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
-        <button v-if="limit > 5" class="button button-secondary" @click="readMoreClicked">
+        <button class="button button-secondary" @click="readMoreClicked">
           Toon meer
         </button>
       </div>
@@ -52,6 +52,7 @@ export default {
 
       // position
       position: null,
+      accuracy: Number.MAX_VALUE,
 
       // list of visited poi
       visitedPoiList: [],
@@ -85,6 +86,7 @@ export default {
   mounted () {
     // request permissiton to give notification
     Notification.requestPermission()
+    navigator.geolocation.watchPosition(this.locationChanged)
 
     // create a list of visited points
     if (localStorage.visitedPOI) {
@@ -111,7 +113,7 @@ export default {
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy > 10) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
           // refresh filterdlist
@@ -145,7 +147,8 @@ export default {
      * if location changes on map update location
      */
     locationChanged (value) {
-      this.position = value
+      this.position = [value.coords.longitude, value.coords.latitude]
+      this.accuracy = value.coords.accuracy
     },
     /**
      * add 5 items to the filterd list
