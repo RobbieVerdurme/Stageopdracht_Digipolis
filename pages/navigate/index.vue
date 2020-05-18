@@ -113,7 +113,7 @@ export default {
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy > 10) {
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < 10) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
           // refresh filterdlist
