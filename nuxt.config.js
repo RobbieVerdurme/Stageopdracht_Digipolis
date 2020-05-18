@@ -75,7 +75,11 @@ export default {
     { src: '~/plugins/axe.js' },
 
     // https://vuetifyjs.com/en/getting-started/quick-start/
-    { src: '~/plugins/vuetify.js' }
+    { src: '~/plugins/vuetify.js' },
+
+    //  https://medium.com/@matthew_1129/axios-js-maximum-concurrent-requests-b15045eb69d0
+    //  https://axios.nuxtjs.org/helpers.html#interceptors
+    { src: '~/plugins/axios.js' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -102,7 +106,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseUrl: process.env.baseUrl
+    baseUrl: process.env.baseUrl,
+    proxy: true
+  },
+  proxy: {
+    '/api/': { target: 'https://licht18qa.stad.gent/nl/jsonapi', pathRewrite: { '^/api/': '' } }
   },
   /*
   ** Build configuration

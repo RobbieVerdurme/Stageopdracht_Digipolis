@@ -10,7 +10,7 @@ describe('POIpage', () => {
         cy.server()
         cy.route({
             method: 'GET',
-            url: '/POI.json',
+            url: '/api/node/artwork',
             status: 200,
             response: "fixture:POI.json"
         })
