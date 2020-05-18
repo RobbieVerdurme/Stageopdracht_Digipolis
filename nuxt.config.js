@@ -152,7 +152,7 @@ export default {
       importScripts: [
         '/notificationServiceWorker.js'
       ],
-      cachingExtensions: '@/plugins/workbox-range-request.js',
+      cachingExtensions: '~/plugins/workbox-range-request.js',
       runtimeCaching: [
         {
           // cache data site offline

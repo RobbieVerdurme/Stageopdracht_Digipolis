@@ -1,27 +1,19 @@
 /* eslint-disable no-undef */
-const savePostResponsePlugin = {
-  // eslint-disable-next-line require-await
-  cacheKeyWillBeUsed: async ({ request, mode }) => {
-    if (mode === 'write') {
-      // Use the same URL as `POST` request as the cache key.
-      // Alternatively, use a different URL.
-      return request.url
-    }
-  }
-}
+// import { Queue } from 'workbox-background-sync'
 
-workbox.routing.registerRoute(
-  new RegExp('/api/*'),
-  new workbox.strategies.CacheFirst({
-    cacheName: 'apiCache',
-    plugins: [
-      // Add the custom plugin to your strategy.
-      savePostResponsePlugin,
-      new workbox.expiration.Plugin({
-        maxEntries: 100,
-        maxAgeSeconds: 7 * 24
-      })
-    ]
-  }),
-  'POST'
-)
+const queue = new workbox.backgroundSync.Queue()
+//  new Queue('myQueueName', {
+//   // onSync: {}, // Function that gets invoked whenever the 'sync' event fires
+//   maxRetentionTime: 24 * 60 // max time to live before removed in the queue IN MINUTES
+// })
+
+self.addEventListener('fetch', (event) => {
+  // Clone the request to ensure it's safe to read when
+  // adding to the Queue.
+  const promiseChain = fetch(event.request.clone()).catch((err) => {
+    console.log(err)
+    return queue.pushRequest({ request: event.request })
+  })
+
+  event.waitUntil(promiseChain)
+})
