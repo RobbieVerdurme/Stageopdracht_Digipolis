@@ -160,6 +160,10 @@ export default {
       importScripts: [
         '/notificationServiceWorker.js'
       ],
+      preCaching: [
+        { url: '/images/marker.png' },
+        { url: 'http://example.com/broken-url.jpg' }
+      ],
       cachingExtensions: '~/plugins/workbox-range-request.js',
       runtimeCaching: [
         {
