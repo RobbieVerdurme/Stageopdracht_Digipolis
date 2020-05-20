@@ -6,6 +6,11 @@
         <client-only>
           <vMap :features.sync="features" :route.sync="route" class="map" />
         </client-only>
+        <span> Accuracy is {{ accuracy }}</span> <br>
+        <span>
+          <label for="inputminAccuracy">minAccuracy is {{ minAccuracy }} </label>
+          <input id="inputminAccuracy" v-model="minAccuracy" type="range" min="1" max="100">
+        </span>
       </div>
       <div v-if="visitedPoiList.length" class="right">
         <h2>Bezochte punten</h2>
@@ -53,6 +58,7 @@ export default {
       // position
       position: null,
       accuracy: Number.MAX_VALUE,
+      minAccuracy: 10,
 
       // list of visited poi
       visitedPoiList: [],
@@ -113,7 +119,7 @@ export default {
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < 10) {
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < this.minAccuracy) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
           // refresh filterdlist
