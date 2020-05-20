@@ -55,6 +55,7 @@
             <div class="form-item-column">
               <textarea
                 id="feedbacktekst"
+                v-model="feedbacktext"
                 name="feedbacktekst"
                 :class="err?'error':success?'success':''"
               />

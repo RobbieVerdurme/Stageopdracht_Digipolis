@@ -164,6 +164,7 @@ export default {
         { url: '/images/marker.png' },
         { url: 'http://example.com/broken-url.jpg' }
       ],
+      cachingExtensions: '~/plugins/workbox-range-request.js',
       runtimeCaching: [
         {
           // cache data site offline
