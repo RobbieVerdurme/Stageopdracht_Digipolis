@@ -38,7 +38,7 @@ export default {
   async sendFeedback (context, feedback) {
     // eslint-disable-next-line no-useless-catch
     try {
-      await this.$axios.$post('/api/blabla', { text: feedback })
+      await this.$axios.$post('https://httpbin.org/anything', { text: feedback })
     } catch (error) {
       throw error
     }
