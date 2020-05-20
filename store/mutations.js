@@ -38,6 +38,16 @@ export default {
     state.selectedPointOfIntrest = payload
   },
 
+  // INFO
+  /**
+   * set the infopointofinterst with the gotten payload
+   * @param {*} state
+   * @param {Array} payload
+   */
+  setInfoPointsOfInterst (state, payload) {
+    state.infoPointsOfInterst = payload
+  },
+
   // SCANNER
   /**
    * Set scanner info
