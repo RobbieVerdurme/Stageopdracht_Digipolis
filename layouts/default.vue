@@ -13,6 +13,11 @@ export default {
   components: {
     vHeader: () => import('~/components/organisms/header'),
     vFooter: () => import('~/components/organisms/footer')
+  },
+  mounted () {
+    navigator.serviceWorker.ready.then((reg) => {
+      return reg.sync.register('offlineQueue')
+    })
   }
 }
 </script>
