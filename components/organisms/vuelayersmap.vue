@@ -5,23 +5,6 @@
       <!-- interactions -->
       <vl-interaction-select :features.sync="selectedFeatures">
         <template slot-scope="select">
-          <!-- select styles -->
-          <vl-style-box>
-            <vl-style-stroke color="#423e9e" :width="7" />
-            <vl-style-fill :color="[254, 178, 76, 0.7]" />
-            <vl-style-circle :radius="5">
-              <vl-style-stroke color="#423e9e" :width="7" />
-              <vl-style-fill :color="[254, 178, 76, 0.7]" />
-            </vl-style-circle>
-          </vl-style-box>
-          <vl-style-box :z-index="1">
-            <vl-style-stroke color="#d43f45" :width="2" />
-            <vl-style-circle :radius="5">
-              <vl-style-stroke color="#d43f45" :width="2" />
-            </vl-style-circle>
-          </vl-style-box>
-          <!--// select styles -->
-
           <!-- selected feature popup -->
           <vl-overlay
             v-for="feature in select.features"
@@ -39,7 +22,7 @@
               <button class="ol-popup__closer" aria-label="Sluiten" @click="selectedFeatures = selectedFeatures.filter(f => f.id !== feature.id)" />
             </header>
             <div v-if="!feature.id.includes('position')">
-              <p>{{ feature.properties.omschrijving_nl }}</p>
+              <p v-html="feature.properties.omschrijving_nl" />
               <div>
                 <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">
                   read more
@@ -84,8 +67,8 @@
       </vl-geoloc>
 
       <!--POI-->
-      <vl-layer-vector>
-        <vl-source-vector :features.sync="pointsOfIntrest" />
+      <vl-layer-vector :z-index="2">
+        <vl-source-vector :features.sync="pointsOfIntrest" :projection="dataProjectionPoi" />
         <!--Style-->
         <vl-style-box>
           <vl-style-circle :radius="5">
@@ -96,11 +79,11 @@
       </vl-layer-vector>
 
       <!--Route-->
-      <vl-layer-vector>
+      <vl-layer-vector :z-index="1">
         <vl-source-vector :features.sync="myRoute" />
         <!--Style-->
         <vl-style-box>
-          <vl-style-stroke color="blue" :width="3" :line-dash="[3,5,30,5]" />
+          <vl-style-stroke color="black" :width="3" />
         </vl-style-box>
       </vl-layer-vector>
     </vl-map>
@@ -109,6 +92,7 @@
 
 <script>
 import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+import { getTransform } from 'ol/proj'
 
 export default {
   props: {
@@ -142,10 +126,11 @@ export default {
       // popup of item
       selectedFeatures: [],
 
-      // route
-      myRoute: this.route,
+      // Config features
+      dataProjectionPoi: 'EPSG:4326',
 
       // features
+      myRoute: this.route,
       pointsOfIntrest: this.features
     }
   },
@@ -161,7 +146,8 @@ export default {
      */
     updatePosition ($event) {
       this.geolocPosition = $event
-      this.$emit('locationChanged', $event)
+      const convertFunction = getTransform('EPSG:3857', 'EPSG:4326')
+      this.$emit('locationChanged', convertFunction($event))
     },
     pointOnSurface: findPointOnSurface,
     onMapMounted (vlMap) {
