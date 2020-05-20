@@ -4,7 +4,7 @@
       <div class="left">
         <nuxt-child style="margin-bottom:2em" />
         <client-only>
-          <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
+          <vMap :features.sync="features" :route.sync="route" :info-features="infoFeatures" class="map" @locationChanged="locationChanged" />
         </client-only>
       </div>
       <div v-if="visitedPoiList.length" class="right">
@@ -40,6 +40,12 @@ export default {
       await store.dispatch('setRoutepoints')
       this.route = store.getters.getAllRoutes
     }
+    // check if getInfoPointsOfInterst in store is filled
+    if (!store.getters.getInfoPointsOfInterst.length) {
+    // get getInfoPointsOfInterst from online
+      await store.dispatch('setInfoPointsOfInterst')
+      this.infoFeatures = store.getters.getInfoPointsOfInterst
+    }
   },
   data () {
     return {
@@ -49,6 +55,7 @@ export default {
       // map features
       features: this.$store.getters.getAllPointsOfIntrest,
       route: this.$store.getters.getAllRoutes,
+      infoFeatures: this.$store.getters.getInfoPointsOfInterst,
 
       // position
       position: null,

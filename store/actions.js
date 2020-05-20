@@ -44,6 +44,16 @@ export default {
     }
   },
 
+  // INFO
+  async setInfoPointsOfInterst ({ commit }) {
+    try {
+      const data = await this.$axios.$get('/api/node/facility')
+      commit('setInfoPointsOfInterst', Converter.convertBackendDataInfoPOI(data))
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
+
   // SCANNER
   /**
    * get scanner info from online (databasecall)
