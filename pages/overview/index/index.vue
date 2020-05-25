@@ -13,21 +13,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   middleware: 'poi',
   components: {
-    Collection: () => import('~/components/organisms/collection.vue'),
+    Collection: () => import('~/components/organisms/collection'),
     pageination: () => import('~/components/molecules/pagination')
   },
   data () {
     return {
       // items
-      items: this.$store.getters.getAllPointsOfIntrest,
       filterdItems: [],
 
       // settings to configure pagination
       currentPage: null
     }
+  },
+  computed: {
+    ...mapGetters({ items: 'getAllPointsOfIntrest' })
   },
   watch: {
     $route () {

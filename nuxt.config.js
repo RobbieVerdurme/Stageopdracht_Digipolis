@@ -75,7 +75,11 @@ export default {
     { src: '~/plugins/axe.js' },
 
     // https://vuetifyjs.com/en/getting-started/quick-start/
-    { src: '~/plugins/vuetify.js' }
+    { src: '~/plugins/vuetify.js' },
+
+    //  https://medium.com/@matthew_1129/axios-js-maximum-concurrent-requests-b15045eb69d0
+    //  https://axios.nuxtjs.org/helpers.html#interceptors
+    { src: '~/plugins/axios.js' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -91,14 +95,22 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     ['@nuxtjs/pwa', { icon: false, manifest: false }],
-    '@nuxtjs/toast'
+    '@nuxtjs/robots'
   ],
+  robots: {
+    UserAgent: '*',
+    Disallow: '/'
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseUrl: process.env.baseUrl
+    baseUrl: process.env.baseUrl,
+    proxy: true
+  },
+  proxy: {
+    '/api/': { target: 'https://licht18qa.stad.gent/nl/jsonapi', pathRewrite: { '^/api/': '' } }
   },
   /*
   ** Build configuration
@@ -143,18 +155,27 @@ export default {
       }
     }
   },
-  // makes the service worker
-  workbox: {
-    runtimeCaching: [
-      {
-        // make site offline available
-        urlPattern: `${process.env.baseUrl}/*`,
-        method: 'GET',
-        strategyOptions: {
-          cachename: 'route',
-          cacheableResponse: { statuses: [0, 200] }
+  pwa: { // makes the service worker
+    workbox: {
+      importScripts: [
+        '/notificationServiceWorker.js'
+      ],
+      preCaching: [
+        { url: '/images/marker.png' },
+        { url: 'http://example.com/broken-url.jpg' }
+      ],
+      cachingExtensions: '~/plugins/workbox-range-request.js',
+      runtimeCaching: [
+        {
+          // cache data site offline
+          urlPattern: `${process.env.baseUrl}/*`,
+          method: 'GET',
+          strategyOptions: {
+            cachename: 'route',
+            cacheableResponse: { statuses: [0, 200] }
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

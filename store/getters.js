@@ -38,6 +38,14 @@ export default {
     return state.selectedPointOfIntrest
   },
 
+  // INFO
+  /**
+   * get all infopoints
+   */
+  getInfoPointsOfInterst: (state) => {
+    return state.infoPointsOfInterst
+  },
+
   // ROUTE
   /**
    * get first route in list

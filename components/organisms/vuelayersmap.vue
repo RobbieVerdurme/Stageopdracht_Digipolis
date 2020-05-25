@@ -22,13 +22,15 @@
               <button class="ol-popup__closer" aria-label="Sluiten" @click="selectedFeatures = selectedFeatures.filter(f => f.id !== feature.id)" />
             </header>
             <div v-if="!feature.id.includes('position')">
-              <p>{{ feature.properties.omschrijving_nl }}</p>
-              <div>
-                <nuxt-link v-if="!feature.geometry.type.localeCompare('Point')" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">
-                  read more
+              <p v-html="feature.properties.omschrijving_nl" />
+              <div v-if="!feature.geometry.type.localeCompare('Point')">
+                <nuxt-link v-if="!isNaN(feature.properties.volgnummer)" class="read-more standalone-link" :to="{name: 'poi-id', params: {id: feature.properties.volgnummer}}">
+                  Lees meer
                 </nuxt-link>
-                <nuxt-link v-else class="read-more standalone-link" :to="{name: 'index'}">
-                  read more
+              </div>
+              <div v-else>
+                <nuxt-link class="read-more standalone-link" :to="{name: 'index'}">
+                  Lees meer
                 </nuxt-link>
               </div>
             </div>
@@ -88,6 +90,17 @@
           </vl-style-circle>
         </vl-style-box> -->
       </vl-layer-vector>
+      <!--/POI-->
+
+      <!--INFOPOINT-->
+      <vl-layer-vector :z-index="1">
+        <vl-source-vector :features.sync="infoPOI" :projection="dataProjectionPoi" />
+        <!--Style-->
+        <vl-style-box>
+          <vl-style-icon src="../images/info.png" :anchor="[0.5, 1]" />
+        </vl-style-box>
+      </vl-layer-vector>
+      <!--/INFOPOINT-->
 
       <!--Route-->
       <vl-layer-vector :z-index="1">
@@ -97,15 +110,21 @@
           <vl-style-stroke color="black" :width="3" />
         </vl-style-box>
       </vl-layer-vector>
+      <!--/Route-->
     </vl-map>
   </div>
 </template>
 
 <script>
 import { findPointOnSurface, createStyle } from 'vuelayers/lib/ol-ext'
+import { getTransform } from 'ol/proj'
 
 export default {
   props: {
+    infoFeatures: {
+      type: Array,
+      required: true
+    },
     features: {
       type: Array,
       required: true
@@ -136,11 +155,13 @@ export default {
       // popup of item
       selectedFeatures: [],
 
-      // route
-      myRoute: this.route,
+      // Config features
+      dataProjectionPoi: 'EPSG:4326',
 
       // features
-      pointsOfIntrest: this.features
+      myRoute: this.route,
+      pointsOfIntrest: this.features,
+      infoPOI: this.infoFeatures
     }
   },
   // created
@@ -165,7 +186,8 @@ export default {
      */
     updatePosition ($event) {
       this.geolocPosition = $event
-      this.$emit('locationChanged', $event)
+      const convertFunction = getTransform('EPSG:3857', 'EPSG:4326')
+      this.$emit('locationChanged', convertFunction($event))
     },
     pointOnSurface: findPointOnSurface,
     onMapMounted (vlMap) {

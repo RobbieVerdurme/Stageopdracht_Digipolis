@@ -4,13 +4,13 @@
       <div class="left">
         <nuxt-child style="margin-bottom:2em" />
         <client-only>
-          <vMap :features.sync="features" :route.sync="route" class="map" @locationChanged="locationChanged" />
+          <vMap :features.sync="features" :route.sync="route" :info-features="infoFeatures" class="map" @locationChanged="locationChanged" />
         </client-only>
       </div>
       <div v-if="visitedPoiList.length" class="right">
         <h2>Bezochte punten</h2>
         <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
-        <button class="button button-secondary" @click="readMoreClicked">
+        <button v-if="limit > 5" class="button button-secondary" @click="readMoreClicked">
           Toon meer
         </button>
       </div>
@@ -40,6 +40,12 @@ export default {
       await store.dispatch('setRoutepoints')
       this.route = store.getters.getAllRoutes
     }
+    // check if getInfoPointsOfInterst in store is filled
+    if (!store.getters.getInfoPointsOfInterst.length) {
+    // get getInfoPointsOfInterst from online
+      await store.dispatch('setInfoPointsOfInterst')
+      this.infoFeatures = store.getters.getInfoPointsOfInterst
+    }
   },
   data () {
     return {
@@ -49,6 +55,7 @@ export default {
       // map features
       features: this.$store.getters.getAllPointsOfIntrest,
       route: this.$store.getters.getAllRoutes,
+      infoFeatures: this.$store.getters.getInfoPointsOfInterst,
 
       // position
       position: null,
@@ -83,6 +90,9 @@ export default {
     }
   },
   mounted () {
+    // request permissiton to give notification
+    Notification.requestPermission()
+
     // create a list of visited points
     if (localStorage.visitedPOI) {
       const visited = JSON.parse(localStorage.getItem('visitedPOI'))
@@ -111,17 +121,21 @@ export default {
         if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
-          this.$toast.show('Je bent in de buurt van ' + this.features[index].properties.naam_nl, {
-            action: {
-              text: 'Toon',
-              onClick: (e, toastobject) => {
-                this.$router.push({ name: 'navigate-index-id', params: { id: this.features[index].properties.volgnummer } })
-                toastobject.goAway(0)
-              }
-            },
-            icon: {
-              name: 'info'
+          // refresh filterdlist
+          this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
+          // show notification
+          navigator.serviceWorker.getRegistration().then((reg) => {
+            const options = {
+              body: 'Je bent in de buurt van ' + this.features[index].properties.naam_nl,
+              data: {
+                url: 'https://' + process.env.baseUrl + '/navigate/' + this.features[index].properties.volgnummer
+              },
+              actions: [
+                { action: 'visit', title: 'Bezoek' },
+                { action: 'close', title: 'Sluit' }
+              ]
             }
+            reg.showNotification('Er is een nieuw punt in de buurt', options)
           })
         }
       }

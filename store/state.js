@@ -10,6 +10,9 @@ export default () => ({
   pointsOfInterst: [],
   selectedPointOfIntrest: {},
 
+  // INFO POI
+  infoPointsOfInterst: [],
+
   // route
   routepoints: [],
 
