@@ -50,7 +50,7 @@ export default {
   data () {
     return {
       // configuration range
-      rangeFromPOI: 10,
+      rangeFromPOI: 0.001,
 
       // map features
       features: this.$store.getters.getAllPointsOfIntrest,
@@ -59,6 +59,8 @@ export default {
 
       // position
       position: null,
+      accuracy: Number.MAX_VALUE,
+      minAccuracy: 10,
 
       // list of visited poi
       visitedPoiList: [],
@@ -92,6 +94,7 @@ export default {
   mounted () {
     // request permissiton to give notification
     Notification.requestPermission()
+    navigator.geolocation.watchPosition(this.locationChanged)
 
     // create a list of visited points
     if (localStorage.visitedPOI) {
@@ -118,7 +121,7 @@ export default {
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index]) {
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < this.minAccuracy) {
           this.visited[index] = true
           this.visitedPoiList.push(this.features[index])
           // refresh filterdlist
@@ -152,7 +155,8 @@ export default {
      * if location changes on map update location
      */
     locationChanged (value) {
-      this.position = value
+      this.position = [value.coords.longitude, value.coords.latitude]
+      this.accuracy = value.coords.accuracy
     },
     /**
      * add 5 items to the filterd list
