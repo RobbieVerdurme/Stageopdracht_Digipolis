@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   middleware: ['poi', 'route'],
   components: {
@@ -74,7 +76,7 @@ export default {
      * create a boolean array if the point if visited
      */
     visited () {
-      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map(_ => false)
+      return this.$store.getters.getLocalStorageItem('visitedPOI')
     }
   },
   watch: {
@@ -94,18 +96,26 @@ export default {
     Notification.requestPermission()
 
     // create a list of visited points
-    if (localStorage.visitedPOI) {
-      const visited = JSON.parse(localStorage.getItem('visitedPOI'))
-      for (const index in visited) {
-        if (visited[index]) {
+    if (this.visited) {
+      for (const index in this.visited) {
+        if (this.visited[index]) {
           this.visitedPoiList.push(this.features[index])
         }
       }
+      // fill filterd list for first time
+      this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
+    } else {
+      const parsed = JSON.stringify([...Array(this.features.length)].map(_ => false))
+      this.setLocalstorage({
+        item: 'visitedPOI',
+        data: parsed
+      })
     }
-    // fill filterd list for first time
-    this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
   },
   methods: {
+    ...mapMutations({
+      setLocalstorage: 'setLocalStorageItem'
+    }),
     /**
      * show poi if you are close to one
      */
@@ -140,7 +150,10 @@ export default {
         }
       }
       const parsed = JSON.stringify(this.visited)
-      localStorage.setItem('visitedPOI', parsed)
+      this.setLocalstorage({
+        item: 'visitedPOI',
+        data: parsed
+      })
     },
     /**
      * check if value is between min and max
