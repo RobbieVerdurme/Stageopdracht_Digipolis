@@ -38,6 +38,10 @@ export default {
     return state.selectedPointOfIntrest
   },
 
+  getLocalStorageItem: state => (item) => {
+    return JSON.parse(localStorage.getItem(item))
+  },
+
   // INFO
   /**
    * get all infopoints

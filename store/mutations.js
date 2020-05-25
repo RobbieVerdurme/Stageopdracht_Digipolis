@@ -38,6 +38,10 @@ export default {
     state.selectedPointOfIntrest = payload
   },
 
+  setLocalStorageItem (state, payload) {
+    localStorage.setItem(payload.item, payload.data)
+  },
+
   // INFO
   /**
    * set the infopointofinterst with the gotten payload
