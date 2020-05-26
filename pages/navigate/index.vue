@@ -1,0 +1,199 @@
+<template>
+  <main class="news-overview-page">
+    <section class="overview-layout flow-container">
+      <div class="left">
+        <nuxt-child style="margin-bottom:2em" />
+        <client-only>
+          <vMap :features.sync="features" :route.sync="route" class="map" />
+        </client-only>
+        <span> Accuracy is {{ accuracy }}</span> <br>
+        <span>
+          <label for="inputminAccuracy">minAccuracy is {{ minAccuracy }} </label>
+          <input id="inputminAccuracy" v-model="minAccuracy" type="range" min="1" max="100">
+        </span>
+      </div>
+      <div v-if="visitedPoiList.length" class="right">
+        <h2>Bezochte punten</h2>
+        <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
+        <button class="button button-secondary" @click="readMoreClicked">
+          Toon meer
+        </button>
+      </div>
+    </section>
+  </main>
+</template>
+
+<script>
+export default {
+  middleware: ['poi', 'route'],
+  components: {
+    collection: () => import('~/components/organisms/collection'),
+    vMap: () => import('~/components/organisms/vuelayersmap.vue')
+  },
+  /**
+   * fetch method to get the featuers and routes
+   */
+  async fetch ({ store }) {
+    if (!store.getters.getAllPointsOfIntrest.length) {
+      // get poi
+      await store.dispatch('setPointsOfInterst')
+      this.features = store.getters.getAllPointsOfIntrest
+    }
+
+    if (!store.getters.getAllRoutes.length) {
+      // get route
+      await store.dispatch('setRoutepoints')
+      this.route = store.getters.getAllRoutes
+    }
+  },
+  data () {
+    return {
+      // configuration range
+      rangeFromPOI: 10,
+
+      // map features
+      features: this.$store.getters.getAllPointsOfIntrest,
+      route: this.$store.getters.getAllRoutes,
+
+      // position
+      position: null,
+      accuracy: Number.MAX_VALUE,
+      minAccuracy: 10,
+
+      // list of visited poi
+      visitedPoiList: [],
+      filterdVisitedPoiList: [],
+
+      // lees meer config
+      offset: 0,
+      limit: 5
+    }
+  },
+  computed: {
+    /**
+     * create a boolean array if the point if visited
+     */
+    visited () {
+      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map(_ => false)
+    }
+  },
+  watch: {
+    limit (value) {
+      // give filterdlist this.limit items
+      this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, value)
+    },
+    /**
+     * when position changed check if it is close to a poi
+     */
+    position () {
+      this.showClosedPOI()
+    }
+  },
+  mounted () {
+    // request permissiton to give notification
+    Notification.requestPermission()
+    navigator.geolocation.watchPosition(this.locationChanged)
+
+    // create a list of visited points
+    if (localStorage.visitedPOI) {
+      const visited = JSON.parse(localStorage.getItem('visitedPOI'))
+      for (const index in visited) {
+        if (visited[index]) {
+          this.visitedPoiList.push(this.features[index])
+        }
+      }
+    }
+    // fill filterd list for first time
+    this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
+  },
+  methods: {
+    /**
+     * show poi if you are close to one
+     */
+    showClosedPOI () {
+      for (const index in this.features) {
+        // get the point from features
+        const corPoint = this.features[index].geometry.coordinates
+        // check if the poi is in range of the position
+        const inRangeOfLongitude = this.between(this.position[0], corPoint[0] - this.rangeFromPOI, corPoint[0] + this.rangeFromPOI)
+        const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
+
+        // check if the poi is in range
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < this.minAccuracy) {
+          this.visited[index] = true
+          this.visitedPoiList.push(this.features[index])
+          // refresh filterdlist
+          this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
+          // show notification
+          navigator.serviceWorker.getRegistration().then((reg) => {
+            const options = {
+              body: 'Je bent in de buurt van ' + this.features[index].properties.naam_nl,
+              data: {
+                url: 'https://' + process.env.baseUrl + '/navigate/' + this.features[index].properties.volgnummer
+              },
+              actions: [
+                { action: 'visit', title: 'Bezoek' },
+                { action: 'close', title: 'Sluit' }
+              ]
+            }
+            reg.showNotification('Er is een nieuw punt in de buurt', options)
+          })
+        }
+      }
+      const parsed = JSON.stringify(this.visited)
+      localStorage.setItem('visitedPOI', parsed)
+    },
+    /**
+     * check if value is between min and max
+     */
+    between (x, min, max) {
+      return x >= min && x <= max
+    },
+    /**
+     * if location changes on map update location
+     */
+    locationChanged (value) {
+      this.position = [value.coords.longitude, value.coords.latitude]
+      this.accuracy = value.coords.accuracy
+    },
+    /**
+     * add 5 items to the filterd list
+     */
+    readMoreClicked () {
+      this.limit += 5
+    }
+  }
+}
+</script>
+<style scoped>
+.map {
+    max-height: 30em;
+}
+.flow-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+.flow-container > * {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.flow-container > .left {
+  position: relative;
+  font-size: .8rem;
+  min-height: 7rem;
+}
+
+@media screen and (min-width: 770px) {
+  .flow-container > .left {
+  width: calc(8.4rem + (100% - 13.2rem)/12*8);
+}
+.flow-container > .right {
+  width: calc(3.6rem + (100% - 13.2rem)/12*4);
+  padding: 1.2rem;
+}
+}
+</style>

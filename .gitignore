@@ -88,3 +88,11 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# images
+static/images/cyan/*
+static/images/svg/*
+
+# vscode settings
+.vscode/settings.json
+

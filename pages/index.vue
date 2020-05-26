@@ -1,72 +1,31 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-pwa-muntenroute
-      </h1>
-      <h2 class="subtitle">
-        nuxt-pwa-muntenroute
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <main class="info-page">
+    <section class="detail-layout">
+      <Info :item="item.properties" />
+      <div>
+        <nuxt-link :to="{name: 'overview-index-map'}" class="button button-secondary">
+          Bekijk op kaart
+        </nuxt-link>
       </div>
-    </div>
-  </div>
+      <Cta />
+    </section>
+  </main>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
+  middleware: 'route',
   components: {
-    Logo
+    Info: () => import('~/components/molecules/info'),
+    Cta: () => import('~/components/molecules/cta')
+  },
+  computed: {
+    item () {
+      /**
+       * get routeinfo
+       */
+      return this.$store.getters.getRoute
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

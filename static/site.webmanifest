@@ -1,0 +1,26 @@
+{
+  "name": "Lichtfestival",
+  "short_name": "Lichtfestival",
+  "lang": "nl",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/cyan/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/cyan/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/cyan/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "theme_color": "#009DE0",
+  "background_color": "#009DE0",
+  "start_url": "/"
+}
