@@ -36,7 +36,7 @@ export default {
    */
   setImagePoi (state, payload) {
     const poi = state.pointsOfInterst.find(p => p.id === payload.id)
-    poi.image = payload.data
+    poi.properties.symbol = payload.data
   },
 
   /**
