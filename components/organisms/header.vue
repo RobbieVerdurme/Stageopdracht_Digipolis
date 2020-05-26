@@ -100,7 +100,7 @@
     <hr>
     <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
       <figure>
-        <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
+        <img v-if="poi.properties.symbol" :src="poi.properties.symbol" :alt="poi.properties.naam_nl">
         <div v-else class="image-wrapper" data-ratio="4:1">
           <img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl">
         </div>
@@ -119,8 +119,7 @@ export default {
       title: 'Lichtfestival',
       activeLink: this.$route.name,
       menuModal: null,
-      poi: null,
-      imageError: false
+      poi: null
     }
   },
   computed: {
