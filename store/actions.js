@@ -42,9 +42,9 @@ export default {
    */
   async setImage ({ commit }, id) {
     try {
-      const data = await this.$axios.$get(`api/node/artwork/${id}/field_images?ResourceVersion=id%3A340`)
-      console.log(data.data.attributes.uri.url)
-      commit('setImagePoi', { id, data: data.data.attributes.uri.url })
+      const data = await this.$axios.$get(`/api/node/artwork/${id}/field_images?ResourceVersion=id%3A340`)
+      const url = 'https://licht18qa.stad.gent' + data.data[0].attributes.uri.url
+      commit('setImagePoi', { id, data: url })
     } catch (error) {
       throw new Error(error)
     }
