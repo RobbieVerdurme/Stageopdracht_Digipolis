@@ -10,7 +10,7 @@
       <div v-if="visitedPoiList.length" class="right">
         <h2>Bezochte punten</h2>
         <collection :items="filterdVisitedPoiList" :navigate-to-page="'navigate-index-id'" />
-        <button v-if="limit > 5" class="button button-secondary" @click="readMoreClicked">
+        <button v-if="visitedPoiList.length > 5" class="button button-secondary" @click="readMoreClicked">
           Toon meer
         </button>
       </div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
+
 export default {
   middleware: ['poi', 'route'],
   components: {
@@ -72,11 +74,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getLocalStorageItem']),
     /**
      * create a boolean array if the point if visited
      */
     visited () {
-      return localStorage.getItem('visitedPOI') ? JSON.parse(localStorage.getItem('visitedPOI')) : [...Array(this.features.length)].map(_ => false)
+      return this.getLocalStorageItem('visitedPOI')
     }
   },
   watch: {
@@ -97,41 +100,46 @@ export default {
     navigator.geolocation.watchPosition(this.locationChanged)
 
     // create a list of visited points
-    if (localStorage.visitedPOI) {
-      const visited = JSON.parse(localStorage.getItem('visitedPOI'))
-      for (const index in visited) {
-        if (visited[index]) {
-          this.visitedPoiList.push(this.features[index])
-        }
-      }
+    if (this.visited.length) {
+      this.visited.forEach((element) => {
+        this.visitedPoiList.push(this.features.find(f => f.properties.volgnummer === element))
+      })
+      // fill filterd list for first time
+      this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
     }
-    // fill filterd list for first time
-    this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
   },
   methods: {
+    ...mapMutations({
+      setLocalstorage: 'setLocalStorageItem'
+    }),
     /**
      * show poi if you are close to one
      */
     showClosedPOI () {
-      for (const index in this.features) {
+      this.features.forEach((element) => {
         // get the point from features
-        const corPoint = this.features[index].geometry.coordinates
+        const corPoint = element.geometry.coordinates
+        const volgnummer = element.properties.volgnummer
+
         // check if the poi is in range of the position
         const inRangeOfLongitude = this.between(this.position[0], corPoint[0] - this.rangeFromPOI, corPoint[0] + this.rangeFromPOI)
         const inRangeOfLangitude = this.between(this.position[1], corPoint[1] - this.rangeFromPOI, corPoint[1] + this.rangeFromPOI)
 
         // check if the poi is in range
-        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited[index] && this.accuracy < this.minAccuracy) {
-          this.visited[index] = true
-          this.visitedPoiList.push(this.features[index])
+        if (inRangeOfLongitude && inRangeOfLangitude && !this.visited.includes(volgnummer) && this.accuracy < this.minAccuracy) {
+          // set point to visited
+          this.visited.push(volgnummer)
+          this.visitedPoiList.push(element)
+
           // refresh filterdlist
           this.filterdVisitedPoiList = this.visitedPoiList.slice(this.offset, this.limit)
+
           // show notification
           navigator.serviceWorker.getRegistration().then((reg) => {
             const options = {
-              body: 'Je bent in de buurt van ' + this.features[index].properties.naam_nl,
+              body: 'Je bent in de buurt van ' + element.properties.naam_nl,
               data: {
-                url: 'https://' + process.env.baseUrl + '/navigate/' + this.features[index].properties.volgnummer
+                url: 'https://' + process.env.baseUrl + '/navigate/' + volgnummer
               },
               actions: [
                 { action: 'visit', title: 'Bezoek' },
@@ -141,9 +149,14 @@ export default {
             reg.showNotification('Er is een nieuw punt in de buurt', options)
           })
         }
-      }
+      })
+
+      // set visited points
       const parsed = JSON.stringify(this.visited)
-      localStorage.setItem('visitedPOI', parsed)
+      this.setLocalstorage({
+        item: 'visitedPOI',
+        data: parsed
+      })
     },
     /**
      * check if value is between min and max
