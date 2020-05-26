@@ -14,7 +14,7 @@
       <div v-if="!navigateToPage.includes('navigate')" class="content__first">
         <div class="figure-wrapper">
           <figure>
-            <img v-if="!imageError" :src="item.symbol" :alt="item.naam_nl" :onerror="imageError = true">
+            <img v-if="item.symbol" :src="item.symbol" :alt="item.naam_nl">
             <div v-else class="image-wrapper" data-ratio="8:5">
               <img src="http://example.com/broken-url.jpg" :alt="item.naam_nl">
             </div>
@@ -36,11 +36,6 @@ export default {
     navigateToPage: {
       type: String,
       required: true
-    }
-  },
-  data () {
-    return {
-      imageError: false
     }
   }
 }
