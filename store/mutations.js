@@ -30,6 +30,16 @@ export default {
   },
 
   /**
+   * set the image from an poi
+   * @param {*} state
+   * @param {Object} payload
+   */
+  setImagePoi (state, payload) {
+    const poi = state.pointsOfInterst.find(p => p.id === payload.id)
+    poi.image = payload.data
+  },
+
+  /**
      * set the current selected poi this is for the hero-img on the header
      * @param {*} state
      * @param {Object} payload
