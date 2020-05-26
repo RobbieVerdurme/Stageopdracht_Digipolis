@@ -39,7 +39,7 @@ export default {
   },
 
   getLocalStorageItem: state => (item) => {
-    return JSON.parse(localStorage.getItem(item))
+    return localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : []
   },
 
   // INFO
