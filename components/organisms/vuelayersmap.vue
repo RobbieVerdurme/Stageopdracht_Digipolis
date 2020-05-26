@@ -69,26 +69,9 @@
       </vl-geoloc>
 
       <!--POI-->
-      <!-- <vl-feature v-for="feature in pointsOfIntrest" :key="feature.id" :properties="pointsOfIntrest.properties">
-        <vl-geom-point :coordinates="feature.geometry.coordinates" />
-        <vl-style-box>
-          <vl-style-circle :radius="10">
-            <vl-style-fill color="white" />
-            <vl-style-stroke color="black" />
-          </vl-style-circle>
-          <vl-style-text :text="feature.properties.volgnummer.toString()" />
-        </vl-style-box>
-      </vl-feature> -->
       <vl-layer-vector :z-index="2">
-        <vl-source-vector :features="pointsOfIntrest" />
+        <vl-source-vector :features="pointsOfIntrest" :projection="dataProjectionPoi" />
         <vl-style-func :factory="styleFuncFactory" />
-        <!--Style-->
-        <!-- <vl-style-box>
-          <vl-style-circle :radius="5">
-            <vl-style-fill color="white" />
-            <vl-style-stroke color="black" />
-          </vl-style-circle>
-        </vl-style-box> -->
       </vl-layer-vector>
       <!--/POI-->
 
@@ -174,10 +157,11 @@ export default {
     styleFuncFactory () {
       return (feature) => {
         return createStyle({
-          radius: 5,
-          fillColor: 'white',
-          strokeColor: 'blue'
-          // text: feature.values.volgnummer.toString()
+          // image* keys for ol/style/Image style to style points
+          imageRadius: 10,
+          imageFillColor: 'white',
+          imageStrokeColor: 'blue',
+          text: feature.values_.volgnummer.toString()
         })
       }
     },
