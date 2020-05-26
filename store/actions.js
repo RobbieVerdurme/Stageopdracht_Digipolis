@@ -23,13 +23,30 @@ export default {
    * get points of intrest from online (databasecall)
    * @param {*} param0
    */
-  async setPointsOfInterst ({ commit }) {
+  async setPointsOfInterst ({ commit, dispatch }) {
     // eslint-disable-next-line no-useless-catch
     try {
       const data = await this.$axios.$get('/api/node/artwork')
       commit('setPointsOfInterst', Converter.convertBackendDataPOI(data))
+      data.data.forEach((el) => {
+        dispatch('setImage', el.id)
+      })
     } catch (error) {
       throw error
+    }
+  },
+  /**
+   * gets the image from the poi
+   * @param {*} param0
+   * @param {number} id
+   */
+  async setImage ({ commit }, id) {
+    try {
+      const data = await this.$axios.$get(`api/node/artwork/${id}/field_images?ResourceVersion=id%3A340`)
+      console.log(data.data.attributes.uri.url)
+      commit('setImagePoi', { id, data: data.data.attributes.uri.url })
+    } catch (error) {
+      throw new Error(error)
     }
   },
   /**
