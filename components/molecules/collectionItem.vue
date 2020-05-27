@@ -22,6 +22,9 @@
         </div>
       </div>
     </article>
+    <nuxt-link :to="{name: navigateToPage, params:{id: item.volgnummer}}" class="teaser-overlay-link" tabindex="-1" aria-hidden="true">
+      {{ item.naam_nl }}
+    </nuxt-link>
   </div>
 </template>
 
