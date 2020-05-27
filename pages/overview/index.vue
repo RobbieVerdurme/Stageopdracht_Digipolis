@@ -1,7 +1,9 @@
 <template>
   <main class="news-overview-page">
     <section class="overview-layout">
-      <h1>Beziens­waar­dig­he­den :</h1>
+      <h1 class="overview-title">
+        <span class="overview-title-colon">Beziens­waar­dig­he­den<span class="colon" aria-label="true" /></span>
+      </h1>
       <div class="display-switcher">
         <span>Bekijk de resultaten</span>
 
