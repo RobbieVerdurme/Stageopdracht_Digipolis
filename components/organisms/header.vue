@@ -99,12 +99,9 @@
     </div>
     <hr>
     <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
-      <figure>
+      <div class="image-wrapper" data-ratio="4:1">
         <img v-if="poi.properties.symbol" :src="poi.properties.symbol" :alt="poi.properties.naam_nl">
-        <div v-else class="image-wrapper" data-ratio="4:1">
-          <img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl">
-        </div>
-      </figure>
+      </div>
     </figure>
   </header>
 </template>
