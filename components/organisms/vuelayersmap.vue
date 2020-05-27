@@ -1,6 +1,6 @@
 <template>
   <div class="stores">
-    <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" @mounted="onMapMounted">
+    <vl-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :data-projection="dataProjection" @mounted="onMapMounted">
       <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation" />
       <!-- interactions -->
       <vl-interaction-select :features.sync="selectedFeatures">
@@ -70,14 +70,8 @@
 
       <!--POI-->
       <vl-layer-vector :z-index="2">
-        <vl-source-vector :features.sync="pointsOfIntrest" :projection="dataProjectionPoi" />
-        <!--Style-->
-        <vl-style-box>
-          <vl-style-circle :radius="5">
-            <vl-style-fill color="white" />
-            <vl-style-stroke color="blue" />
-          </vl-style-circle>
-        </vl-style-box>
+        <vl-source-vector :features="pointsOfIntrest" :projection="dataProjectionPoi" />
+        <vl-style-func :factory="styleFuncFactory" />
       </vl-layer-vector>
       <!--/POI-->
 
@@ -105,7 +99,7 @@
 </template>
 
 <script>
-import { findPointOnSurface } from 'vuelayers/lib/ol-ext'
+import { findPointOnSurface, createStyle } from 'vuelayers/lib/ol-ext'
 
 export default {
   props: {
@@ -159,6 +153,17 @@ export default {
   },
   // methods
   methods: {
+    styleFuncFactory () {
+      return (feature) => {
+        return createStyle({
+          // image* keys for ol/style/Image style to style points
+          imageRadius: 10,
+          imageFillColor: 'white',
+          imageStrokeColor: 'blue',
+          text: feature.values_.volgnummer.toString()
+        })
+      }
+    },
     /**
      * updates positin marker on the map
      */
