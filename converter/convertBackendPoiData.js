@@ -1,5 +1,5 @@
 export default {
-  convertBackendDataPOI ({ data }) {
+  convertBackendDataPOI (data) {
     return data.map(el => ({
       type: 'Feature',
       id: el.id,
