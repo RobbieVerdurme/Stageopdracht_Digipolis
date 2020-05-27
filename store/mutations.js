@@ -25,7 +25,7 @@ export default {
      * @param {*} state
      * @param {Array} payload
      */
-  setPointsOfInterst (state, payload) {
+  setPointsOfInterest (state, payload) {
     state.pointsOfInterst = payload
   },
 

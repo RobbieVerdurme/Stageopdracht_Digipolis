@@ -41,11 +41,11 @@ export default {
     buttonClicked () {
       this.setScannerInfo()
       this.setRoutepoints()
-      this.setPointsOfInterst()
+      this.setPointsOfInterest()
       this.downloadbuttonClicked = true
     },
     ...mapActions([
-      'setPointsOfInterst',
+      'setPointsOfInterest',
       'setRoutepoints',
       'setScannerInfo'
     ])
