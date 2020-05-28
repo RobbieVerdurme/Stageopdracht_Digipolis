@@ -100,7 +100,7 @@
     <hr>
     <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
       <div class="image-wrapper" data-ratio="4:1">
-        <img v-if="poi.properties.symbol" :src="poi.properties.symbol" :alt="poi.properties.naam_nl">
+        <img v-if="poi.properties.heroImage && showHeroImage" :src="poi.properties.heroImage" :alt="poi.properties.naam_nl">
       </div>
     </figure>
   </header>
@@ -116,7 +116,8 @@ export default {
       title: 'Lichtfestival',
       activeLink: this.$route.name,
       menuModal: null,
-      poi: null
+      poi: null,
+      showHeroImage: false
     }
   },
   computed: {
@@ -127,15 +128,18 @@ export default {
   watch: {
     $route () {
       this.activeLink = this.$route.name
+      this.showHeroImage = false
       this.menuModal.close()
     },
     selectedPOI (value) {
       this.poi = value
+      this.showHeroImage = true
     }
   },
   created () {
     if (Object.keys(this.selectedPOI).length) {
       this.poi = this.selectedPOI
+      this.showHeroImage = true
     }
   },
   beforeMount () {
