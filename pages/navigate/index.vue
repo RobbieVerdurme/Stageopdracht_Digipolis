@@ -62,7 +62,7 @@ export default {
       // position
       position: null,
       accuracy: Number.MAX_VALUE,
-      minAccuracy: 10,
+      minAccuracy: 20,
 
       // list of visited poi
       visitedPoiList: [],
