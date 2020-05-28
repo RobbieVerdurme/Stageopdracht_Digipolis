@@ -1,6 +1,6 @@
 ## Muntenroute
-POC(proof of concept) of a PWA(progressive web app) in a application muntenroute.
-This is an example inspired on the [original site](https://muntenroute.stad.gent/) of muntenroute but with added functionality. 
+POC(proof of concept) of a PWA(progressive web app) in a application Lichtfestival.
+This is an example inspired on the [original site](https://lichtfestival-2018.stad.gent/en) of lichtfestival but with added functionality. 
 
 ## Changes
 Look at [CHANGELOG](https://github.com/digipolisgent/nuxt_pwa_muntenroute/blob/muntenroutestarter/CHANGELOG.md)
