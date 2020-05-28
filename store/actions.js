@@ -40,9 +40,11 @@ export default {
    */
   async setImage ({ commit }, id) {
     try {
-      const data = await this.$axios.$get(`/api/node/artwork/${id}/field_images?ResourceVersion=id%3A340`)
-      const url = 'https://licht18qa.stad.gent' + data.data[0].attributes.uri.url
-      await commit('setImagePoi', { id, data: url })
+      const data = await this.$axios.$get(`/api/node/artwork/${id}/field_hero_image`)
+      const split = data.data.attributes.uri.url.split('artwork')
+      const fieldImage = 'https://licht18qa.stad.gent' + split[0] + '/styles/teaser_rectangle_400x285/public/artwork' + split[1]
+      const heroImage = 'https://licht18qa.stad.gent' + split[0] + '/styles/hero_1440x440/public/artwork' + split[1]
+      await commit('setImagePoi', { id, fieldImage, heroImage })
     } catch (error) {
       throw new Error(error)
     }
