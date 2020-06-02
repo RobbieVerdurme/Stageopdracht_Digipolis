@@ -18,6 +18,8 @@ describe('OverviewPage', () => {
         // Navigate to page with mocked backendroute
         cy.contains('Overzicht route').click()
 
+        cy.wait(2000)
+        
         cy.injectAxe()
     })
 

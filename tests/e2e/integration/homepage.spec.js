@@ -30,7 +30,7 @@ describe('Homepage', () => {
         // click on button bekijk op kaart
         cy.contains('Bekijk op kaart').click()
 
-        cy.wait(1000)
+        cy.wait(2000)
         
         // check url
         cy.url().should('include', '/map')
