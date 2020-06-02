@@ -20,7 +20,7 @@ describe('POIpage', () => {
         cy.contains('Overzicht route').click()
         cy.get('.read-more').first().click()
 
-        cy.wait(2000)
+        cy.wait(4000)
         // check 
         cy.url().should('include', 1)
         cy.get('#info').should('be.visible')
