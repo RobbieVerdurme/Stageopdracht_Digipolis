@@ -42,8 +42,8 @@ export default {
     try {
       const data = await this.$axios.$get(`/api/node/artwork/${id}/field_hero_image`)
       const split = data.data.attributes.uri.url.split('artwork')
-      const fieldImage = 'https://licht18qa.stad.gent' + split[0] + '/styles/teaser_rectangle_400x285/public/artwork' + split[1]
-      const heroImage = 'https://licht18qa.stad.gent' + split[0] + '/styles/hero_1440x440/public/artwork' + split[1]
+      const fieldImage = process.env.APIUrl + split[0] + '/styles/teaser_rectangle_400x285/public/artwork' + split[1]
+      const heroImage = 'https://lichtfestival-2018.stad.gent' + split[0] + '/styles/hero_1440x440/public/artwork' + split[1]
       await commit('setImagePoi', { id, fieldImage, heroImage })
     } catch (error) {
       throw new Error(error)
