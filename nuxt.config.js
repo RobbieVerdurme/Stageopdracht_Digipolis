@@ -3,6 +3,7 @@ export default {
   mode: 'universal',
   // Config env values
   env: {
+    APIUrl: 'https://licht18qa.stad.gent',
     baseUrl: process.env.HOST || 'localhost',
     port: process.env.PORT || '3000'
   },
@@ -106,7 +107,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseUrl: process.env.baseUrl,
+    baseUrl: process.env.APIUrl,
     proxy: true
   },
   proxy: {

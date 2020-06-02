@@ -99,12 +99,9 @@
     </div>
     <hr>
     <figure v-if="activeLink === 'poi-id' && poi" class="hero hero--mobile">
-      <figure>
-        <img v-if="!imageError" :src="poi.properties.symbol" :alt="poi.properties.naam_nl" :onerror="imageError = true">
-        <div v-else class="image-wrapper" data-ratio="4:1">
-          <img src="http://example.com/broken-url.jpg" :alt="poi.properties.naam_nl">
-        </div>
-      </figure>
+      <div class="image-wrapper" data-ratio="4:1">
+        <img v-if="poi.properties.heroImage && showHeroImage" :src="poi.properties.heroImage" :alt="poi.properties.naam_nl">
+      </div>
     </figure>
   </header>
 </template>
@@ -120,7 +117,7 @@ export default {
       activeLink: this.$route.name,
       menuModal: null,
       poi: null,
-      imageError: false
+      showHeroImage: false
     }
   },
   computed: {
@@ -131,15 +128,18 @@ export default {
   watch: {
     $route () {
       this.activeLink = this.$route.name
+      this.showHeroImage = false
       this.menuModal.close()
     },
     selectedPOI (value) {
       this.poi = value
+      this.showHeroImage = true
     }
   },
   created () {
     if (Object.keys(this.selectedPOI).length) {
       this.poi = this.selectedPOI
+      this.showHeroImage = true
     }
   },
   beforeMount () {

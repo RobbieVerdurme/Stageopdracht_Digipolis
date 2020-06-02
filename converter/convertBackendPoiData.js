@@ -1,5 +1,5 @@
 export default {
-  convertBackendDataPOI ({ data }) {
+  convertBackendDataPOI (data) {
     return data.map(el => ({
       type: 'Feature',
       id: el.id,
@@ -13,7 +13,8 @@ export default {
         naam_nl: el.attributes.title,
         omschrijving_nl: el.attributes.field_introduction.value,
         detail_nl: el.attributes.field_main_content.value,
-        symbol: null
+        symbol: null,
+        heroimage: null
       }
     }))
   },

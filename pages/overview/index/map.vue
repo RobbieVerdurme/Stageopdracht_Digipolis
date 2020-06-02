@@ -16,7 +16,7 @@ export default {
   async fetch ({ store }) {
     if (!store.getters.getAllPointsOfIntrest.length) {
       // get poi
-      await store.dispatch('setPointsOfInterst')
+      await store.dispatch('setPointsOfInterest')
       this.features = store.getters.getAllPointsOfIntrest
     }
 

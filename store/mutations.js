@@ -25,8 +25,19 @@ export default {
      * @param {*} state
      * @param {Array} payload
      */
-  setPointsOfInterst (state, payload) {
+  setPointsOfInterest (state, payload) {
     state.pointsOfInterst = payload
+  },
+
+  /**
+   * set the image from an poi
+   * @param {*} state
+   * @param {Object} payload
+   */
+  setImagePoi (state, payload) {
+    const poi = state.pointsOfInterst.find(p => p.id === payload.id)
+    poi.properties.symbol = payload.fieldImage
+    poi.properties.heroImage = payload.heroImage
   },
 
   /**

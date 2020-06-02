@@ -23,13 +23,31 @@ export default {
    * get points of intrest from online (databasecall)
    * @param {*} param0
    */
-  async setPointsOfInterst ({ commit }) {
+  async setPointsOfInterest ({ commit, dispatch }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      const data = await this.$axios.$get('/api/node/artwork')
-      commit('setPointsOfInterst', Converter.convertBackendDataPOI(data))
+      const { data } = await this.$axios.$get('/api/node/artwork')
+      await commit('setPointsOfInterest', Converter.convertBackendDataPOI(data))
+      await Promise.all(data.map(({ id }) => dispatch('setImage', id)))
     } catch (error) {
       throw error
+    }
+  },
+  /**
+   * gets the image from the poi
+   * @param {*} param0
+   * @param {number} id
+   */
+  async setImage ({ commit }, id) {
+    try {
+      const data = await this.$axios.$get(`/api/node/artwork/${id}/field_hero_image`)
+      const split = data.data.attributes.uri.url.split('artwork')
+      const fieldImage = process.env.APIUrl + split[0] + '/styles/teaser_rectangle_400x285/public/artwork' + split[1]
+      // bugg in APIUrl that there are no images so using realased version of APIUrl
+      const heroImage = 'https://lichtfestival-2018.stad.gent' + split[0] + '/styles/hero_1440x440/public/artwork' + split[1]
+      await commit('setImagePoi', { id, fieldImage, heroImage })
+    } catch (error) {
+      throw new Error(error)
     }
   },
   /**

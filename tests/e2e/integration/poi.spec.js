@@ -15,8 +15,10 @@ describe('POIpage', () => {
             response: "fixture:POI.json"
         })
 
+        
         //navigate to cluster page
         cy.contains('Overzicht route').click()
+        cy.wait(4000)
         cy.get('.read-more').first().click()
 
         // check 
